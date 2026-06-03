@@ -278,7 +278,9 @@ app.post("/api/chat", async (req, res) => {
       }),
     });
     const data = await response.json();
-    res.json(data);
+console.log('API response:', JSON.stringify(data));
+res.json(data);
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
