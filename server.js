@@ -284,7 +284,9 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => res.send("Shake Assistant API is running."));
+app.use(express.static(__dirname));
+app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
