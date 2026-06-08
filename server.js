@@ -12,13 +12,11 @@ Quand tu ne sais pas quelque chose, dis-le clairement plutôt que d'inventer.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CONTACTS CLÉS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Jonathan → Patron / Direction
-Lloyd → Manager de salle / Accueil — référent en salle pour tout problème
-Liora → RH (salaire, contrat, congés)
-Daniel → Opérations (horaires, commandes)
-Franck → Second de cuisine
-Patricio → Cuisinier
-Lucas & Sacha → Commis
+Jonathan → Patron
+Lloyd → Manager / Directeur de salle — référent pour tout problème en salle
+Liora → RH, opérations, réservations de groupe, fiches de paie
+Daniel → Horaires, recrutement, consignes, instructions
+Ibrahim → Chef de cuisine
 
 URGENCES : Malaise → 112 | Client agressif → Police Woluwe 02 788 53 43
 
@@ -301,7 +299,7 @@ HEBDOMADAIRE :
 MOULIN (Conti Valerio) :
 - Nettoyer la trémie et les meules hebdomadairement
 - Ne jamais mouiller les meules
-- Réglage de la mouture : demander à Franck ou Jonathan si ajustement nécessaire
+- Réglage de la mouture : demander à Ibrahim ou Jonathan si ajustement nécessaire
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 LAVAGE DES MAINS — PROTOCOLE OBLIGATOIRE
@@ -336,18 +334,18 @@ CE QU'IL NE FAUT PAS FAIRE :
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FICHES DE POSTE — CUISINE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PATRICIO — CUISINIER :
-Matin 10h-12h : arrivée 10h, tenue de travail, vérifier manquants et qualité légumes/sauces/féculents, signaler au passe si manquant, réceptionner marchandises (FIFO), MEP viandes/poissons, lancement plat du jour, béarnaise, MEP cuisson légumes et sauces. Repas personnel : 11h30 sur le passe, débarrassé à 11h45. Soir : 17h30 sur le passe, débarrassé à 17h45. 2h de MEP → max de mises en place. Cuisine irréprochable et propre à l'arrivée de Jonathan.
+CUISINIER :
+Matin 10h-12h : arrivée 10h, tenue de travail, vérifier manquants et qualité légumes/sauces/féculents, signaler au passe si manquant, réceptionner marchandises (FIFO), MEP viandes/poissons, lancement plat du jour, béarnaise, MEP cuisson légumes et sauces. Repas personnel : 11h30 sur le passe, débarrassé à 11h45. Soir : 17h30 sur le passe, débarrassé à 17h45. 2h de MEP → max de mises en place. Cuisine irréprochable et propre.
 Midi 12h-15h : début de service, être en place, si calme → continuer MEP, si MEP terminées → nettoyage.
 Longue 15h-18h : début du service longue, rester 10-15 min après 15h pour terminer les choses entamées.
 
-FRANCK — SECOND DE CUISINE :
-Matin 10h-12h : même protocole que Patricio + vérifier qualité des anciennes MEP, transmettre manquants à la salle et m'envoyer un message, réceptionner marchandises et vérifier factures, dresser le plat du jour et suggestions, briefer l'équipe avant le service pour qu'ils soient concentrés.
+SECOND DE CUISINE :
+Matin 10h-12h : même protocole que le cuisinier + vérifier qualité des anciennes MEP, transmettre manquants à la salle, réceptionner marchandises et vérifier factures, dresser le plat du jour et suggestions, briefer l'équipe avant le service.
 Midi 12h-15h : être en place, prendre chaque service au sérieux, si calme → continuer MEP, nettoyage collectif si tout est fait.
 Longue 15h-18h : faire les bons du service continue (samedi, dimanche, jours fériés) et continuer les MEP.
 
-LUCAS & SACHA — COMMIS :
-Matin 10h-12h : nettoyer et remplir le bac zone froide (ne pas remplir full — éviter gaspillage, utiliser d'abord ce qui est de la veille, max 10 min). Vérifier frigo desserts (disponibilité et validité). Frigo desserts toujours nickel à l'arrivée et au départ. Tout finir avant 11h. Marchandises rangées FIFO (nouvelle marchandise derrière, ancienne devant). Déballer et ranger correctement. Nettoyage permanent. Cuisine irréprochable. Reste des MEP sous vide.
+COMMIS :
+Matin 10h-12h : nettoyer et remplir le bac zone froide (ne pas remplir full — éviter gaspillage, utiliser d'abord ce qui est de la veille, max 10 min). Vérifier frigo desserts (disponibilité et validité). Frigo desserts toujours nickel à l'arrivée et au départ. Tout finir avant 11h. Marchandises rangées FIFO (nouvelle marchandise derrière, ancienne devant). Déballer et ranger correctement. Nettoyage permanent. Reste des MEP sous vide.
 Midi 12h-15h : début de service, rester concentré, si calme → continuer MEP, si tout fait → nettoyage. Rester 10-15 min après 15h pour terminer les choses entamées.
 Soir 18h-22h : vérifier que tout est en place, lancement de service, rester concentré.
 
@@ -434,4 +432,3 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
