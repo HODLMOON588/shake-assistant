@@ -700,56 +700,146 @@ textarea::placeholder { color: var(--text-3); }
   <div class="page" id="page-checklist">
     <div class="page-content">
       <div class="section-title">Checklists</div>
-      <div class="section-sub">Service du jour</div>
 
-      <!-- Ouverture Salle -->
-      <div class="checklist-group" id="group-ouverture">
-        <div class="checklist-group-header">
-          <span class="checklist-group-title">Ouverture Salle</span>
-          <span class="checklist-progress" id="prog-ouverture">0 / 9</span>
-        </div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables alignées</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sol propre</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Verres sans traces</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Couverts brillants</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Serviettes pliées selon standard</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mayonnaise remplie</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Paniers à pain prêts</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sels & poivres remplis</span></div>
-        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Musique réglée (int. 5 / ext. 7)</span></div>
+      <!-- Sélecteur Accueil / Serveurs -->
+      <div class="carte-tabs" style="padding:0 0 16px;">
+        <button class="carte-tab active" onclick="switchChecklist('accueil',this)">Accueil — Lloyd</button>
+        <button class="carte-tab" onclick="switchChecklist('serveurs',this)">Serveurs</button>
       </div>
 
-      <!-- Ouverture Accueil -->
-      <div class="checklist-group" id="group-accueil">
-        <div class="checklist-group-header">
-          <span class="checklist-group-title">Ouverture Accueil — 11h30</span>
-          <span class="checklist-progress" id="prog-accueil">0 / 6</span>
+      <!-- ── ACCUEIL ── -->
+      <div id="cl-accueil">
+
+        <div class="checklist-group" id="group-ac-midi">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Avant service midi — 11h30</span>
+            <span class="checklist-progress" id="prog-ac-midi">0 / 14</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lumières à fond (façade, intérieur, SAS)</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Musique : intérieur 4-5 / terrasse 7</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rideaux véranda ouverts</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Chauffage / clim selon météo</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Vitres, sol, tapis SAS vérifiés</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Toilettes propres avec papier</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Alignement tables / chaises OK</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse dressée (si beau temps)</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Parasols et tente solaire ouverts</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dress code équipe vérifié</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Plan de salle et réservations connus</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Manquants cuisine vérifiés</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Frigos bar remplis, bar propre</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Écrans nettoyés</span></div>
         </div>
-        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lumières à fond</span></div>
-        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rideaux ouverts</span></div>
-        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse ouverte (si beau temps)</span></div>
-        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dress code équipe vérifié</span></div>
-        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Réservations du jour connues</span></div>
-        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Bar propre</span></div>
+
+        <div class="checklist-group" id="group-ac-16h">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Fin service midi — 16h</span>
+            <span class="checklist-progress" id="prog-ac-16h">0 / 4</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'ac-16h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Musique coupée</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-16h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lumières éteintes</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-16h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Chauffage / clim éteints</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-16h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Portes entrée et cuisine verrouillées</span></div>
+        </div>
+
+        <div class="checklist-group" id="group-ac-18h">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Reset avant service soir — 18h</span>
+            <span class="checklist-progress" id="prog-ac-18h">0 / 6</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'ac-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Check complet salle refait (même que midi)</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rideaux véranda fermés</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lumières en mode ambiance soir</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Batchs bar prêts</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cave à vin salle complète</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dress code équipe vérifié</span></div>
+        </div>
+
+        <div class="checklist-group" id="group-ac-fermeture">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Fermeture</span>
+            <span class="checklist-progress" id="prog-ac-fermeture">0 / 14</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dernier client parti</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Salle : miettes, chaises reculées</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse : parasols et tente fermés, câblage OK</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Bar : frigos remplis, verres propres, plans de travail propres</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Machine à café nettoyée</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Conteneurs sortis (pas samedi soir)</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cartons sortis (jeudi soir)</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Bulle à verre sortie (lundi soir)</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">X de chaque serveur sorti et vérifié</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Z de caisse sorti, noté dans le livre</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Musique coupée</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Toutes les lumières éteintes</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tablette Zenchef et terminaux chargés</span></div>
+          <div class="check-item" onclick="toggle(this,'ac-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Portes entrée et cuisine verrouillées</span></div>
+        </div>
+
+        <button class="reset-btn" onclick="resetGroup('accueil')">Réinitialiser — Accueil</button>
       </div>
 
-      <!-- Fermeture -->
-      <div class="checklist-group" id="group-fermeture">
-        <div class="checklist-group-header">
-          <span class="checklist-group-title">Fermeture</span>
-          <span class="checklist-progress" id="prog-fermeture">0 / 8</span>
+      <!-- ── SERVEURS ── -->
+      <div id="cl-serveurs" style="display:none;">
+
+        <div class="checklist-group" id="group-sv-midi">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Avant service midi</span>
+            <span class="checklist-progress" id="prog-sv-midi">0 / 11</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables alignées, chaises droites</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sol propre, aucune miette</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cartes propres et en bon état</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Verres propres sans traces</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Couverts brillants</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Serviettes pliées selon standard</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mayonnaise remplie</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Paniers à pain prêts avec papier</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sels & poivres remplis et propres</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rang, réservations, suggestions et manquants connus</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-midi')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Repas terminé avant 11h50</span></div>
         </div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dernier client parti</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables nettoyées & chaises reculées</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lampes ramassées et chargées</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse rangée (chaîne + cadenas)</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Caisse X et Z effectuée</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Zenchef chargé</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tout éteint correctement</span></div>
-        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Portes verrouillées</span></div>
+
+        <div class="checklist-group" id="group-sv-15h">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Fin service midi — 15h</span>
+            <span class="checklist-progress" id="prog-sv-15h">0 / 3</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'sv-15h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rang nettoyé complètement</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-15h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Toutes les tables redressées</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-15h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables restantes transférées à un collègue</span></div>
+        </div>
+
+        <div class="checklist-group" id="group-sv-18h">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Reset avant service soir — 18h</span>
+            <span class="checklist-progress" id="prog-sv-18h">0 / 6</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'sv-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dressage complet refait</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Propreté totale vérifiée</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sels / poivres re-remplis</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Paniers à pain refaits</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mayonnaise re-remplie</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-18h')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lampes sur toutes les tables</span></div>
+        </div>
+
+        <div class="checklist-group" id="group-sv-fermeture">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Fermeture soir</span>
+            <span class="checklist-progress" id="prog-sv-fermeture">0 / 7</span>
+          </div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Miettes au sol, chaises reculées</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables propres</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse rangée (câble + cadenas) — si vide</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lampes ramassées et chargées</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Desserte de service nettoyée</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Meuble à pain nettoyé</span></div>
+          <div class="check-item" onclick="toggle(this,'sv-fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rang propre, rien oublié</span></div>
+        </div>
+
+        <button class="reset-btn" onclick="resetGroup('serveurs')">Réinitialiser — Serveurs</button>
       </div>
 
-      <button class="reset-btn" onclick="resetAll()">Réinitialiser toutes les listes</button>
     </div>
   </div>
 
@@ -1296,30 +1386,110 @@ async function send() {
 }
 
 // ── CHECKLIST ──
-const counts = { ouverture: 0, accueil: 0, fermeture: 0 };
-const totals = { ouverture: 9, accueil: 6, fermeture: 8 };
+const clGroups = {
+  'ac-midi':       14,
+  'ac-16h':        4,
+  'ac-18h':        6,
+  'ac-fermeture':  14,
+  'sv-midi':       11,
+  'sv-15h':        3,
+  'sv-18h':        6,
+  'sv-fermeture':  7
+};
+const clCounts = {};
+Object.keys(clGroups).forEach(g => clCounts[g] = 0);
 
 function toggle(item, group) {
   const wasChecked = item.classList.contains('checked');
   item.classList.toggle('checked');
-  counts[group] += wasChecked ? -1 : 1;
+  clCounts[group] += wasChecked ? -1 : 1;
   updateProgress(group);
 }
 
 function updateProgress(group) {
   const el = document.getElementById('prog-' + group);
-  const c = counts[group];
-  const t = totals[group];
+  if (!el) return;
+  const c = clCounts[group];
+  const t = clGroups[group];
   el.textContent = c + ' / ' + t;
   el.className = 'checklist-progress' + (c === t ? ' done' : '');
 }
 
-function resetAll() {
-  document.querySelectorAll('.check-item').forEach(i => i.classList.remove('checked'));
-  ['ouverture','accueil','fermeture'].forEach(g => { counts[g] = 0; updateProgress(g); });
+function switchChecklist(name, btn) {
+  document.querySelectorAll('#page-checklist .carte-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cl-accueil').style.display = name === 'accueil' ? 'block' : 'none';
+  document.getElementById('cl-serveurs').style.display = name === 'serveurs' ? 'block' : 'none';
 }
 
+function resetGroup(type) {
+  const prefix = type === 'accueil' ? 'ac-' : 'sv-';
+  document.querySelectorAll('#cl-' + type + ' .check-item').forEach(i => i.classList.remove('checked'));
+  Object.keys(clGroups).filter(g => g.startsWith(prefix)).forEach(g => {
+    clCounts[g] = 0;
+    updateProgress(g);
+  });
+}
+
+// Reset automatique quotidien à minuit
+function checkDailyReset() {
+  const today = new Date().toDateString();
+  const lastReset = localStorage.getItem('cl_reset_date');
+  if (lastReset !== today) {
+    resetGroup('accueil');
+    resetGroup('serveurs');
+    localStorage.setItem('cl_reset_date', today);
+  }
+}
+checkDailyReset();
+
 // ── CARTE ──
+function switchCarte(name, btn) {
+  document.querySelectorAll('.carte-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('carte-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function copyToClipboard(text) {
+  // Méthode moderne
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Copié !');
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('Copié !');
+  } catch(e) {
+    showToast('Erreur — copie manuelle nécessaire');
+  }
+  document.body.removeChild(ta);
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-family:DM Sans,sans-serif;z-index:9999;transition:opacity .3s;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  setTimeout(() => t.style.opacity = '0', 2000);
+}
 function switchCarte(name, btn) {
   document.querySelectorAll('.carte-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
@@ -1411,7 +1581,7 @@ function genererCommande() {
   const date = new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' });
 
   if (!Object.keys(bySupplier).length && !note) {
-    alert('Aucun produit signalé à commander.'); return;
+    showToast('Aucun produit signalé.'); return;
   }
 
   let text = `BON DE COMMANDE — LE SHAKE\n${date}\n${'─'.repeat(30)}\n\n`;
@@ -1424,9 +1594,7 @@ function genererCommande() {
   }
   if (note) text += `NOTES:\n${note}\n`;
 
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Bon de commande copié ! Tu peux le coller dans WhatsApp ou par mail.');
-  }).catch(() => alert('Erreur lors de la copie.'));
+  copyToClipboard(text);
 }
 </script>
 </body>
