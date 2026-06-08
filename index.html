@@ -2,160 +2,1203 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le Shake — Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Le Shake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-  :root { --black:#0a0a0a; --gold:#c9a84c; --cream:#f5f0e8; --cream-dark:#ede6d6; --text:#2c2418; --mid:#6b5d4a; --light:#9a8a72; }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--cream);font-family:'DM Sans',sans-serif;color:var(--text);height:100dvh;display:flex;flex-direction:column;max-width:480px;margin:0 auto}
-  header{background:var(--black);padding:14px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-  .logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#c9a84c,#e8c97a);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--black)}
-  .h1{color:var(--cream);font-size:15px;font-weight:600}
-  .h2{color:var(--gold);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-  .dot-wrap{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--light)}
-  .dot{width:7px;height:7px;border-radius:50%;background:#4caf75;animation:pulse 2s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .chips{display:flex;gap:8px;padding:12px 14px 0;overflow-x:auto;flex-shrink:0;scrollbar-width:none}
-  .chips::-webkit-scrollbar{display:none}
-  .chip{flex-shrink:0;border:1.5px solid var(--cream-dark);border-radius:20px;padding:6px 13px;font-size:12px;font-weight:500;background:white;color:var(--mid);cursor:pointer;white-space:nowrap;transition:all .15s}
-  .chip:hover{background:var(--black);color:var(--gold);border-color:var(--black)}
-  .chat{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:14px}
-  .welcome{background:var(--black);border-radius:16px;padding:22px}
-  .welcome h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);margin-bottom:8px}
-  .welcome h2 em{color:var(--gold)}
-  .welcome p{color:var(--mid);font-size:13px;line-height:1.6;margin-bottom:16px}
-  .sugg-btn{display:block;width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:9px 13px;font-size:13px;color:#ede6d6;cursor:pointer;text-align:left;margin-bottom:8px;transition:all .15s}
-  .sugg-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold)}
-  .msg{display:flex;gap:9px;animation:fadeUp .3s ease}
-  .msg.user{flex-direction:row-reverse}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-  .avatar{width:33px;height:33px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
-  .avatar.bot{background:var(--black);border:1.5px solid var(--gold);color:var(--gold)}
-  .avatar.usr{background:var(--gold);color:var(--black)}
-  .bubble{max-width:76%;padding:11px 15px;border-radius:14px;font-size:14px;line-height:1.65;box-shadow:0 4px 20px rgba(0,0,0,.08)}
-  .bubble.bot{background:white;color:var(--text);border-bottom-left-radius:4px}
-  .bubble.user{background:var(--black);color:var(--cream);border-bottom-right-radius:4px}
-  .typing{display:flex;gap:5px;padding:4px 0}
-  .tdot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
-  .tdot:nth-child(1){animation:b 1.2s 0s infinite}
-  .tdot:nth-child(2){animation:b 1.2s .2s infinite}
-  .tdot:nth-child(3){animation:b 1.2s .4s infinite}
-  @keyframes b{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
-  .input-area{padding:10px 14px 20px;background:var(--cream);border-top:1px solid var(--cream-dark);flex-shrink:0}
-  .input-row{display:flex;gap:9px;align-items:flex-end;background:white;border-radius:13px;padding:9px 11px;box-shadow:0 2px 14px rgba(0,0,0,.07);border:1.5px solid var(--cream-dark);transition:border-color .2s}
-  .input-row:focus-within{border-color:var(--gold)}
-  textarea{flex:1;border:none;outline:none;resize:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:transparent;max-height:100px;line-height:1.5}
-  textarea::placeholder{color:var(--light)}
-  #sendBtn{width:35px;height:35px;border-radius:9px;background:var(--black);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-  #sendBtn:hover{background:var(--gold)}
-  #sendBtn:hover svg{fill:var(--black)}
-  .disc{text-align:center;font-size:10px;color:var(--light);margin-top:7px}
+:root {
+  --bg: #f9f8f6;
+  --white: #ffffff;
+  --black: #111110;
+  --accent: #1a1a18;
+  --gold: #b8962e;
+  --gold-light: #f0e6c8;
+  --text: #1a1916;
+  --text-2: #6b6760;
+  --text-3: #a8a49e;
+  --border: #e8e4dd;
+  --border-strong: #d4cfc7;
+  --green: #2d7a4f;
+  --red: #c0392b;
+  --tab-h: 72px;
+  --header-h: 56px;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── HEADER ── */
+.header {
+  height: var(--header-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.header-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--black);
+  letter-spacing: -0.02em;
+}
+
+.header-logo span { color: var(--gold); }
+
+.header-subtitle {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3db870;
+  animation: pulse 2.5s ease infinite;
+  margin-left: 6px;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  height: var(--tab-h);
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  padding: 8px 4px 12px;
+  gap: 2px;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all .2s ease;
+  padding: 6px 4px;
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  transition: all .2s ease;
+}
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-3);
+  transition: color .2s ease;
+  letter-spacing: 0.01em;
+}
+
+.tab.active .tab-label { color: var(--black); font-weight: 600; }
+.tab.active .tab-icon { background: var(--gold-light); }
+.tab.active .tab-icon svg { stroke: var(--gold); }
+.tab:not(.active) .tab-icon svg { stroke: var(--text-3); }
+
+/* ── PAGES ── */
+.pages { flex: 1; overflow: hidden; position: relative; }
+
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.page.active { opacity: 1; pointer-events: all; }
+
+/* ── PAGE: ASSISTANT ── */
+.chat-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.welcome-card {
+  background: var(--black);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  margin-bottom: 4px;
+}
+
+.welcome-card h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+
+.welcome-card h2 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.welcome-card p {
+  color: #8a8680;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.quick-btns { display: flex; flex-direction: column; gap: 7px; }
+
+.quick-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #d4cfc7;
+  cursor: pointer;
+  text-align: left;
+  transition: all .15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.quick-btn:hover, .quick-btn:active {
+  background: rgba(184,150,46,0.15);
+  border-color: rgba(184,150,46,0.4);
+  color: var(--gold-light);
+}
+
+.quick-btn-arrow {
+  margin-left: auto;
+  color: #5a5650;
+  font-size: 14px;
+}
+
+.msg { display: flex; gap: 8px; animation: fadeUp .25s ease; }
+.msg.user { flex-direction: row-reverse; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Instrument Serif', serif;
+}
+
+.avatar.bot { background: var(--black); color: var(--gold); border: 1px solid #2a2a26; }
+.avatar.usr { background: var(--gold-light); color: var(--gold); }
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.bubble.bot {
+  background: var(--white);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble.user {
+  background: var(--black);
+  color: #ede8df;
+  border-bottom-right-radius: 4px;
+}
+
+.typing-dots { display: flex; gap: 4px; padding: 2px 0; }
+.tdot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.tdot:nth-child(1){animation:td 1.2s 0s infinite}
+.tdot:nth-child(2){animation:td 1.2s .2s infinite}
+.tdot:nth-child(3){animation:td 1.2s .4s infinite}
+@keyframes td{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+
+.chat-input-area {
+  padding: 10px 14px 16px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 13px;
+  padding: 9px 10px;
+  transition: border-color .2s;
+}
+
+.input-row:focus-within { border-color: var(--border-strong); }
+
+textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: transparent;
+  max-height: 90px;
+  line-height: 1.5;
+}
+
+textarea::placeholder { color: var(--text-3); }
+
+.send-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--black);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+
+.send-btn:active { background: var(--gold); }
+
+/* ── PAGE: CHECKLIST ── */
+.page-content { padding: 16px 14px 24px; }
+
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.section-sub {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.checklist-group {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.checklist-group-header {
+  padding: 13px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checklist-group-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.checklist-progress {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.checklist-progress.done { color: var(--green); font-weight: 600; }
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .12s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.check-item:last-child { border-bottom: none; }
+.check-item:active { background: var(--bg); }
+
+.check-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border-strong);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+  background: var(--white);
+}
+
+.check-item.checked .check-box {
+  background: var(--black);
+  border-color: var(--black);
+}
+
+.check-item.checked .check-label {
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-3);
+}
+
+.check-label {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.4;
+  transition: color .15s;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 13px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-2);
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all .15s;
+}
+
+.reset-btn:active { background: var(--bg); color: var(--red); border-color: var(--red); }
+
+/* ── PAGE: CARTE ── */
+.carte-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 0 14px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+.carte-tabs::-webkit-scrollbar { display: none; }
+
+.carte-tab {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.carte-tab.active {
+  background: var(--black);
+  border-color: var(--black);
+  color: var(--white);
+}
+
+.carte-section { display: none; padding: 0 14px 24px; }
+.carte-section.active { display: block; }
+
+.carte-category {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 18px 0 10px;
+}
+
+.carte-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+}
+
+.carte-item:last-child { border-bottom: none; }
+
+.carte-item-name {
+  font-size: 14px;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.carte-item-sub {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+.carte-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.carte-price.pp { font-size: 12px; color: var(--text-2); }
+
+.accord-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.accord-plat { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.accord-vins { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+
+/* ── PAGE: COMMANDES ── */
+.commandes-intro {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  margin-bottom: 14px;
+}
+
+.commandes-intro p {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.stock-item {
+  display: flex;
+  align-items: center;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.stock-item:last-child { border-bottom: none; }
+
+.stock-name { flex: 1; font-size: 14px; color: var(--text); }
+
+.stock-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.stock-dot.ok { background: var(--green); }
+.stock-dot.low { background: #e67e22; }
+.stock-dot.out { background: var(--red); }
+
+.status-ok { color: var(--green); }
+.status-low { color: #e67e22; }
+.status-out { color: var(--red); }
+
+.note-area {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+
+.note-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.note-textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: transparent;
+  line-height: 1.6;
+  min-height: 80px;
+}
+
+.note-textarea::placeholder { color: var(--text-3); }
+
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--black);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background .15s;
+}
+
+.action-btn:active { background: #333; }
+
+/* ── UTILS ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-gold { background: var(--gold-light); color: var(--gold); }
+.badge-dark { background: #e8e4dd; color: var(--text-2); }
+
+.carte-page-wrap { height: 100%; display: flex; flex-direction: column; }
+.carte-page-wrap .carte-tabs { padding-top: 16px; }
+.carte-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">S</div>
-  <div><div class="h1">Assistant Le Shake</div><div class="h2">Standards & Formation</div></div>
-  <div class="dot-wrap"><div class="dot"></div><span>En ligne</span></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo">Le <span>Shake</span></div>
+  <div class="header-subtitle">Staff</div>
+  <div class="status-dot"></div>
 </header>
 
-<div class="chips">
-  <button class="chip" onclick="ask('Checklist ouverture complète')">🌅 Ouverture</button>
-  <button class="chip" onclick="ask('Checklist fermeture complète')">🌙 Fermeture</button>
-  <button class="chip" onclick="ask('Comment accueillir un client qui arrive ?')">🤝 Accueil</button>
-  <button class="chip" onclick="ask('Comment gérer un client qui se plaint ?')">💬 Plainte</button>
-  <button class="chip" onclick="ask('Quel vin conseiller avec le Tartare de Bœuf ?')">🍷 Vins</button>
-  <button class="chip" onclick="ask('Quels sont nos cocktails signatures ?')">🍸 Cocktails</button>
-  <button class="chip" onclick="ask('Que faire en cas de malaise client ?')">🚨 Urgences</button>
-  <button class="chip" onclick="ask('Quels sont nos plats principaux et leurs prix ?')">📋 Carte</button>
+<!-- PAGES -->
+<div class="pages">
+
+  <!-- ── PAGE 1: ASSISTANT ── -->
+  <div class="page active" id="page-assistant">
+    <div class="chat-wrap">
+      <div class="chat-messages" id="chat">
+        <div class="welcome-card">
+          <h2>Bonjour,<br><em>comment puis-je aider ?</em></h2>
+          <p>Pose-moi n'importe quelle question sur les procédures, la carte, les vins ou les règles du Shake.</p>
+          <div class="quick-btns">
+            <button class="quick-btn" onclick="ask('Checklist ouverture complète salle')">
+              Ouverture salle — checklist complète
+              <span class="quick-btn-arrow">›</span>
+            </button>
+            <button class="quick-btn" onclick="ask('Quel vin conseiller avec le Magret de Canard ?')">
+              Accord vin avec le Magret
+              <span class="quick-btn-arrow">›</span>
+            </button>
+            <button class="quick-btn" onclick="ask('Comment gérer un client mécontent ?')">
+              Client mécontent — que faire ?
+              <span class="quick-btn-arrow">›</span>
+            </button>
+            <button class="quick-btn" onclick="ask('Lance le quiz d\'intégration')">
+              Quiz d'intégration nouvel employé
+              <span class="quick-btn-arrow">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <div class="input-row">
+          <textarea id="inp" placeholder="Pose ta question..." rows="1"
+            onkeydown="handleKey(event)"
+            oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px'"></textarea>
+          <button class="send-btn" onclick="send()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f5f0e8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE 2: CHECKLIST ── -->
+  <div class="page" id="page-checklist">
+    <div class="page-content">
+      <div class="section-title">Checklists</div>
+      <div class="section-sub">Service du jour</div>
+
+      <!-- Ouverture Salle -->
+      <div class="checklist-group" id="group-ouverture">
+        <div class="checklist-group-header">
+          <span class="checklist-group-title">Ouverture Salle</span>
+          <span class="checklist-progress" id="prog-ouverture">0 / 9</span>
+        </div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables alignées</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sol propre</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Verres sans traces</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Couverts brillants</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Serviettes pliées selon standard</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mayonnaise remplie</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Paniers à pain prêts</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Sels & poivres remplis</span></div>
+        <div class="check-item" onclick="toggle(this,'ouverture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Musique réglée (int. 5 / ext. 7)</span></div>
+      </div>
+
+      <!-- Ouverture Accueil -->
+      <div class="checklist-group" id="group-accueil">
+        <div class="checklist-group-header">
+          <span class="checklist-group-title">Ouverture Accueil — 11h30</span>
+          <span class="checklist-progress" id="prog-accueil">0 / 6</span>
+        </div>
+        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lumières à fond</span></div>
+        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Rideaux ouverts</span></div>
+        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse ouverte (si beau temps)</span></div>
+        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dress code équipe vérifié</span></div>
+        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Réservations du jour connues</span></div>
+        <div class="check-item" onclick="toggle(this,'accueil')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Bar propre</span></div>
+      </div>
+
+      <!-- Fermeture -->
+      <div class="checklist-group" id="group-fermeture">
+        <div class="checklist-group-header">
+          <span class="checklist-group-title">Fermeture</span>
+          <span class="checklist-progress" id="prog-fermeture">0 / 8</span>
+        </div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Dernier client parti</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tables nettoyées & chaises reculées</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lampes ramassées et chargées</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Terrasse rangée (chaîne + cadenas)</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Caisse X et Z effectuée</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Zenchef chargé</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Tout éteint correctement</span></div>
+        <div class="check-item" onclick="toggle(this,'fermeture')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Portes verrouillées</span></div>
+      </div>
+
+      <button class="reset-btn" onclick="resetAll()">Réinitialiser toutes les listes</button>
+    </div>
+  </div>
+
+  <!-- ── PAGE 3: CARTE & VINS ── -->
+  <div class="page" id="page-carte">
+    <div class="carte-page-wrap">
+      <div class="carte-tabs">
+        <button class="carte-tab active" onclick="switchCarte('entrees',this)">Entrées</button>
+        <button class="carte-tab" onclick="switchCarte('plats',this)">Plats</button>
+        <button class="carte-tab" onclick="switchCarte('desserts',this)">Desserts</button>
+        <button class="carte-tab" onclick="switchCarte('vins',this)">Vins</button>
+        <button class="carte-tab" onclick="switchCarte('cocktails',this)">Bar</button>
+        <button class="carte-tab" onclick="switchCarte('accords',this)">Accords</button>
+      </div>
+
+      <div class="carte-scroll">
+        <!-- ENTRÉES -->
+        <div class="carte-section active" id="carte-entrees">
+          <div class="carte-category">Entrées</div>
+          <div class="carte-item"><div><div class="carte-item-name">Tartare de Thon</div></div><div class="carte-price">22€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Saint-Jacques</div></div><div class="carte-price">24€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Carpaccio de Bœuf</div></div><div class="carte-price">20€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Grenouilles</div></div><div class="carte-price">22€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Escargots</div></div><div class="carte-price">21€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Os à Moelle</div></div><div class="carte-price">19€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Foie Gras</div></div><div class="carte-price">26€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Croquettes de Crevettes</div></div><div class="carte-price">24€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Croquettes de Fromage</div></div><div class="carte-price">18€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Champignons</div></div><div class="carte-price">20€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Velouté Saint-Germain</div></div><div class="carte-price">18€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Œuf Mimosa</div></div><div class="carte-price">20€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Burrata</div></div><div class="carte-price">20€</div></div>
+          <div class="carte-category">To Share</div>
+          <div class="carte-item"><div><div class="carte-item-name">Croquettes Ibériques</div></div><div class="carte-price">18€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Smash Burger</div></div><div class="carte-price">20€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Fritti de Calamars</div></div><div class="carte-price">18€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Pizzetta Thon</div></div><div class="carte-price">20€</div></div>
+          <div class="carte-category">Business Lunch</div>
+          <div class="carte-item"><div><div class="carte-item-name">Entrée + Plat ou Plat + Dessert</div><div class="carte-item-sub">Lun–Ven midi uniquement</div></div><div class="carte-price">26€</div></div>
+        </div>
+
+        <!-- PLATS -->
+        <div class="carte-section" id="carte-plats">
+          <div class="carte-category">Plats</div>
+          <div class="carte-item"><div><div class="carte-item-name">Poulet Rôti</div></div><div class="carte-price">29€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Tartare de Bœuf</div></div><div class="carte-price">25€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Vol-au-Vent</div></div><div class="carte-price">38€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Rognon</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Filet Pur</div></div><div class="carte-price">42€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Magret de Canard</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Sole</div><div class="carte-item-sub">Prix du jour</div></div><div class="carte-price">—</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Saumon</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Salade César</div></div><div class="carte-price">25€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Coquillettes</div></div><div class="carte-price">28€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Raviole aux Cèpes</div></div><div class="carte-price">27€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Linguine Citron</div></div><div class="carte-price">25€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Parmentier de Canard</div></div><div class="carte-price">28€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Onglet</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-category">À Partager — prix / personne</div>
+          <div class="carte-item"><div><div class="carte-item-name">Côte à l'Os</div></div><div class="carte-price pp">55€/pp</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Bar entier</div></div><div class="carte-price pp">35€/pp</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Linguine au Homard</div></div><div class="carte-price pp">45€/pp</div></div>
+        </div>
+
+        <!-- DESSERTS -->
+        <div class="carte-section" id="carte-desserts">
+          <div class="carte-category">Desserts</div>
+          <div class="carte-item"><div><div class="carte-item-name">Dame Blanche</div></div><div class="carte-price">13€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Pavlova</div></div><div class="carte-price">13€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Baba au Rhum</div></div><div class="carte-price">14€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Cookie</div></div><div class="carte-price">13€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Crème Brûlée</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Flan</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Profiteroles</div></div><div class="carte-price">14€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Fromages</div></div><div class="carte-price">15€</div></div>
+        </div>
+
+        <!-- VINS -->
+        <div class="carte-section" id="carte-vins">
+          <div class="carte-category">Bulles</div>
+          <div class="carte-item"><div><div class="carte-item-name">Cava La Vuelta</div><div class="carte-item-sub">verre 10€ / 37,5cl 45€</div></div><div class="carte-price">45€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Erard-Salmon Brut</div><div class="carte-item-sub">verre 14€ / 37,5cl 65€</div></div><div class="carte-price">65€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Veuve Clicquot Brut</div></div><div class="carte-price">110€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Jean-Noël Haton Blanc de Blancs</div></div><div class="carte-price">125€</div></div>
+          <div class="carte-category">Vins Blancs</div>
+          <div class="carte-item"><div><div class="carte-item-name">Muscadet sur Lie, Genaudières 2023</div><div class="carte-item-sub">verre 9€ / 37,5cl 22€</div></div><div class="carte-price">38€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Terra di Nostri Blanc 2024</div><div class="carte-item-sub">verre 8€</div></div><div class="carte-price">34€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Vouvray Sec "Les Perruches" 2024</div><div class="carte-item-sub">verre 10€</div></div><div class="carte-price">43€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Sancerre Blanc Chemin de Marloup 2024</div><div class="carte-item-sub">verre 12€ / 37,5cl 29€</div></div><div class="carte-price">55€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Chablis Jean-Marc Brocard 2024</div><div class="carte-item-sub">37,5cl 38€</div></div><div class="carte-price">66€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Pinot Gris E.Boeckel 2024</div><div class="carte-item-sub">37,5cl 22€</div></div><div class="carte-price">38€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Gewurztraminer Bio Kuehn 2020</div></div><div class="carte-price">45€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Riesling Brandluft E.Boeckel 2023</div></div><div class="carte-price">45€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Pouilly-Fumé M.Michot 2023</div></div><div class="carte-price">64€</div></div>
+          <div class="carte-category">Vins Rouges</div>
+          <div class="carte-item"><div><div class="carte-item-name">Pinot Noir E.Boeckel 2023</div><div class="carte-item-sub">verre 8€ / 37,5cl 22€</div></div><div class="carte-price">38€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Terra di Nostri Rouge 2023</div></div><div class="carte-price">34€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Château Peybonhomme Blaye 2022</div><div class="carte-item-sub">verre 9€ / 37,5cl 25€</div></div><div class="carte-price">42€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Château Fleur Lartigue St-Émilion 2023</div><div class="carte-item-sub">verre 13€ / 37,5cl 32€</div></div><div class="carte-price">58€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Morgon Côte de Py VV 2021</div></div><div class="carte-price">57€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Brouilly Château de la Terrière 2023</div></div><div class="carte-price">60€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Châteauneuf-du-Pape Roger Perrin 2022</div></div><div class="carte-price">88€</div></div>
+          <div class="carte-category">Vins Rosés</div>
+          <div class="carte-item"><div><div class="carte-item-name">Terra di Nostri Rosé 2024</div><div class="carte-item-sub">verre 8€</div></div><div class="carte-price">34€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">R de Ramatuelle Provence 2024</div></div><div class="carte-price">36€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Estandon Héritage Provence 2024</div></div><div class="carte-price">44€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">M de Minuty Provence 2024</div></div><div class="carte-price">52€</div></div>
+          <div class="carte-category">Grand Cru Blancs</div>
+          <div class="carte-item"><div><div class="carte-item-name">Crozes-Hermitage Blanc Ferraton 2023</div></div><div class="carte-price">75€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Mercurey Blanc Philippe Le Hardi 2022</div></div><div class="carte-price">92€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Chablis 1er Cru Vau de Vey Bio 2023</div></div><div class="carte-price">95€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Cigalus Blanc Gérard Bertrand 2023</div></div><div class="carte-price">110€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Pouilly-Fuissé Château La Vernalle 2023</div></div><div class="carte-price">110€</div></div>
+          <div class="carte-category">Grand Cru Rouges</div>
+          <div class="carte-item"><div><div class="carte-item-name">Chagual Cabernet Sauvignon BIO Lafite 2022</div></div><div class="carte-price">59€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">L'Oratoire de Chasse Spleen 2019</div></div><div class="carte-price">82€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Domaine de l'Aigle Pinot Noir G.Bertrand 2023</div></div><div class="carte-price">95€</div></div>
+          <div class="carte-category">Vins Maison</div>
+          <div class="carte-item"><div><div class="carte-item-name">Lilas IGP Pays d'Oc — Blanc / Rosé / Rouge</div><div class="carte-item-sub">verre 6€ / 25cl 12€</div></div><div class="carte-price">20€</div></div>
+        </div>
+
+        <!-- BAR -->
+        <div class="carte-section" id="carte-cocktails">
+          <div class="carte-category">Cocktails Signature — 15€</div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Shake</div><div class="carte-item-sub">Gin Bombay, St Germain, Pêche, Hibiscus</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Saint-Germain</div><div class="carte-item-sub">St Germain, Prosecco</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Moulin Rouge</div><div class="carte-item-sub">Gin Tanqueray, Cassis, Martini Dry</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Belle Normande</div><div class="carte-item-sub">Vodka, Calvados, St Germain</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Negroni</div><div class="carte-item-sub">Gin Tanqueray Orange, Grand Marnier, Campari</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">L'Exotic</div><div class="carte-item-sub">Rhum, Coco, Passion</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Basilic</div><div class="carte-item-sub">Sans alcool possible</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-category">Mocktails — 12€</div>
+          <div class="carte-item"><div><div class="carte-item-name">Gingembre</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Esprit Sureau</div></div><div class="carte-price">12€</div></div>
+        </div>
+
+        <!-- ACCORDS -->
+        <div class="carte-section" id="carte-accords">
+          <div class="carte-category">Accords Mets & Vins</div>
+          <div class="accord-item"><div class="accord-plat">Magret de Canard</div><div class="accord-vins">Château Patache d'Aux (Médoc), Chagual Cabernet BIO Lafite, Enate Crianza</div></div>
+          <div class="accord-item"><div class="accord-plat">Filet Pur / Côte à l'Os</div><div class="accord-vins">Saint-Émilion Grand Cru, Château Petit Bocq Saint-Estèphe, Châteauneuf-du-Pape</div></div>
+          <div class="accord-item"><div class="accord-plat">Tartare de Bœuf</div><div class="accord-vins">Brouilly Château de la Terrière, Terra di Nostri Rouge</div></div>
+          <div class="accord-item"><div class="accord-plat">Onglet / Rognon</div><div class="accord-vins">Morgon Côte de Py, Chinon Les Granges, Saint-Nicolas de Bourgueil</div></div>
+          <div class="accord-item"><div class="accord-plat">Foie Gras</div><div class="accord-vins">Vouvray Sec "Les Perruches", Gewurztraminer Bio Kuehn</div></div>
+          <div class="accord-item"><div class="accord-plat">Escargots</div><div class="accord-vins">Chablis Jean-Marc Brocard, Sancerre Blanc</div></div>
+          <div class="accord-item"><div class="accord-plat">Saint-Jacques</div><div class="accord-vins">Chablis 1er Cru Vau de Vey, Mercurey Blanc Philippe Le Hardi</div></div>
+          <div class="accord-item"><div class="accord-plat">Tartare de Thon</div><div class="accord-vins">Sancerre Blanc, Muscadet sur Lie, Terra di Nostri Blanc</div></div>
+          <div class="accord-item"><div class="accord-plat">Homard / Linguine Homard</div><div class="accord-vins">Chablis 1er Cru, Mercurey Blanc, Pouilly-Fuissé</div></div>
+          <div class="accord-item"><div class="accord-plat">Saumon</div><div class="accord-vins">Vouvray Sec, Chablis, Pinot Gris E.Boeckel</div></div>
+          <div class="accord-item"><div class="accord-plat">Poulet Rôti</div><div class="accord-vins">Morgon, Pinot Noir E.Boeckel, Mâcon La Roche Vineuse</div></div>
+          <div class="accord-item"><div class="accord-plat">Burrata</div><div class="accord-vins">Pinot Grigio San Simone, Gavi del Comune di Gavi</div></div>
+          <div class="accord-item"><div class="accord-plat">Grenouilles</div><div class="accord-vins">Chablis, Pouilly-Fumé M.Michot</div></div>
+          <div class="accord-item"><div class="accord-plat">Raviole Cèpes / Coquillettes</div><div class="accord-vins">Côtes du Rhône Blanc Artésis, Viognier Gérard Bertrand</div></div>
+          <div class="accord-item"><div class="accord-plat">Carpaccio de Bœuf</div><div class="accord-vins">Pinot Noir E.Boeckel, Terra di Nostri Rouge</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE 4: COMMANDES ── -->
+  <div class="page" id="page-commandes">
+    <div class="page-content">
+      <div class="section-title">Commandes</div>
+      <div class="section-sub">Suivi du stock</div>
+
+      <div class="commandes-intro">
+        <p>Note ici les produits manquants ou en rupture avant de contacter Daniel. Cette liste est remise à zéro chaque jour.</p>
+      </div>
+
+      <div class="checklist-group">
+        <div class="checklist-group-header">
+          <span class="checklist-group-title">Bar — Produits à surveiller</span>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Menthe fraîche</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Citrons</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Bonbons gingembre</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">St Germain</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Prosecco</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Gin Bombay</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Campari</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-group">
+        <div class="checklist-group-header">
+          <span class="checklist-group-title">Salle — Consommables</span>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Serviettes</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Pain</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Mayonnaise</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+        <div class="stock-item">
+          <span class="stock-name">Sel / Poivre</span>
+          <div class="stock-status">
+            <div class="stock-dot ok"></div>
+            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-label">Note pour Daniel</div>
+        <textarea class="note-textarea" placeholder="Ex: il manque de la menthe, commander 3 boîtes de citrons..."></textarea>
+      </div>
+
+      <button class="action-btn" onclick="copyNote()">Copier la note</button>
+    </div>
+  </div>
+
 </div>
 
-<div class="chat" id="chat">
-  <div class="welcome">
-    <h2>Bienvenue au <em>Shake</em>.</h2>
-    <p>Pose-moi n'importe quelle question sur les standards, la carte, les vins ou les procédures.</p>
-    <button class="sugg-btn" onclick="ask('Comment accueillir un client qui arrive ?')">→ Comment accueillir un client qui arrive ?</button>
-    <button class="sugg-btn" onclick="ask('Quel vin conseiller avec le Magret de Canard ?')">→ Quel vin avec le Magret de Canard ?</button>
-    <button class="sugg-btn" onclick="ask('Checklist ouverture salle complète')">→ Checklist ouverture salle complète</button>
-    <button class="sugg-btn" onclick="ask('Que faire si un client devient agressif ?')">→ Que faire si un client devient agressif ?</button>
-  </div>
-</div>
-
-<div class="input-area">
-  <div class="input-row">
-    <textarea id="inp" placeholder="Pose ta question..." rows="1" onkeydown="handleKey(event)" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
-    <button id="sendBtn" onclick="send()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="#f5f0e8"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-    </button>
-  </div>
-  <div class="disc">Assistant Le Shake · Standards Jonathan</div>
-</div>
+<!-- BOTTOM TABS -->
+<nav class="tabs">
+  <button class="tab active" onclick="switchTab('assistant',this)">
+    <div class="tab-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </div>
+    <span class="tab-label">Assistant</span>
+  </button>
+  <button class="tab" onclick="switchTab('checklist',this)">
+    <div class="tab-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+    </div>
+    <span class="tab-label">Checklist</span>
+  </button>
+  <button class="tab" onclick="switchTab('carte',this)">
+    <div class="tab-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <polyline points="10 9 9 9 8 9"/>
+      </svg>
+    </div>
+    <span class="tab-label">Carte</span>
+  </button>
+  <button class="tab" onclick="switchTab('commandes',this)">
+    <div class="tab-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+    </div>
+    <span class="tab-label">Commandes</span>
+  </button>
+</nav>
 
 <script>
 const history = [];
 
-function handleKey(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();} }
-function ask(q){ document.getElementById('inp').value=q; send(); }
+// ── NAVIGATION ──
+function switchTab(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+}
 
-function addMsg(text, isUser){
+// ── CHAT ──
+function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();} }
+function ask(q) { document.getElementById('inp').value=q; send(); }
+
+function addMsg(text, isUser) {
   const chat = document.getElementById('chat');
   const div = document.createElement('div');
-  div.className = 'msg'+(isUser?' user':'');
+  div.className = 'msg' + (isUser ? ' user' : '');
   const av = document.createElement('div');
-  av.className = 'avatar '+(isUser?'usr':'bot');
-  av.textContent = isUser?'T':'S';
+  av.className = 'avatar ' + (isUser ? 'usr' : 'bot');
+  av.textContent = isUser ? 'M' : 'S';
   const bub = document.createElement('div');
-  bub.className = 'bubble '+(isUser?'user':'bot');
+  bub.className = 'bubble ' + (isUser ? 'user' : 'bot');
   bub.innerHTML = isUser ? text : format(text);
+  div.appendChild(av);
+  div.appendChild(bub);
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function format(t) {
+  return t
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#b8962e">$1</strong>')
+    .replace(/\n- /g, '<br>• ')
+    .replace(/\n/g, '<br>');
+}
+
+function showTyping() {
+  const chat = document.getElementById('chat');
+  const div = document.createElement('div');
+  div.className = 'msg'; div.id = 'typing';
+  const av = document.createElement('div'); av.className = 'avatar bot'; av.textContent = 'S';
+  const bub = document.createElement('div'); bub.className = 'bubble bot';
+  bub.innerHTML = '<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
   div.appendChild(av); div.appendChild(bub);
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
 
-function format(t){
-  return t.replace(/\*\*(.*?)\*\*/g,'<strong style="color:#c9a84c">$1</strong>')
-          .replace(/\n- /g,'<br>• ').replace(/\n/g,'<br>');
-}
-
-function showTyping(){
-  const chat = document.getElementById('chat');
-  const div = document.createElement('div');
-  div.className='msg'; div.id='typing';
-  const av=document.createElement('div'); av.className='avatar bot'; av.textContent='S';
-  const bub=document.createElement('div'); bub.className='bubble bot';
-  bub.innerHTML='<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
-  div.appendChild(av); div.appendChild(bub);
-  chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
-}
-
-async function send(){
+async function send() {
   const inp = document.getElementById('inp');
   const text = inp.value.trim();
-  if(!text) return;
+  if (!text) return;
   addMsg(text, true);
-  inp.value=''; inp.style.height='auto';
-  history.push({role:'user',content:text});
+  inp.value = ''; inp.style.height = 'auto';
+  history.push({ role: 'user', content: text });
   showTyping();
   try {
     const res = await fetch('/api/chat', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({messages: history})
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
     });
-    if(!res.ok){
-      const err = await res.text();
-      throw new Error('Serveur: ' + res.status + ' - ' + err);
-    }
+    if (!res.ok) throw new Error('Erreur serveur ' + res.status);
     const data = await res.json();
     const reply = data.content?.[0]?.text || 'Réponse vide.';
     document.getElementById('typing')?.remove();
-    history.push({role:'assistant',content:reply});
+    history.push({ role: 'assistant', content: reply });
     addMsg(reply, false);
-  } catch(e){
+  } catch(e) {
     document.getElementById('typing')?.remove();
-    addMsg('Erreur: ' + e.message, false);
+    addMsg('Erreur de connexion. Réessaie dans un instant.', false);
   }
+}
+
+// ── CHECKLIST ──
+const counts = { ouverture: 0, accueil: 0, fermeture: 0 };
+const totals = { ouverture: 9, accueil: 6, fermeture: 8 };
+
+function toggle(item, group) {
+  const wasChecked = item.classList.contains('checked');
+  item.classList.toggle('checked');
+  counts[group] += wasChecked ? -1 : 1;
+  updateProgress(group);
+}
+
+function updateProgress(group) {
+  const el = document.getElementById('prog-' + group);
+  const c = counts[group];
+  const t = totals[group];
+  el.textContent = c + ' / ' + t;
+  el.className = 'checklist-progress' + (c === t ? ' done' : '');
+}
+
+function resetAll() {
+  document.querySelectorAll('.check-item').forEach(i => i.classList.remove('checked'));
+  ['ouverture','accueil','fermeture'].forEach(g => { counts[g] = 0; updateProgress(g); });
+}
+
+// ── CARTE ──
+function switchCarte(name, btn) {
+  document.querySelectorAll('.carte-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('carte-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── STOCK ──
+const states = ['OK','Faible','Rupture'];
+const classes = ['status-ok','status-low','status-out'];
+const dotClasses = ['ok','low','out'];
+
+function cycleStatus(el) {
+  const current = states.indexOf(el.textContent);
+  const next = (current + 1) % 3;
+  el.textContent = states[next];
+  el.className = 'stock-status ' + classes[next];
+  const dot = el.parentElement.querySelector('.stock-dot');
+  dot.className = 'stock-dot ' + dotClasses[next];
+}
+
+// ── COMMANDES ──
+function copyNote() {
+  const note = document.querySelector('.note-textarea').value;
+  const items = [];
+  document.querySelectorAll('.stock-item').forEach(item => {
+    const name = item.querySelector('.stock-name').textContent;
+    const status = item.querySelector('[class*="status-"]').textContent;
+    if (status !== 'OK') items.push(name + ' → ' + status);
+  });
+  const full = (items.length ? 'Stock:\n' + items.join('\n') + '\n\n' : '') + (note ? 'Notes:\n' + note : '');
+  if (!full.trim()) { alert('Rien à copier.'); return; }
+  navigator.clipboard.writeText(full).then(() => alert('Copié !'));
 }
 </script>
 </body>
