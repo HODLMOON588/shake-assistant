@@ -643,10 +643,16 @@ textarea::placeholder { color: var(--text-3); }
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
+<!-- STAFF SELECTOR -->
+<div id="staff-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;justify-content:center;padding:32px 24px;">
+  <div style="font-family:'Instrument Serif',serif;font-size:28px;color:var(--black);margin-bottom:6px;">Le <span style="color:var(--gold)">Shake</span></div>
+  <div style="font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:32px;">Qui es-tu ?</div>
+  <div id="staff-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+</div>
+
+
   <div class="header-logo">Le <span>Shake</span></div>
-  <div class="header-subtitle">Staff</div>
+  <div class="header-subtitle" id="header-name">Staff</div>
   <div class="status-dot"></div>
 </header>
 
@@ -659,25 +665,8 @@ textarea::placeholder { color: var(--text-3); }
       <div class="chat-messages" id="chat">
         <div class="welcome-card">
           <h2>Bonjour,<br><em>comment puis-je aider ?</em></h2>
-          <p>Pose-moi n'importe quelle question sur les procédures, la carte, les vins ou les règles du Shake.</p>
-          <div class="quick-btns">
-            <button class="quick-btn" onclick="ask('Checklist ouverture complète salle')">
-              Ouverture salle — checklist complète
-              <span class="quick-btn-arrow">›</span>
-            </button>
-            <button class="quick-btn" onclick="ask('Quel vin conseiller avec le Magret de Canard ?')">
-              Accord vin avec le Magret
-              <span class="quick-btn-arrow">›</span>
-            </button>
-            <button class="quick-btn" onclick="ask('Comment gérer un client mécontent ?')">
-              Client mécontent — que faire ?
-              <span class="quick-btn-arrow">›</span>
-            </button>
-            <button class="quick-btn" onclick="ask('Lance le quiz d\'intégration')">
-              Quiz d'intégration nouvel employé
-              <span class="quick-btn-arrow">›</span>
-            </button>
-          </div>
+          <p id="welcome-sub">Pose-moi n'importe quelle question sur les procédures, la carte, les vins ou les règles du Shake.</p>
+          <div class="quick-btns" id="quick-btns"></div>
         </div>
       </div>
       <div class="chat-input-area">
@@ -1300,7 +1289,105 @@ textarea::placeholder { color: var(--text-3); }
 <script>
 const history = [];
 
-// ── NAVIGATION ──
+// ── STAFF SELECTOR ──
+const STAFF = ['Lloyd','Jeremy','Mateo','Alexander','Mary','Thomas','Victoria','Maxime','Beni'];
+let currentStaff = localStorage.getItem('shake_staff') || null;
+
+function initStaff() {
+  if (currentStaff) {
+    document.getElementById('header-name').textContent = currentStaff;
+    document.getElementById('staff-overlay').style.display = 'none';
+    return;
+  }
+  const overlay = document.getElementById('staff-overlay');
+  overlay.style.display = 'flex';
+  const list = document.getElementById('staff-list');
+  STAFF.forEach(name => {
+    const btn = document.createElement('button');
+    btn.textContent = name;
+    btn.style.cssText = 'padding:14px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;font-family:DM Sans,sans-serif;font-size:15px;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .15s;';
+    btn.onclick = () => selectStaff(name);
+    list.appendChild(btn);
+  });
+}
+
+function selectStaff(name) {
+  currentStaff = name;
+  localStorage.setItem('shake_staff', name);
+  document.getElementById('header-name').textContent = name;
+  document.getElementById('staff-overlay').style.display = 'none';
+}
+
+// Tap sur le nom dans le header pour changer
+document.getElementById('header-name').style.cursor = 'pointer';
+document.getElementById('header-name').onclick = () => {
+  currentStaff = null;
+  localStorage.removeItem('shake_staff');
+  document.getElementById('staff-list').innerHTML = '';
+  initStaff();
+};
+
+initStaff();
+
+// ── SUGGESTIONS DYNAMIQUES PAR HEURE ──
+const SUGGESTIONS = {
+  matin: [ // avant 12h
+    { label: 'Checklist ouverture salle', q: 'Checklist ouverture salle complète' },
+    { label: 'Business lunch du jour', q: 'Business lunch — menu du jour et prix' },
+    { label: 'Quiz intégration', q: 'Lance le quiz d\'intégration' },
+    { label: 'Urgence — que faire ?', q: 'Que faire en cas d\'urgence au restaurant ?' },
+  ],
+  apres_midi: [ // 12h-17h30
+    { label: 'Reset avant service soir', q: 'Que faire pour le reset avant le service du soir ?' },
+    { label: 'Batchs bar — vérification', q: 'Quels batchs bar doivent être prêts avant le service ?' },
+    { label: 'Accord vin avec le Magret', q: 'Quel vin conseiller avec le Magret de Canard ?' },
+    { label: 'Quiz intégration', q: 'Lance le quiz d\'intégration' },
+  ],
+  soir: [ // 17h30-22h
+    { label: 'Checklist ouverture soir', q: 'Checklist reset avant service soir' },
+    { label: 'Accord vin avec le Foie Gras', q: 'Quel vin conseiller avec le Foie Gras ?' },
+    { label: 'Client mécontent — que faire ?', q: 'Comment gérer un client mécontent ?' },
+    { label: 'Urgence — que faire ?', q: 'Que faire en cas d\'urgence au restaurant ?' },
+  ],
+  fermeture: [ // après 22h
+    { label: 'Checklist fermeture', q: 'Checklist fermeture complète' },
+    { label: 'Procédure caisse', q: 'Comment faire la caisse en fermeture ?' },
+    { label: 'Conteneurs — quel soir ?', q: 'Quand sortir les conteneurs et cartons ?' },
+    { label: 'Client mécontent — que faire ?', q: 'Comment gérer un client mécontent ?' },
+  ]
+};
+
+function getTimeSlot() {
+  const h = new Date().getHours();
+  if (h < 12) return 'matin';
+  if (h < 17) return 'apres_midi';
+  if (h < 22) return 'soir';
+  return 'fermeture';
+}
+
+function getTimeLabel() {
+  const slot = getTimeSlot();
+  const labels = { matin: 'Bon service du midi', apres_midi: 'Bonne coupure', soir: 'Bon service du soir', fermeture: 'Bonne fermeture' };
+  return labels[slot];
+}
+
+function renderSuggestions() {
+  const slot = getTimeSlot();
+  const suggs = SUGGESTIONS[slot];
+  const container = document.getElementById('quick-btns');
+  const sub = document.getElementById('welcome-sub');
+  if (sub) sub.textContent = getTimeLabel() + ' — que puis-je faire pour toi ?';
+  if (!container) return;
+  container.innerHTML = suggs.map(s =>
+    `<button class="quick-btn" onclick="ask('${s.q.replace(/'/g, "\\'")}')">
+      ${s.label}<span class="quick-btn-arrow">›</span>
+    </button>`
+  ).join('');
+}
+
+renderSuggestions();
+
+
 function switchTab(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1490,12 +1577,6 @@ function showToast(msg) {
   t.style.opacity = '1';
   setTimeout(() => t.style.opacity = '0', 2000);
 }
-function switchCarte(name, btn) {
-  document.querySelectorAll('.carte-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('carte-' + name).classList.add('active');
-  btn.classList.add('active');
-}
 
 // ── STOCK ──
 const states = ['OK','Faible','Rupture'];
@@ -1556,7 +1637,7 @@ function buildPreview() {
     items.forEach(({ product, code, status }) => {
       const color = status === 'Rupture' ? 'var(--red)' : '#e67e22';
       html += `<div class="stock-item">
-        <span class="stock-name">${product}${code ? ' <span style="color:var(--text-3);font-size:11px;">#${code}</span>' : ''}</span>
+        <span class="stock-name">${product}${code ? ' <span style="color:var(--text-3);font-size:11px;">#' + code + '</span>' : ''}</span>
         <span style="font-size:12px;font-weight:600;color:${color};">${status}</span>
       </div>`;
     });
@@ -1579,12 +1660,13 @@ function genererCommande() {
 
   const note = document.getElementById('cmd-note').value.trim();
   const date = new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' });
+  const staff = currentStaff || 'Staff';
 
   if (!Object.keys(bySupplier).length && !note) {
     showToast('Aucun produit signalé.'); return;
   }
 
-  let text = `BON DE COMMANDE — LE SHAKE\n${date}\n${'─'.repeat(30)}\n\n`;
+  let text = `BON DE COMMANDE — LE SHAKE\n${date} — ${staff}\n${'─'.repeat(32)}\n\n`;
   for (const [supplier, items] of Object.entries(bySupplier)) {
     text += `▸ ${supplier.toUpperCase()}\n`;
     items.forEach(({ product, code, status }) => {
