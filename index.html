@@ -913,107 +913,249 @@ textarea::placeholder { color: var(--text-3); }
   <div class="page" id="page-commandes">
     <div class="page-content">
       <div class="section-title">Commandes</div>
-      <div class="section-sub">Suivi du stock</div>
+      <div class="section-sub">Stock & fournisseurs</div>
 
-      <div class="commandes-intro">
-        <p>Note ici les produits manquants ou en rupture avant de contacter Daniel. Cette liste est remise à zéro chaque jour.</p>
+      <!-- Vue tabs -->
+      <div class="carte-tabs" style="padding:0 0 16px;">
+        <button class="carte-tab active" onclick="switchCommande('stock',this)">Stock</button>
+        <button class="carte-tab" onclick="switchCommande('commande',this)">Bon de commande</button>
       </div>
 
-      <div class="checklist-group">
-        <div class="checklist-group-header">
-          <span class="checklist-group-title">Bar — Produits à surveiller</span>
-        </div>
-        <div class="stock-item">
-          <span class="stock-name">Menthe fraîche</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+      <!-- VUE STOCK -->
+      <div id="cmd-stock">
+
+        <!-- IBRAHIM -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Ibrahim — Produits frais</span>
+            <span class="badge badge-dark">Chef</span>
           </div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Menthe fraîche"><span class="stock-name">Menthe fraîche</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Framboise"><span class="stock-name">Framboise</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Fleurs décoratives"><span class="stock-name">Fleurs décoratives</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Bonbons gingembre"><span class="stock-name">Bonbons gingembre</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Citrons verts"><span class="stock-name">Citrons verts</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Citrons jaunes"><span class="stock-name">Citrons jaunes</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Oranges"><span class="stock-name">Oranges</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
-        <div class="stock-item">
-          <span class="stock-name">Citrons</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+
+        <!-- HLS -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">HLS — Spiritueux & Bières</span>
+            <span class="badge badge-dark">HLS</span>
           </div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4070" data-product="Bombay Sapphire 1L"><span class="stock-name">Bombay Sapphire 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="2067" data-product="Hendrick's Gin 70cl"><span class="stock-name">Hendrick's Gin 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="2529" data-product="Copperhead Gin 50cl"><span class="stock-name">Copperhead Gin 50cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1446" data-product="Tanqueray Royale 70cl"><span class="stock-name">Tanqueray Royale 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5076" data-product="Tanqueray Orange Séville 70cl"><span class="stock-name">Tanqueray Orange Séville 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4069" data-product="Vodka Eristoff 1L"><span class="stock-name">Vodka Eristoff 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1948" data-product="Grey Goose 70cl"><span class="stock-name">Grey Goose 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5119" data-product="Bacardi Carta Blanca 1L"><span class="stock-name">Bacardi Carta Blanca 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="3506" data-product="Bacardi 4 Años 1L"><span class="stock-name">Bacardi 4 Años 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1400" data-product="Campari 1L"><span class="stock-name">Campari 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="2196" data-product="Aperol 1L"><span class="stock-name">Aperol 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="3204" data-product="St Germain 70cl"><span class="stock-name">St Germain 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4297" data-product="Grand Marnier 70cl"><span class="stock-name">Grand Marnier 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5131" data-product="Cointreau 1L"><span class="stock-name">Cointreau 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4660" data-product="Amaretto Disaronno 1L"><span class="stock-name">Amaretto Disaronno 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5109" data-product="Baileys 1L"><span class="stock-name">Baileys 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5151" data-product="Ricard 1L"><span class="stock-name">Ricard 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4257" data-product="J&B Rare 1L"><span class="stock-name">J&B Rare 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4501" data-product="Jack Daniel's 70cl"><span class="stock-name">Jack Daniel's 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4296" data-product="Glenfiddich 12Y 70cl"><span class="stock-name">Glenfiddich 12Y 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5078" data-product="Belsazar Red 75cl"><span class="stock-name">Belsazar Red 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5082" data-product="Belsazar Rosé 75cl"><span class="stock-name">Belsazar Rosé 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5102" data-product="Martini Rosso 1,5L"><span class="stock-name">Martini Rosso 1,5L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5103" data-product="Martini Bianco 1,5L"><span class="stock-name">Martini Bianco 1,5L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5386" data-product="Boulard Calvados 1L"><span class="stock-name">Boulard Calvados 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4229" data-product="Patron Silver Tequila 70cl"><span class="stock-name">Patron Silver Tequila 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="2603" data-product="Chartreuse Verte 70cl"><span class="stock-name">Chartreuse Verte 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5286" data-product="Picon Amer 1L"><span class="stock-name">Picon Amer 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70530" data-product="Limoncello 70cl"><span class="stock-name">Limoncello 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70595" data-product="Crème de Cassis Bourgogne 70cl"><span class="stock-name">Crème de Cassis Bourgogne 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70620" data-product="Crème de Pêche 70cl"><span class="stock-name">Crème de Pêche 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="5137" data-product="Batida de Coco 1L"><span class="stock-name">Batida de Coco 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4977" data-product="Angostura Bitters 0,2L"><span class="stock-name">Angostura Bitters 0,2L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
-        <div class="stock-item">
-          <span class="stock-name">Bonbons gingembre</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+
+        <!-- HLS SIROPS -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">HLS — Sirops & Mixers</span>
+            <span class="badge badge-dark">HLS</span>
           </div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70575" data-product="Sirop Sucre de Canne 1L"><span class="stock-name">Sirop Sucre de Canne 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70551" data-product="Sirop Fleur de Sureau 1L"><span class="stock-name">Sirop Fleur de Sureau 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70555" data-product="Sirop Gingembre 1L"><span class="stock-name">Sirop Gingembre 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70571" data-product="Sirop Pomme Verte 1L"><span class="stock-name">Sirop Pomme Verte 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70580" data-product="Sirop Vanille 1L"><span class="stock-name">Sirop Vanille 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70550" data-product="Sirop Falernum 1L"><span class="stock-name">Sirop Falernum 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70810" data-product="Sirop Pêche Blanche 1L"><span class="stock-name">Sirop Pêche Blanche 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="3327" data-product="Schweppes Tonic 25cl (casier)"><span class="stock-name">Schweppes Tonic 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="3329" data-product="Schweppes Agrum 25cl (casier)"><span class="stock-name">Schweppes Agrum 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="50242" data-product="Schweppes White Peach 20cl"><span class="stock-name">Schweppes White Peach 20cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="50371" data-product="Schweppes Hibiscus 20cl"><span class="stock-name">Schweppes Hibiscus 20cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="50350" data-product="Schweppes Ginger Ale 20cl"><span class="stock-name">Schweppes Ginger Ale 20cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
-        <div class="stock-item">
-          <span class="stock-name">St Germain</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+
+        <!-- HLS EAUX & SOFTS -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">HLS — Eaux & Softs</span>
+            <span class="badge badge-dark">HLS</span>
           </div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1249" data-product="Chaudfontaine Plate 25cl (casier)"><span class="stock-name">Chaudfontaine Plate 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1250" data-product="Chaudfontaine Pétillante 25cl (casier)"><span class="stock-name">Chaudfontaine Pétillante 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1247" data-product="Chaudfontaine Plate 50cl (casier)"><span class="stock-name">Chaudfontaine Plate 50cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1248" data-product="Chaudfontaine Pétillante 50cl (casier)"><span class="stock-name">Chaudfontaine Pétillante 50cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="944" data-product="Coca-Cola 20cl (casier)"><span class="stock-name">Coca-Cola 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1283" data-product="Coca-Cola Zero 20cl (casier)"><span class="stock-name">Coca-Cola Zero 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="799" data-product="Fanta Orange 20cl (casier)"><span class="stock-name">Fanta Orange 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="953" data-product="Sprite 20cl (casier)"><span class="stock-name">Sprite 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="3299" data-product="Fuze Tea Black 20cl (casier)"><span class="stock-name">Fuze Tea Black 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="3302" data-product="Fuze Tea Pêche Hibiscus 20cl (casier)"><span class="stock-name">Fuze Tea Pêche Hibiscus 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="6405" data-product="Minute Maid Orange 20cl (casier)"><span class="stock-name">Minute Maid Orange 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1241" data-product="Minute Maid Pomme 20cl (casier)"><span class="stock-name">Minute Maid Pomme 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1243" data-product="Minute Maid Multivitamin 20cl (casier)"><span class="stock-name">Minute Maid Multivitamin 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="618" data-product="Minute Maid Tomate 20cl (casier)"><span class="stock-name">Minute Maid Tomate 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
-        <div class="stock-item">
-          <span class="stock-name">Prosecco</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+
+        <!-- HLS BIERES -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">HLS — Bières bouteilles</span>
+            <span class="badge badge-dark">HLS</span>
           </div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1231" data-product="Brugse Zot Blonde 33cl (casier)"><span class="stock-name">Brugse Zot Blonde 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="440" data-product="Chimay Bleue 33cl (casier)"><span class="stock-name">Chimay Bleue 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="34911" data-product="Carlsberg 25cl (casier)"><span class="stock-name">Carlsberg 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4136" data-product="Stella Artois 0% 25cl (casier)"><span class="stock-name">Stella Artois 0% 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="1572" data-product="Liefmans Kriek 25cl (casier)"><span class="stock-name">Liefmans Kriek 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4097" data-product="Liefmans 0% 25cl (casier)"><span class="stock-name">Liefmans 0% 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="475" data-product="Duvel 33cl (casier)"><span class="stock-name">Duvel 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="4752" data-product="Orval 33cl (casier)"><span class="stock-name">Orval 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="137" data-product="Leffe Brune 33cl (casier)"><span class="stock-name">Leffe Brune 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="37291" data-product="St Hubertus Blonde 33cl (casier)"><span class="stock-name">St Hubertus Blonde 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="37401" data-product="St Hubertus Blanche 33cl (casier)"><span class="stock-name">St Hubertus Blanche 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="37321" data-product="St Hubertus Ambrée 33cl (casier)"><span class="stock-name">St Hubertus Ambrée 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
-        <div class="stock-item">
-          <span class="stock-name">Gin Bombay</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+
+        <!-- HLS CAFE -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">HLS — Café & Infusions</span>
+            <span class="badge badge-dark">HLS</span>
           </div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72085" data-product="Masalto Bio Café Grains 1kg"><span class="stock-name">Masalto Bio Café Grains 1kg</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72115" data-product="Masalto Bio Déca Moulu 250g"><span class="stock-name">Masalto Bio Déca Moulu 250g</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72101" data-product="Masalto Poudre Nettoyage"><span class="stock-name">Masalto Poudre Nettoyage</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72129" data-product="Masalto Sucre Blanc 5kg"><span class="stock-name">Masalto Sucre Blanc 5kg</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72113" data-product="Vitao Camomille Bio"><span class="stock-name">Vitao Camomille Bio</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72147" data-product="Vitao Fruits Rouges"><span class="stock-name">Vitao Fruits Rouges</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72112" data-product="Vitao Tilleul Bio"><span class="stock-name">Vitao Tilleul Bio</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="72110" data-product="Vitao Thé Vert Jasmin Bio"><span class="stock-name">Vitao Thé Vert Jasmin Bio</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
-        <div class="stock-item">
-          <span class="stock-name">Campari</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
+
+        <!-- INBEV FUTS -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">INBEV — Fûts</span>
+            <span class="badge badge-dark">INBEV</span>
           </div>
+          <div class="stock-item" data-fournisseur="INBEV" data-code="3410" data-product="Leffe Blonde fût 30L"><span class="stock-name">Leffe Blonde fût 30L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="INBEV" data-code="6175" data-product="Stella Artois fût 30L"><span class="stock-name">Stella Artois fût 30L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="INBEV" data-code="9974" data-product="Hoegaarden White fût 20L"><span class="stock-name">Hoegaarden White fût 20L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="INBEV" data-code="63743" data-product="Triple Karmeliet fût 30L"><span class="stock-name">Triple Karmeliet fût 30L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="INBEV" data-code="7511093" data-product="CO2 Koolstofdioxide 10kg"><span class="stock-name">CO2 10kg</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+        </div>
+
+        <!-- AVINUM VINS -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">AVINUM — Vins</span>
+            <span class="badge badge-dark">AVINUM</span>
+          </div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Riesling Brandluft E.Boeckel 2023"><span class="stock-name">Riesling Brandluft E.Boeckel 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Gris E.Boeckel 2024 75cl"><span class="stock-name">Pinot Gris E.Boeckel 2024 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Gris E.Boeckel 2024 37,5cl"><span class="stock-name">Pinot Gris E.Boeckel 2024 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pouilly-Fumé M.Michot 2023"><span class="stock-name">Pouilly-Fumé M.Michot 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Sancerre Blanc Chemin de Marloup 2024 75cl"><span class="stock-name">Sancerre Blanc Marloup 2024 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Sancerre Blanc Chemin de Marloup 2024 37,5cl"><span class="stock-name">Sancerre Blanc Marloup 2024 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Mâcon La Roche Vineuse Sangouard 2024"><span class="stock-name">Mâcon La Roche Vineuse 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Noir E.Boeckel 2023 75cl"><span class="stock-name">Pinot Noir E.Boeckel 2023 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Noir E.Boeckel 2023 37,5cl"><span class="stock-name">Pinot Noir E.Boeckel 2023 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Chinon Les Granges Baudry 2023"><span class="stock-name">Chinon Les Granges Baudry 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Saint-Nicolas de Bourgueil Mabileau 2024 75cl"><span class="stock-name">St-Nicolas de Bourgueil Mabileau 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Saint-Nicolas de Bourgueil Mabileau 2024 37,5cl"><span class="stock-name">St-Nicolas de Bourgueil Mabileau 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Châteauneuf-du-Pape Roger Perrin 2022"><span class="stock-name">Châteauneuf-du-Pape Perrin 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Château Patache d'Aux 2018 75cl"><span class="stock-name">Château Patache d'Aux 2018 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Château Petit Bocq Saint-Estèphe 2022 75cl"><span class="stock-name">Château Petit Bocq St-Estèphe 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Château Peybonhomme Blaye 2022 75cl"><span class="stock-name">Château Peybonhomme Blaye 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="Attorante Chakana Malbec 2023"><span class="stock-name">Chakana Malbec 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="R de Ramatuelle Provence 2024"><span class="stock-name">R de Ramatuelle Provence 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="AVINUM" data-product="M de Minuty Provence 2024"><span class="stock-name">M de Minuty Provence 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+        </div>
+
+        <!-- HLS VINS (VASCO) -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">HLS — Vins & Champagnes</span>
+            <span class="badge badge-dark">HLS</span>
+          </div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70696" data-product="Cava La Vuelta 75cl"><span class="stock-name">Cava La Vuelta 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70706" data-product="Champagne Haton Blanc de Blancs 75cl"><span class="stock-name">Champagne Haton Blanc de Blancs</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-product="Veuve Clicquot Brut 75cl"><span class="stock-name">Veuve Clicquot Brut 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77195" data-product="Lilas Blanc Bag in Box 10L"><span class="stock-name">Lilas Blanc Bag in Box 10L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77196" data-product="Lilas Rosé Bag in Box 10L"><span class="stock-name">Lilas Rosé Bag in Box 10L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77194" data-product="Lilas Rouge Bag in Box 10L"><span class="stock-name">Lilas Rouge Bag in Box 10L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77220" data-product="Cristal Buisse Touraine Sauvignon 2024"><span class="stock-name">Cristal Buisse Touraine Sauvignon 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70646" data-product="Vouvray Sec Les Perruches 2024"><span class="stock-name">Vouvray Sec Les Perruches 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="76742" data-product="Muscadet sur Lie Genaudières 2024 75cl"><span class="stock-name">Muscadet sur Lie Genaudières 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70270" data-product="Chablis Jean-Marc Brocard 2024 75cl"><span class="stock-name">Chablis Brocard 2024 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70271" data-product="Chablis Jean-Marc Brocard 2024 37,5cl"><span class="stock-name">Chablis Brocard 2024 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70274" data-product="Chablis 1er Cru Vau de Vey Bio 2023"><span class="stock-name">Chablis 1er Cru Vau de Vey Bio 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70784" data-product="Terra di Nostri Blanc 2024"><span class="stock-name">Terra di Nostri Blanc 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70785" data-product="Terra di Nostri Rosé 2024"><span class="stock-name">Terra di Nostri Rosé 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70786" data-product="Terra di Nostri Rouge 2023"><span class="stock-name">Terra di Nostri Rouge 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70702" data-product="Château Bellegrave Médoc 2019"><span class="stock-name">Château Bellegrave Médoc 2019</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70011" data-product="Château Fleur Lartigue St-Émilion 2023 75cl"><span class="stock-name">Ch. Fleur Lartigue St-Émilion 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70309" data-product="Brouilly Château de la Terrière 2023"><span class="stock-name">Brouilly Ch. de la Terrière 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77841" data-product="Morgon Côte de Py VV 2021"><span class="stock-name">Morgon Côte de Py VV 2021</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70722" data-product="Chagual Cabernet Sauvignon Los Vascos BIO 2022"><span class="stock-name">Chagual Cabernet BIO Los Vascos 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77406" data-product="L'Oratoire de Chasse Spleen 2019"><span class="stock-name">L'Oratoire de Chasse Spleen 2019</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77573" data-product="Domaine de l'Aigle Pinot Noir G.Bertrand 2023"><span class="stock-name">Domaine de l'Aigle Pinot Noir 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="70798" data-product="Mercurey Blanc Bois de Lalier 2022"><span class="stock-name">Mercurey Blanc Bois de Lalier 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="77832" data-product="Cigalus Blanc Biodynamie G.Bertrand 2023"><span class="stock-name">Cigalus Blanc Biodynamie 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="HLS" data-code="74285" data-product="Pouilly-Fuissé Château La Vernalle 2022"><span class="stock-name">Pouilly-Fuissé Ch. La Vernalle 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+        </div>
+
+        <!-- SANTOS PALACE -->
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">Santos Palace — Champagne</span>
+            <span class="badge badge-dark">Santos</span>
+          </div>
+          <div class="stock-item" data-fournisseur="Santos Palace" data-product="Erard-Salmon Brut Carte Blanche 75cl"><span class="stock-name">Erard-Salmon Brut Carte Blanche 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+        </div>
+
+        <button class="reset-btn" onclick="resetStock()">Réinitialiser le stock</button>
+      </div>
+
+      <!-- VUE BON DE COMMANDE -->
+      <div id="cmd-commande" style="display:none;">
+        <div class="commandes-intro">
+          <p>Voici les produits signalés en <strong>Faible</strong> ou <strong>Rupture</strong>, organisés par fournisseur. Appuie sur "Générer" pour copier le bon de commande.</p>
+        </div>
+        <div id="cmd-preview"></div>
+        <button class="action-btn" onclick="genererCommande()">Générer & Copier le bon de commande</button>
+        <div class="note-area" style="margin-top:12px;">
+          <div class="note-label">Note complémentaire pour Daniel</div>
+          <textarea class="note-textarea" id="cmd-note" placeholder="Précisions, quantités spécifiques, urgences..."></textarea>
         </div>
       </div>
 
-      <div class="checklist-group">
-        <div class="checklist-group-header">
-          <span class="checklist-group-title">Salle — Consommables</span>
-        </div>
-        <div class="stock-item">
-          <span class="stock-name">Serviettes</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
-          </div>
-        </div>
-        <div class="stock-item">
-          <span class="stock-name">Pain</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
-          </div>
-        </div>
-        <div class="stock-item">
-          <span class="stock-name">Mayonnaise</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
-          </div>
-        </div>
-        <div class="stock-item">
-          <span class="stock-name">Sel / Poivre</span>
-          <div class="stock-status">
-            <div class="stock-dot ok"></div>
-            <span class="status-ok" onclick="cycleStatus(this)">OK</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="note-area">
-        <div class="note-label">Note pour Daniel</div>
-        <textarea class="note-textarea" placeholder="Ex: il manque de la menthe, commander 3 boîtes de citrons..."></textarea>
-      </div>
-
-      <button class="action-btn" onclick="copyNote()">Copier la note</button>
     </div>
   </div>
 
@@ -1098,9 +1240,21 @@ function addMsg(text, isUser) {
 
 function format(t) {
   return t
-    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#b8962e">$1</strong>')
+    // Gras → texte normal sans couleur dorée, juste légèrement plus fort
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    // Italique → on enlève les astérisques simples restants
+    .replace(/\*(.*?)\*/g, '$1')
+    // Listes avec tiret
     .replace(/\n- /g, '<br>• ')
-    .replace(/\n/g, '<br>');
+    // Numérotation → on garde propre
+    .replace(/\n(\d+)\. /g, '<br>$1. ')
+    // Sauts de ligne
+    .replace(/\n/g, '<br>')
+    // Supprimer les emojis
+    .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
+    // Nettoyer espaces doubles après suppression emojis
+    .replace(/  +/g, ' ')
+    .trim();
 }
 
 function showTyping() {
@@ -1182,23 +1336,97 @@ function cycleStatus(el) {
   const current = states.indexOf(el.textContent);
   const next = (current + 1) % 3;
   el.textContent = states[next];
-  el.className = 'stock-status ' + classes[next];
-  const dot = el.parentElement.querySelector('.stock-dot');
+  el.className = 'sstat ' + classes[next];
+  const dot = el.closest('.stock-status').querySelector('.stock-dot');
   dot.className = 'stock-dot ' + dotClasses[next];
 }
 
-// ── COMMANDES ──
-function copyNote() {
-  const note = document.querySelector('.note-textarea').value;
-  const items = [];
-  document.querySelectorAll('.stock-item').forEach(item => {
-    const name = item.querySelector('.stock-name').textContent;
-    const status = item.querySelector('[class*="status-"]').textContent;
-    if (status !== 'OK') items.push(name + ' → ' + status);
+function resetStock() {
+  document.querySelectorAll('.sstat').forEach(el => {
+    el.textContent = 'OK';
+    el.className = 'sstat status-ok';
+    el.closest('.stock-status').querySelector('.stock-dot').className = 'stock-dot ok';
   });
-  const full = (items.length ? 'Stock:\n' + items.join('\n') + '\n\n' : '') + (note ? 'Notes:\n' + note : '');
-  if (!full.trim()) { alert('Rien à copier.'); return; }
-  navigator.clipboard.writeText(full).then(() => alert('Copié !'));
+}
+
+// ── COMMANDES ──
+function switchCommande(name, btn) {
+  document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cmd-stock').style.display = name === 'stock' ? 'block' : 'none';
+  document.getElementById('cmd-commande').style.display = name === 'commande' ? 'block' : 'none';
+  if (name === 'commande') buildPreview();
+}
+
+function buildPreview() {
+  const bySupplier = {};
+  document.querySelectorAll('.stock-item').forEach(item => {
+    const status = item.querySelector('.sstat').textContent;
+    if (status === 'OK') return;
+    const supplier = item.dataset.fournisseur;
+    const product = item.dataset.product;
+    const code = item.dataset.code || '';
+    if (!bySupplier[supplier]) bySupplier[supplier] = [];
+    bySupplier[supplier].push({ product, code, status });
+  });
+
+  const preview = document.getElementById('cmd-preview');
+  if (!Object.keys(bySupplier).length) {
+    preview.innerHTML = '<div class="commandes-intro"><p style="color:var(--green);font-weight:500;">Aucun produit signalé — tout est OK.</p></div>';
+    return;
+  }
+
+  let html = '';
+  for (const [supplier, items] of Object.entries(bySupplier)) {
+    html += `<div class="checklist-group" style="margin-bottom:12px;">
+      <div class="checklist-group-header">
+        <span class="checklist-group-title">${supplier}</span>
+        <span class="badge badge-dark">${items.length} produit${items.length > 1 ? 's' : ''}</span>
+      </div>`;
+    items.forEach(({ product, code, status }) => {
+      const color = status === 'Rupture' ? 'var(--red)' : '#e67e22';
+      html += `<div class="stock-item">
+        <span class="stock-name">${product}${code ? ' <span style="color:var(--text-3);font-size:11px;">#${code}</span>' : ''}</span>
+        <span style="font-size:12px;font-weight:600;color:${color};">${status}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  preview.innerHTML = html;
+}
+
+function genererCommande() {
+  const bySupplier = {};
+  document.querySelectorAll('.stock-item').forEach(item => {
+    const status = item.querySelector('.sstat').textContent;
+    if (status === 'OK') return;
+    const supplier = item.dataset.fournisseur;
+    const product = item.dataset.product;
+    const code = item.dataset.code || '';
+    if (!bySupplier[supplier]) bySupplier[supplier] = [];
+    bySupplier[supplier].push({ product, code, status });
+  });
+
+  const note = document.getElementById('cmd-note').value.trim();
+  const date = new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' });
+
+  if (!Object.keys(bySupplier).length && !note) {
+    alert('Aucun produit signalé à commander.'); return;
+  }
+
+  let text = `BON DE COMMANDE — LE SHAKE\n${date}\n${'─'.repeat(30)}\n\n`;
+  for (const [supplier, items] of Object.entries(bySupplier)) {
+    text += `▸ ${supplier.toUpperCase()}\n`;
+    items.forEach(({ product, code, status }) => {
+      text += `  - ${product}${code ? ' (#' + code + ')' : ''} → ${status}\n`;
+    });
+    text += '\n';
+  }
+  if (note) text += `NOTES:\n${note}\n`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Bon de commande copié ! Tu peux le coller dans WhatsApp ou par mail.');
+  }).catch(() => alert('Erreur lors de la copie.'));
 }
 </script>
 </body>
