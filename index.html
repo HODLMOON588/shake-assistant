@@ -1358,19 +1358,19 @@ textarea::placeholder { color: var(--text-3); }
       <!-- VUE STOCK -->
       <div id="cmd-stock">
 
-        <!-- IBRAHIM -->
+        <!-- CHEF -->
         <div class="checklist-group">
           <div class="checklist-group-header">
-            <span class="checklist-group-title">Ibrahim — Produits frais</span>
+            <span class="checklist-group-title">Chef — Produits frais</span>
             <span class="badge badge-dark">Chef</span>
           </div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Menthe fraîche"><span class="stock-name">Menthe fraîche</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Framboise"><span class="stock-name">Framboise</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Fleurs décoratives"><span class="stock-name">Fleurs décoratives</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Bonbons gingembre"><span class="stock-name">Bonbons gingembre</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Citrons verts"><span class="stock-name">Citrons verts</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Citrons jaunes"><span class="stock-name">Citrons jaunes</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Ibrahim" data-product="Oranges"><span class="stock-name">Oranges</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Menthe fraîche"><span class="stock-name">Menthe fraîche</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Framboise"><span class="stock-name">Framboise</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Fleurs décoratives"><span class="stock-name">Fleurs décoratives</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Bonbons gingembre"><span class="stock-name">Bonbons gingembre</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Citrons verts"><span class="stock-name">Citrons verts</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Citrons jaunes"><span class="stock-name">Citrons jaunes</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
+          <div class="stock-item" data-fournisseur="Chef" data-product="Oranges"><span class="stock-name">Oranges</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
         </div>
 
         <!-- HLS -->
@@ -1604,7 +1604,7 @@ textarea::placeholder { color: var(--text-3); }
       <!-- Onglets Notes / Recettes -->
       <div class="carte-tabs" style="padding:0 0 16px;">
         <button class="carte-tab active" onclick="switchNotes('notes',this)">Notes staff</button>
-        <button class="carte-tab" onclick="switchNotes('recettes',this)">Recettes — Ibrahim</button>
+        <button class="carte-tab" onclick="switchNotes('recettes',this)">Recettes — Chef</button>
       </div>
 
       <!-- NOTES -->
@@ -1627,7 +1627,7 @@ textarea::placeholder { color: var(--text-3); }
             <div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Chargement...</div>
           </div>
           <div style="margin-top:16px;padding:14px;background:var(--bg);border:1.5px dashed var(--border);border-radius:var(--radius);text-align:center;">
-            <div style="font-size:12px;color:var(--text-3);margin-bottom:10px;">Ajouter ou modifier une recette — Ibrahim uniquement</div>
+            <div style="font-size:12px;color:var(--text-3);margin-bottom:10px;">Ajouter ou modifier une recette — Chef uniquement</div>
             <div style="display:flex;gap:8px;justify-content:center;">
               <input type="password" id="chef-pin" placeholder="PIN Chef" style="width:120px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;background:white;">
               <button onclick="unlockChef()" style="padding:8px 16px;background:var(--black);color:white;border:none;border-radius:8px;font-size:13px;font-family:DM Sans,sans-serif;cursor:pointer;">Accéder</button>
@@ -2163,36 +2163,28 @@ function switchCarte(name, btn) {
 }
 
 function copyToClipboard(text) {
-  // Fallback universel — fonctionne sur tous les navigateurs mobiles
   const ta = document.createElement('textarea');
   ta.value = text;
   ta.setAttribute('readonly', '');
-  ta.style.cssText = 'position:absolute;left:-9999px;top:0;';
+  ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;font-size:16px;';
   document.body.appendChild(ta);
-
-  // iOS spécifique
   const range = document.createRange();
   range.selectNodeContents(ta);
   const sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
   ta.setSelectionRange(0, 999999);
-
+  ta.focus();
   let success = false;
-  try {
-    success = document.execCommand('copy');
-  } catch(e) {}
-
+  try { success = document.execCommand('copy'); } catch(e) {}
+  sel.removeAllRanges();
   document.body.removeChild(ta);
-
   if (success) {
     showToast('Copié — colle dans WhatsApp ou mail');
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(text)
-      .then(() => showToast('Copié — colle dans WhatsApp ou mail'))
-      .catch(() => showToast('Copie impossible — essaie depuis Safari'));
   } else {
-    showToast('Copie impossible — essaie depuis Safari');
+    navigator.clipboard?.writeText(text)
+      .then(() => showToast('Copié — colle dans WhatsApp ou mail'))
+      .catch(() => showToast('Appuie longuement pour copier'));
   }
 }
 
