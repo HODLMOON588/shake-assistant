@@ -996,16 +996,18 @@ textarea::placeholder { color: var(--text-3); }
         <!-- BAR -->
         <div class="carte-section" id="carte-cocktails">
           <div class="carte-category">Cocktails Signature — 15€</div>
-          <div class="carte-item"><div><div class="carte-item-name">Le Shake</div><div class="carte-item-sub">Gin Bombay, St Germain, Pêche, Hibiscus</div></div><div class="carte-price">15€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Saint-Germain</div><div class="carte-item-sub">St Germain, Prosecco</div></div><div class="carte-price">15€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Moulin Rouge</div><div class="carte-item-sub">Gin Tanqueray, Cassis, Martini Dry</div></div><div class="carte-price">15€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Belle Normande</div><div class="carte-item-sub">Vodka, Calvados, St Germain</div></div><div class="carte-price">15€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Negroni</div><div class="carte-item-sub">Gin Tanqueray Orange, Grand Marnier, Campari</div></div><div class="carte-price">15€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">L'Exotic</div><div class="carte-item-sub">Rhum, Coco, Passion</div></div><div class="carte-price">15€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Basilic</div><div class="carte-item-sub">Sans alcool possible</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Shake</div><div class="carte-item-sub">Gin Bombay, St Germain, Pêche Blanche, Schweppes Hibiscus</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Saint-Germain</div><div class="carte-item-sub">St Germain, Prosecco, Eau Pétillante</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Moulin Rouge</div><div class="carte-item-sub">Gin Tanqueray Royale, Cassis de Bourgogne, Martini Dry, Sirop de Pomme</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">La Belle Normande</div><div class="carte-item-sub">Vodka, Calvados, St Germain, Soda Water, Pomme Verte</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Negroni</div><div class="carte-item-sub">Gin Tanqueray Orange Séville, Grand Marnier, Campari</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Basilic</div><div class="carte-item-sub">Vodka, Martini Dry, Basilic, Bitter Concombre, Chartreuse Verte — sans alcool possible</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">L'Exotic</div><div class="carte-item-sub">Rhum Bacardi 4Y, Liqueur de Coco, Passion, Falernum, Angostura</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">L'Espresso</div><div class="carte-item-sub">Vodka, Liqueur de Café, Espresso, Vanille</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le French Connexion</div><div class="carte-item-sub">Courvoisier VS, Pineau des Charentes, Liqueur d'Abricot, Bitter Orange</div></div><div class="carte-price">15€</div></div>
           <div class="carte-category">Mocktails — 12€</div>
-          <div class="carte-item"><div><div class="carte-item-name">Gingembre</div></div><div class="carte-price">12€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Esprit Sureau</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Le Gingembre</div><div class="carte-item-sub">Ginger Beer, Citron Vert, Sirop de Gingembre</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">L'Esprit Sureau</div><div class="carte-item-sub">Gin Tanqueray 0%, Martini Floreale 0%, Sirop de Fleur de Sureau, Schweppes White Peach</div></div><div class="carte-price">12€</div></div>
         </div>
 
         <!-- ACCORDS -->
@@ -1501,6 +1503,7 @@ function switchTab(name, btn) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   btn.classList.add('active');
+  if (name === 'notes') onNotesPageOpen();
 }
 
 // ── CHAT ──
@@ -1701,7 +1704,7 @@ function switchNotes(name, btn) {
 }
 
 // ── RECETTES SUPABASE ──
-const CHEF_PIN = '0000'; // Ibrahim change ça depuis l'app
+const CHEF_PIN = '1234';
 
 async function loadRecettes() {
   try {
@@ -1760,10 +1763,11 @@ async function saveRecette() {
   } catch(e) { showToast('Erreur — réessaie'); }
 }
 
-// Charger les notes au démarrage de la page
-document.getElementById('page-notes').addEventListener('transitionend', () => {
-  if (document.getElementById('page-notes').classList.contains('active')) loadNotes();
-});
+// Charger les notes quand on arrive sur la page
+function onNotesPageOpen() {
+  const section = document.getElementById('notes-section');
+  if (section && section.style.display !== 'none') loadNotes();
+}
 
 // ── CARTE ──
 function switchCarte(name, btn) {
