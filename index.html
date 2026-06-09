@@ -2280,37 +2280,44 @@ function buildPreview() {
 }
 
 function genererCommande() {
-  const bySupplier = {};
-  document.querySelectorAll('.stock-item').forEach(item => {
-    const status = item.querySelector('.sstat').textContent;
-    if (status === 'OK') return;
-    const supplier = item.dataset.fournisseur;
-    const product = item.dataset.product;
-    const code = item.dataset.code || '';
-    if (!bySupplier[supplier]) bySupplier[supplier] = [];
-    bySupplier[supplier].push({ product, code, status });
-  });
-
-  const note = document.getElementById('cmd-note').value.trim();
-  const date = new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' });
-  const staff = currentStaff || 'Staff';
-
-  if (!Object.keys(bySupplier).length && !note) {
-    showToast('Aucun produit signalé.'); return;
-  }
-
-  let text = `BON DE COMMANDE — LE SHAKE\n${date} — ${staff}\n${'─'.repeat(32)}\n\n`;
-  for (const [supplier, items] of Object.entries(bySupplier)) {
-    text += `▸ ${supplier.toUpperCase()}\n`;
-    items.forEach(({ product, code, status }) => {
-      text += `  - ${product}${code ? ' (#' + code + ')' : ''} → ${status}\n`;
+  try {
+    const bySupplier = {};
+    document.querySelectorAll('.stock-item').forEach(item => {
+      const sstat = item.querySelector('.sstat');
+      if (!sstat) return;
+      const status = sstat.textContent;
+      if (status === 'OK') return;
+      const supplier = item.dataset.fournisseur;
+      const product = item.dataset.product;
+      const code = item.dataset.code || '';
+      if (!bySupplier[supplier]) bySupplier[supplier] = [];
+      bySupplier[supplier].push({ product, code, status });
     });
-    text += '\n';
-  }
-  if (note) text += `NOTES:\n${note}\n`;
 
-  copyToClipboard(text);
-  envoyerEmailDaniel(text);
+    const noteEl = document.getElementById('cmd-note');
+    const note = noteEl ? noteEl.value.trim() : '';
+    const date = new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' });
+    const staff = currentStaff || 'Staff';
+
+    if (!Object.keys(bySupplier).length && !note) {
+      showToast('Aucun produit signalé.'); return;
+    }
+
+    let text = `BON DE COMMANDE — LE SHAKE\n${date} — ${staff}\n${'─'.repeat(32)}\n\n`;
+    for (const [supplier, items] of Object.entries(bySupplier)) {
+      text += `▸ ${supplier.toUpperCase()}\n`;
+      items.forEach(({ product, code, status }) => {
+        text += `  - ${product}${code ? ' (#' + code + ')' : ''} → ${status}\n`;
+      });
+      text += '\n';
+    }
+    if (note) text += `NOTES:\n${note}\n`;
+
+    copyToClipboard(text);
+    envoyerEmailDaniel(text);
+  } catch(e) {
+    showToast('Erreur: ' + e.message);
+  }
 }
 </script>
 </body>
