@@ -151,8 +151,6 @@ body {
 }
 
 /* Micro-interactions */
-.tab { transition: all .2s ease; }
-.tab.active .tab-icon { transform: scale(1.1); }
 .check-item { transition: background .12s; }
 .check-item.checked { animation: checkPop .2s ease; }
 @keyframes checkPop {
@@ -194,6 +192,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 
 .welcome-card {
@@ -1704,6 +1704,8 @@ textarea::placeholder { color: var(--text-3); }
     </div>
   </div>
 
+</div><!-- end .pages -->
+
 <!-- BOTTOM TABS -->
 <nav class="tabs">
   <button class="tab active" onclick="switchTab('assistant',this)">
@@ -1756,7 +1758,7 @@ textarea::placeholder { color: var(--text-3); }
 </nav>
 
 <script>
-const history = [];
+const chatHistory = [];
 
 // ── STAFF SELECTOR ──
 const STAFF = ['Lloyd','Jeremy','Mateo','Alexander','Mary','Thomas','Victoria','Maxime','Beni'];
@@ -1910,19 +1912,19 @@ async function send() {
   if (!text) return;
   addMsg(text, true);
   inp.value = ''; inp.style.height = 'auto';
-  history.push({ role: 'user', content: text });
+  chatHistory.push({ role: 'user', content: text });
   showTyping();
   try {
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history })
+      body: JSON.stringify({ messages: chatHistory })
     });
     if (!res.ok) throw new Error('Erreur serveur ' + res.status);
     const data = await res.json();
     const reply = data.content?.[0]?.text || 'Réponse vide.';
     document.getElementById('typing')?.remove();
-    history.push({ role: 'assistant', content: reply });
+    chatHistory.push({ role: 'assistant', content: reply });
     addMsg(reply, false);
   } catch(e) {
     document.getElementById('typing')?.remove();
