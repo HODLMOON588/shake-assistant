@@ -88,7 +88,7 @@ app.post("/api/recettes", async (req, res) => {
   if (!titre) return res.status(400).json({ error: "Titre requis" });
   const { data, error } = await supabase
     .from("recettes")
-    .insert([{ titre, description, ingredients, instructions, file_url, created_by: created_by || 'Ibrahim' }])
+    .insert([{ titre, description, ingredients, instructions, file_url, created_by: created_by || 'Chef' }])
     .select();
   if (error) return res.status(500).json({ error: error.message });
   res.json(data[0]);
@@ -251,7 +251,7 @@ Liora → Direction — RH, fiches de paie, contrats, réservations de groupe
 
 MANAGEMENT :
 Lloyd → Manager de salle — ton référent pendant le service
-Ibrahim → Chef de cuisine
+Ibrahim → Chef de cuisine (contact interne uniquement)
 
 RÈGLE :
 - Pendant le service → Lloyd
@@ -301,7 +301,44 @@ PROBLÈMES EN SERVICE :
 - Client mécontent → prévenir Lloyd immédiatement
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-RÉSERVATIONS & GROUPES
+HORAIRES D'OUVERTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Lundi au vendredi : 12h-15h et 18h-22h
+Vendredi soir et samedi soir : jusqu'à 23h
+Samedi : 12h-23h (non-stop)
+Dimanche : 12h-22h (non-stop)
+Ouvert 7j/7.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GARNITURES & CUISSONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GARNITURES PAR PLAT :
+Filet Pur → Frites + Sauce au choix (Poivre Vert, Béarnaise, Choron, Archiduc)
+Côte à l'Os → Frites + Haricots verts + Sauce au choix
+Magret de Canard → Pommes Duchesse
+Rognon → Légumes de saison + Frites
+Onglet → Frites
+Poulet Rôti → Compote + Frites
+Saumon → Riz
+Sole → Purée ou Frites au choix
+Vol-au-Vent → Frites
+Parmentier de Canard → Frites
+Ravioles Cèpes, Linguine Citron, Coquillettes → servis seuls, sans garniture
+
+SAUCES DISPONIBLES : Poivre Vert, Béarnaise, Choron, Archiduc
+
+REMPLACEMENTS GARNITURES :
+Un féculent peut être remplacé par un autre féculent uniquement.
+Options féculents : Frites, Pommes Duchesse, Purée, Riz.
+JAMAIS remplacer un féculent par des légumes ou une salade.
+
+CUISSONS DISPONIBLES : Bleu, Saignant, À point, Bien cuit
+- Filet Pur, Onglet, Côte à l'Os → cuisson au choix du client
+- Magret de Canard → rosé par défaut (ajustable)
+- Rognon → rosé par défaut (ajustable)
+- Tartare de Bœuf → servi froid, pas de cuisson
+- Poissons → pas de cuisson demandée
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 En ligne sur le site ou par téléphone.
 Plus de 8 personnes : choix réduit (4 entrées / 4 plats / 4 desserts) ou menu sur mesure.
@@ -549,9 +586,9 @@ Sauce Choron → Gluten, Œufs, Lait, Fruits à coque, Céleri, Moutarde
 Sauce Archiduc → Gluten, Lait, Fruits à coque, Céleri, Moutarde
 Pommes Duchesse → Œufs
 Purée → Lait
-Pommes Frites → aucun
-Riz → aucun
-Légumes → aucun
+Pommes Frites → cuites dans la graisse de bœuf (non halal, non végétarien)
+Riz → aucun allergène
+Légumes saison → aucun allergène
 
 DESSERTS :
 Dame Blanche → Œufs, Lait, Fruits à coque
@@ -580,7 +617,8 @@ Les plats suivants sont Halal au Shake :
 - Hamburger
 - Filet Pur
 
-Pour toute question Halal d'un client → confirmer avec Ibrahim.
+ATTENTION : Les frites sont cuites dans la graisse de bœuf — elles ne sont donc pas halal et pas végétariennes.
+Pour toute question Halal d'un client → confirmer avec le Chef.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Muscadet sur Lie Genaudières 2023 — v.9€ / 22€ / 38€
 Terra di Nostri Blanc 2024 — v.8€ / 34€
@@ -740,3 +778,4 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
