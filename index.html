@@ -1875,11 +1875,15 @@ checkDailyReset();
 const API = '';
 
 async function loadNotes() {
+  const list = document.getElementById('notes-list');
+  if (!list) return;
   try {
-    const res = await fetch(API + '/api/notes');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const res = await fetch(API + '/api/notes', { signal: controller.signal });
+    clearTimeout(timeout);
     const notes = await res.json();
-    const list = document.getElementById('notes-list');
-    if (!notes.length) {
+    if (!Array.isArray(notes) || !notes.length) {
       list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Aucune note pour l\'équipe</div>';
       return;
     }
@@ -1933,11 +1937,16 @@ function switchNotes(name, btn) {
 const CHEF_PIN = '1234';
 
 async function loadRecettes() {
+  const list = document.getElementById('recettes-list');
+  if (!list) return;
+  list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Chargement...</div>';
   try {
-    const res = await fetch(API + '/api/recettes');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const res = await fetch(API + '/api/recettes', { signal: controller.signal });
+    clearTimeout(timeout);
     const recettes = await res.json();
-    const list = document.getElementById('recettes-list');
-    if (!recettes.length) {
+    if (!Array.isArray(recettes) || !recettes.length) {
       list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Aucune recette enregistrée</div>';
       return;
     }
@@ -1954,7 +1963,7 @@ async function loadRecettes() {
         </div>
       </div>`).join('');
   } catch(e) {
-    document.getElementById('recettes-list').innerHTML = '<div style="color:var(--red);font-size:13px;padding:10px;">Erreur de connexion</div>';
+    list.innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px;text-align:center;">Recettes non disponibles pour l\'instant.</div>';
   }
 }
 
