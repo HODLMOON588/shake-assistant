@@ -377,7 +377,7 @@ BUSINESS LUNCH
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 26€ — Entrée + Plat OU Plat + Dessert
 Lundi au vendredi midi uniquement.
-Menu change chaque lundi → consulter Facebook ou demander à Lloyd.
+Pour connaître le menu du jour → consulter la page Facebook du Shake ou demander au Chef.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COCKTAILS
