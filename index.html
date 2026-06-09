@@ -1582,7 +1582,7 @@ textarea::placeholder { color: var(--text-3); }
           <p>Produits signalés en <strong>Faible</strong> ou <strong>Rupture</strong>, organisés par fournisseur. Appuie sur "Copier" puis colle directement dans WhatsApp ou par mail à Daniel.</p>
         </div>
         <div id="cmd-preview"></div>
-        <button class="action-btn" onclick="genererCommande()">Copier le bon de commande</button>
+        <button class="action-btn" onclick="genererCommande()">Envoyer à Daniel via WhatsApp</button>
         <div class="note-area" style="margin-top:12px;">
           <div class="note-label">Note complémentaire pour Daniel</div>
           <textarea class="note-textarea" id="cmd-note" placeholder="Précisions, quantités spécifiques, urgences..."></textarea>
@@ -1612,11 +1612,8 @@ textarea::placeholder { color: var(--text-3); }
           <div class="note-label">Laisser une note pour l'équipe</div>
           <textarea class="note-textarea" id="new-note-text" placeholder="Ex: frigo bar vide, manque de menthe, table 5 anniversaire ce soir..." style="min-height:70px;"></textarea>
         </div>
-        <button class="action-btn" onclick="postNote()" style="margin-bottom:12px;">Publier la note</button>
-        <button onclick="loadNotes()" style="width:100%;padding:12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-2);cursor:pointer;margin-bottom:16px;">Charger les notes de l'équipe</button>
-        <div id="notes-list">
-          <div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Chargement...</div>
-        </div>
+        <button class="action-btn" onclick="postNote()" style="margin-bottom:16px;">Publier la note</button>
+        <div id="notes-list"></div>
       </div>
 
       <!-- RECETTES -->
@@ -1624,7 +1621,7 @@ textarea::placeholder { color: var(--text-3); }
         <div id="recettes-access">
           <!-- Accès public : lecture seule -->
           <div id="recettes-list">
-            <div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Chargement...</div>
+            <div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Appuie sur "Recettes — Chef" pour voir les recettes</div>
           </div>
           <div style="margin-top:16px;padding:14px;background:var(--bg);border:1.5px dashed var(--border);border-radius:var(--radius);text-align:center;">
             <div style="font-size:12px;color:var(--text-3);margin-bottom:10px;">Ajouter ou modifier une recette — Chef uniquement</div>
@@ -1642,6 +1639,14 @@ textarea::placeholder { color: var(--text-3); }
               <span class="checklist-group-title">Nouvelle recette</span>
             </div>
             <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+              <select id="r-categorie" style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;background:white;color:var(--text);">
+                <option value="">Catégorie *</option>
+                <option value="Entrées">Entrées</option>
+                <option value="Viandes">Viandes</option>
+                <option value="Poissons">Poissons</option>
+                <option value="Garnitures & Sauces">Garnitures & Sauces</option>
+                <option value="Desserts">Desserts</option>
+              </select>
               <input type="text" id="r-titre" placeholder="Titre de la recette *" style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;">
               <div style="border:1.5px dashed var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;" onclick="document.getElementById('r-file').click()">
                 <div style="font-size:13px;color:var(--text-2);margin-bottom:4px;">Photo ou PDF de la recette</div>
@@ -1952,53 +1957,57 @@ checkDailyReset();
 // ── NOTES SUPABASE ──
 const API = '';
 
-async function loadNotes() {
+// ── NOTES — localStorage (pas de Supabase, pas de freeze) ──
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem('shake_notes') || '[]'); } catch(e) { return []; }
+}
+
+function saveNotes(notes) {
+  localStorage.setItem('shake_notes', JSON.stringify(notes));
+}
+
+function loadNotes() {
   const list = document.getElementById('notes-list');
   if (!list) return;
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-    const res = await fetch(API + '/api/notes', { signal: controller.signal });
-    clearTimeout(timeout);
-    const notes = await res.json();
-    if (!Array.isArray(notes) || !notes.length) {
-      list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Aucune note pour l\'équipe</div>';
-      return;
-    }
-    list.innerHTML = notes.map(n => `
-      <div class="checklist-group" style="margin-bottom:10px;">
-        <div style="padding:14px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <span style="font-size:12px;font-weight:600;color:var(--text-2)">${n.staff_name}</span>
-            <span style="font-size:11px;color:var(--text-3)">${new Date(n.created_at).toLocaleDateString('fr-BE',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>
-          </div>
-          <div style="font-size:14px;color:var(--text);line-height:1.5;">${n.message}</div>
-          ${currentStaff === n.staff_name || currentStaff === 'Lloyd' || currentStaff === 'Daniel' ?
-            `<button onclick="deleteNote('${n.id}')" style="margin-top:8px;padding:4px 10px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--text-3);cursor:pointer;">Supprimer</button>` : ''}
-        </div>
-      </div>`).join('');
-  } catch(e) {
-    document.getElementById('notes-list').innerHTML = '<div style="color:var(--red);font-size:13px;padding:10px;">Erreur de connexion</div>';
+  const notes = getNotes();
+  if (!notes.length) {
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Aucune note pour l\'équipe</div>';
+    return;
   }
+  list.innerHTML = notes.slice().reverse().map(n => `
+    <div class="checklist-group" style="margin-bottom:10px;">
+      <div style="padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-size:12px;font-weight:600;color:var(--text-2)">${n.staff_name}</span>
+          <span style="font-size:11px;color:var(--text-3)">${new Date(n.created_at).toLocaleDateString('fr-BE',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>
+        </div>
+        <div style="font-size:14px;color:var(--text);line-height:1.5;">${n.message}</div>
+        <button onclick="deleteNote('${n.id}')" style="margin-top:8px;padding:4px 10px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--text-3);cursor:pointer;">Supprimer</button>
+      </div>
+    </div>`).join('');
 }
 
-async function postNote() {
+function postNote() {
   const text = document.getElementById('new-note-text').value.trim();
   if (!text) { showToast('Écris un message d\'abord'); return; }
-  try {
-    await fetch(API + '/api/notes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ staff_name: currentStaff || 'Staff', message: text })
-    });
-    document.getElementById('new-note-text').value = '';
-    showToast('Note publiée');
-    loadNotes();
-  } catch(e) { showToast('Erreur — réessaie'); }
+  const notes = getNotes();
+  notes.push({
+    id: Date.now().toString(),
+    staff_name: currentStaff || 'Staff',
+    message: text,
+    created_at: new Date().toISOString()
+  });
+  // Garder max 50 notes
+  if (notes.length > 50) notes.splice(0, notes.length - 50);
+  saveNotes(notes);
+  document.getElementById('new-note-text').value = '';
+  showToast('Note publiée');
+  loadNotes();
 }
 
-async function deleteNote(id) {
-  await fetch(API + '/api/notes/' + id, { method: 'DELETE' });
+function deleteNote(id) {
+  const notes = getNotes().filter(n => n.id !== id);
+  saveNotes(notes);
   loadNotes();
 }
 
@@ -2007,51 +2016,60 @@ function switchNotes(name, btn) {
   btn.classList.add('active');
   document.getElementById('notes-section').style.display = name === 'notes' ? 'block' : 'none';
   document.getElementById('recettes-section').style.display = name === 'recettes' ? 'block' : 'none';
+  if (name === 'notes') loadNotes();
 }
 
 function onNotesPageOpen() {
-  // Chargement manuel uniquement
+  loadNotes();
 }
 
 // ── RECETTES SUPABASE ──
 const CHEF_PIN = '1234';
 
-async function loadRecettes() {
+function getRecettes() {
+  try { return JSON.parse(localStorage.getItem('shake_recettes') || '[]'); } catch(e) { return []; }
+}
+
+function saveRecettesLocal(recettes) {
+  localStorage.setItem('shake_recettes', JSON.stringify(recettes));
+}
+
+function loadRecettes() {
   const list = document.getElementById('recettes-list');
   if (!list) return;
-  list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Chargement...</div>';
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-    const res = await fetch(API + '/api/recettes', { signal: controller.signal });
-    clearTimeout(timeout);
-    const recettes = await res.json();
-    if (!Array.isArray(recettes) || !recettes.length) {
-      list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Aucune recette enregistrée</div>';
-      return;
-    }
-    list.innerHTML = recettes.map(r => `
-      <div class="checklist-group" style="margin-bottom:12px;">
-        <div class="checklist-group-header">
-          <span class="checklist-group-title">${r.titre}</span>
-          <span style="font-size:11px;color:var(--text-3)">${new Date(r.created_at).toLocaleDateString('fr-BE')}</span>
-        </div>
-        <div style="padding:14px;">
-          ${r.file_url ? `<div style="margin-bottom:10px;">
-            ${r.file_url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ?
-              `<img src="${r.file_url}" style="width:100%;border-radius:8px;max-height:300px;object-fit:contain;background:#faf9f7;" alt="${r.titre}">` :
-              `<a href="${r.file_url}" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-size:13px;">
-                <span style="font-size:20px;">📄</span> Voir le PDF
-              </a>`
-            }
-          </div>` : ''}
-          ${r.instructions ? `<div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Instructions</div><div style="font-size:13px;color:var(--text);white-space:pre-line;">${r.instructions}</div></div>` : ''}
-          ${r.description ? `<div style="font-size:12px;color:var(--text-2);font-style:italic;">${r.description}</div>` : ''}
-        </div>
-      </div>`).join('');
-  } catch(e) {
-    list.innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px;text-align:center;">Recettes non disponibles pour l\'instant.</div>';
+  const recettes = getRecettes();
+  if (!recettes.length) {
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Aucune recette enregistrée</div>';
+    return;
   }
+  // Grouper par catégorie
+  const cats = {};
+  recettes.forEach(r => {
+    const cat = r.categorie || 'Divers';
+    if (!cats[cat]) cats[cat] = [];
+    cats[cat].push(r);
+  });
+  list.innerHTML = Object.entries(cats).map(([cat, items]) => `
+    <div style="margin-bottom:20px;">
+      <div class="carte-category">${cat}</div>
+      ${items.map(r => `
+        <div class="checklist-group" style="margin-bottom:10px;">
+          <div class="checklist-group-header">
+            <span class="checklist-group-title">${r.titre}</span>
+            <span style="font-size:11px;color:var(--text-3)">${new Date(r.created_at).toLocaleDateString('fr-BE')}</span>
+          </div>
+          <div style="padding:14px;">
+            ${r.file_url ? `<div style="margin-bottom:10px;">
+              ${r.file_url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ?
+                `<img src="${r.file_url}" style="width:100%;border-radius:8px;max-height:300px;object-fit:contain;background:#faf9f7;">` :
+                `<a href="${r.file_url}" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-size:13px;">📄 Voir le PDF</a>`
+              }</div>` : ''}
+            ${r.ingredients ? `<div style="margin-bottom:8px;"><div style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Ingrédients</div><div style="font-size:13px;color:var(--text);white-space:pre-line;">${r.ingredients}</div></div>` : ''}
+            ${r.instructions ? `<div style="margin-bottom:8px;"><div style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Instructions</div><div style="font-size:13px;color:var(--text);white-space:pre-line;">${r.instructions}</div></div>` : ''}
+            ${r.description ? `<div style="font-size:12px;color:var(--text-2);font-style:italic;">${r.description}</div>` : ''}
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
 }
 
 function unlockChef() {
@@ -2073,9 +2091,11 @@ function onFileSelected(input) {
   }
 }
 
-async function saveRecette() {
+function saveRecette() {
   const titre = document.getElementById('r-titre').value.trim();
+  const categorie = document.getElementById('r-categorie').value;
   if (!titre) { showToast('Titre requis'); return; }
+  if (!categorie) { showToast('Choisis une catégorie'); return; }
 
   const btn = document.getElementById('save-recette-btn');
   btn.textContent = 'Sauvegarde...';
@@ -2084,55 +2104,42 @@ async function saveRecette() {
   const ingredients = document.getElementById('r-ingredients').value.trim();
   const instructions = document.getElementById('r-instructions').value.trim();
   const description = document.getElementById('r-description').value.trim();
-  let file_url = null;
 
-  // Upload fichier vers Supabase Storage
+  // Si fichier sélectionné → convertir en base64 pour localStorage
   if (selectedFile) {
-    try {
-      const SUPABASE_URL = 'https://ohudqbiquyybwbnmxxjp.supabase.co';
-      const SUPABASE_KEY = 'sb_publishable_Kx9EHStSauHeRofXspg01Q_SHguVQHQ';
-      const fileName = Date.now() + '_' + selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/recettes/${fileName}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': selectedFile.type,
-          'x-upsert': 'true'
-        },
-        body: selectedFile
-      });
-      if (uploadRes.ok) {
-        file_url = `${SUPABASE_URL}/storage/v1/object/public/recettes/${fileName}`;
-      }
-    } catch(e) { console.log('Upload error:', e); }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      saveRecetteToLocal(titre, categorie, ingredients, instructions, description, e.target.result);
+      btn.textContent = 'Sauvegarder la recette';
+      btn.disabled = false;
+    };
+    reader.readAsDataURL(selectedFile);
+  } else {
+    saveRecetteToLocal(titre, categorie, ingredients, instructions, description, null);
+    btn.textContent = 'Sauvegarder la recette';
+    btn.disabled = false;
   }
-
-  try {
-    await fetch(API + '/api/recettes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ titre, ingredients, instructions, description, file_url, created_by: 'Chef' })
-    });
-    document.getElementById('r-titre').value = '';
-    document.getElementById('r-ingredients').value = '';
-    document.getElementById('r-instructions').value = '';
-    document.getElementById('r-description').value = '';
-    document.getElementById('r-file-name').textContent = '';
-    document.getElementById('r-file').value = '';
-    selectedFile = null;
-    showToast('Recette sauvegardée');
-    loadRecettes();
-  } catch(e) {
-    showToast('Erreur — réessaie');
-  }
-
-  btn.textContent = 'Sauvegarder la recette';
-  btn.disabled = false;
 }
 
-// Charger les notes quand on arrive sur la page
-function onNotesPageOpen() {
-  // Chargement manuel uniquement
+function saveRecetteToLocal(titre, categorie, ingredients, instructions, description, file_url) {
+  const recettes = getRecettes();
+  recettes.push({
+    id: Date.now().toString(),
+    titre, categorie, ingredients, instructions, description, file_url,
+    created_at: new Date().toISOString(),
+    created_by: 'Chef'
+  });
+  saveRecettesLocal(recettes);
+  document.getElementById('r-titre').value = '';
+  document.getElementById('r-categorie').value = '';
+  document.getElementById('r-ingredients').value = '';
+  document.getElementById('r-instructions').value = '';
+  document.getElementById('r-description').value = '';
+  document.getElementById('r-file-name').textContent = '';
+  document.getElementById('r-file').value = '';
+  selectedFile = null;
+  showToast('Recette sauvegardée');
+  loadRecettes();
 }
 
 // ── CARTE ──
@@ -2202,32 +2209,12 @@ function showToast(msg) {
   setTimeout(() => t.style.opacity = '0', 2000);
 }
 
-// ── EMAILJS ──
-let emailjsReady = false;
-
+// ── WHATSAPP DANIEL ──
 function envoyerEmailDaniel(text) {
-  if (!emailjsReady) {
-    console.log('EmailJS pas encore chargé');
-    return;
-  }
-  emailjs.send("service_i0ivawe", "template_anz16h6", {
-    from_name: currentStaff || "Staff",
-    message: text,
-    date: new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' })
-  }).then(() => showToast('Email envoyé à Daniel'))
-    .catch(e => console.log('Email erreur:', e));
+  const numero = '32484745125';
+  const message = encodeURIComponent(text);
+  window.open(`https://wa.me/${numero}?text=${message}`, '_blank');
 }
-
-(function() {
-  const s = document.createElement('script');
-  s.src = 'https://cdn.emailjs.com/dist/email.min.js';
-  s.async = true;
-  s.onload = () => {
-    emailjs.init("6ToWuk7MovOxqFBxH");
-    emailjsReady = true;
-  };
-  document.body.appendChild(s);
-})();
 const states = ['OK','Faible','Rupture'];
 const classes = ['status-ok','status-low','status-out'];
 const dotClasses = ['ok','low','out'];
