@@ -6,6 +6,7 @@
 <title>Le Shake</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <style>
 :root {
   --bg: #f9f8f6;
@@ -658,10 +659,10 @@ textarea::placeholder { color: var(--text-3); }
 <header class="header">
   <div class="header-logo">Le <span>Shake</span></div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
-    <button id="staff-btn" onclick="showStaffPicker()" style="background:transparent;border:1.5px solid var(--border);border-radius:20px;padding:4px 12px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--text-2);cursor:pointer;">
-      <span id="header-name">Qui es-tu ?</span>
-    </button>
     <div class="status-dot"></div>
+    <button id="staff-btn" onclick="showStaffPicker()" style="background:transparent;border:none;padding:4px 8px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text-3);cursor:pointer;">
+      <span id="header-name">●</span>
+    </button>
   </div>
 </header>
 
@@ -847,6 +848,7 @@ textarea::placeholder { color: var(--text-3); }
             <span class="checklist-group-title">Avant service (midi & soir)</span>
             <span class="checklist-progress" id="prog-bm-avant">0 / 10</span>
           </div>
+          <div class="check-item" onclick="toggle(this,'bm-avant')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Fruits frais mis au frais (citrons verts, oranges, framboises)</span></div>
           <div class="check-item" onclick="toggle(this,'bm-avant')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Frigos remplis</span></div>
           <div class="check-item" onclick="toggle(this,'bm-avant')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Vins remplis</span></div>
           <div class="check-item" onclick="toggle(this,'bm-avant')"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Prébatchs manquants faits</span></div>
@@ -1640,13 +1642,19 @@ textarea::placeholder { color: var(--text-3); }
               <span class="checklist-group-title">Nouvelle recette</span>
             </div>
             <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
-              <input type="text" id="r-titre" placeholder="Titre de la recette *" style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;">
-              <textarea id="r-ingredients" placeholder="Ingrédients et quantités..." style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;min-height:80px;resize:none;"></textarea>
-              <textarea id="r-instructions" placeholder="Instructions pas à pas..." style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;min-height:100px;resize:none;"></textarea>
-              <textarea id="r-description" placeholder="Notes du chef (optionnel)..." style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;min-height:60px;resize:none;"></textarea>
+              <input type="text" id="r-titre" placeholder="Titre de la recette *" style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;">
+              <div style="border:1.5px dashed var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;" onclick="document.getElementById('r-file').click()">
+                <div style="font-size:13px;color:var(--text-2);margin-bottom:4px;">Photo ou PDF de la recette</div>
+                <div style="font-size:11px;color:var(--text-3);">Appuie pour sélectionner</div>
+                <div id="r-file-name" style="font-size:12px;color:var(--gold);margin-top:6px;"></div>
+              </div>
+              <input type="file" id="r-file" accept="image/*,.pdf" style="display:none;" onchange="onFileSelected(this)">
+              <textarea id="r-ingredients" placeholder="Ingrédients (optionnel si photo/PDF)..." style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;min-height:60px;resize:none;"></textarea>
+              <textarea id="r-instructions" placeholder="Instructions (optionnel si photo/PDF)..." style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;min-height:60px;resize:none;"></textarea>
+              <textarea id="r-description" placeholder="Notes du Chef (optionnel)..." style="padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;min-height:50px;resize:none;"></textarea>
             </div>
           </div>
-          <button class="action-btn" onclick="saveRecette()">Sauvegarder la recette</button>
+          <button class="action-btn" id="save-recette-btn" onclick="saveRecette()">Sauvegarder la recette</button>
         </div>
       </div>
 
@@ -1713,7 +1721,7 @@ let currentStaff = localStorage.getItem('shake_staff') || null;
 
 function initStaff() {
   if (currentStaff) {
-    document.getElementById('header-name').textContent = currentStaff;
+    document.getElementById('header-name').textContent = currentStaff.substring(0,2).toUpperCase();
   }
 }
 
@@ -1729,7 +1737,7 @@ function showStaffPicker() {
 function selectStaff(name) {
   currentStaff = name;
   localStorage.setItem('shake_staff', name);
-  document.getElementById('header-name').textContent = name;
+  document.getElementById('header-name').textContent = name.substring(0,2).toUpperCase();
   document.getElementById('staff-modal').style.display = 'none';
 }
 
@@ -1889,7 +1897,7 @@ const clGroups = {
   'sv-15h':        3,
   'sv-18h':        6,
   'sv-fermeture':  7,
-  'bm-avant':      10,
+  'bm-avant':      11,
   'bm-cloture':    12
 };
 const clCounts = {};
@@ -2027,7 +2035,14 @@ async function loadRecettes() {
           <span style="font-size:11px;color:var(--text-3)">${new Date(r.created_at).toLocaleDateString('fr-BE')}</span>
         </div>
         <div style="padding:14px;">
-          ${r.ingredients ? `<div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Ingrédients</div><div style="font-size:13px;color:var(--text);white-space:pre-line;">${r.ingredients}</div></div>` : ''}
+          ${r.file_url ? `<div style="margin-bottom:10px;">
+            ${r.file_url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ?
+              `<img src="${r.file_url}" style="width:100%;border-radius:8px;max-height:300px;object-fit:contain;background:#faf9f7;" alt="${r.titre}">` :
+              `<a href="${r.file_url}" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-size:13px;">
+                <span style="font-size:20px;">📄</span> Voir le PDF
+              </a>`
+            }
+          </div>` : ''}
           ${r.instructions ? `<div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Instructions</div><div style="font-size:13px;color:var(--text);white-space:pre-line;">${r.instructions}</div></div>` : ''}
           ${r.description ? `<div style="font-size:12px;color:var(--text-2);font-style:italic;">${r.description}</div>` : ''}
         </div>
@@ -2047,25 +2062,70 @@ function unlockChef() {
   }
 }
 
+let selectedFile = null;
+
+function onFileSelected(input) {
+  selectedFile = input.files[0];
+  if (selectedFile) {
+    document.getElementById('r-file-name').textContent = selectedFile.name;
+  }
+}
+
 async function saveRecette() {
   const titre = document.getElementById('r-titre').value.trim();
   if (!titre) { showToast('Titre requis'); return; }
+
+  const btn = document.getElementById('save-recette-btn');
+  btn.textContent = 'Sauvegarde...';
+  btn.disabled = true;
+
   const ingredients = document.getElementById('r-ingredients').value.trim();
   const instructions = document.getElementById('r-instructions').value.trim();
   const description = document.getElementById('r-description').value.trim();
+  let file_url = null;
+
+  // Upload fichier vers Supabase Storage
+  if (selectedFile) {
+    try {
+      const SUPABASE_URL = 'https://ohudqbiquyybwbnmxxjp.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_Kx9EHStSauHeRofXspg01Q_SHguVQHQ';
+      const fileName = Date.now() + '_' + selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/recettes/${fileName}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': selectedFile.type,
+          'x-upsert': 'true'
+        },
+        body: selectedFile
+      });
+      if (uploadRes.ok) {
+        file_url = `${SUPABASE_URL}/storage/v1/object/public/recettes/${fileName}`;
+      }
+    } catch(e) { console.log('Upload error:', e); }
+  }
+
   try {
     await fetch(API + '/api/recettes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ titre, ingredients, instructions, description, created_by: 'Ibrahim' })
+      body: JSON.stringify({ titre, ingredients, instructions, description, file_url, created_by: 'Chef' })
     });
     document.getElementById('r-titre').value = '';
     document.getElementById('r-ingredients').value = '';
     document.getElementById('r-instructions').value = '';
     document.getElementById('r-description').value = '';
+    document.getElementById('r-file-name').textContent = '';
+    document.getElementById('r-file').value = '';
+    selectedFile = null;
     showToast('Recette sauvegardée');
     loadRecettes();
-  } catch(e) { showToast('Erreur — réessaie'); }
+  } catch(e) {
+    showToast('Erreur — réessaie');
+  }
+
+  btn.textContent = 'Sauvegarder la recette';
+  btn.disabled = false;
 }
 
 // Charger les notes quand on arrive sur la page
@@ -2149,7 +2209,17 @@ function showToast(msg) {
   setTimeout(() => t.style.opacity = '0', 2000);
 }
 
-// ── STOCK ──
+// ── EMAILJS ──
+emailjs.init("6ToWuk7MovOxqFBxH");
+
+function envoyerEmailDaniel(text) {
+  emailjs.send("service_i0ivawe", "template_anz16h6", {
+    from_name: currentStaff || "Staff",
+    message: text,
+    date: new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' })
+  }).then(() => showToast('Bon de commande envoyé à Daniel'))
+    .catch(() => showToast('Copié — email non envoyé'));
+}
 const states = ['OK','Faible','Rupture'];
 const classes = ['status-ok','status-low','status-out'];
 const dotClasses = ['ok','low','out'];
@@ -2248,6 +2318,7 @@ function genererCommande() {
   if (note) text += `NOTES:\n${note}\n`;
 
   copyToClipboard(text);
+  envoyerEmailDaniel(text);
 }
 </script>
 </body>
