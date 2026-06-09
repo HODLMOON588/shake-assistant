@@ -883,7 +883,8 @@ textarea::placeholder { color: var(--text-3); }
         <button class="carte-tab" onclick="switchCarte('plats',this)">Plats</button>
         <button class="carte-tab" onclick="switchCarte('desserts',this)">Desserts</button>
         <button class="carte-tab" onclick="switchCarte('vins',this)">Vins</button>
-        <button class="carte-tab" onclick="switchCarte('cocktails',this)">Bar</button>
+        <button class="carte-tab" onclick="switchCarte('cocktails',this)">Cocktails</button>
+        <button class="carte-tab" onclick="switchCarte('prebatch',this)">Prébatchs</button>
         <button class="carte-tab" onclick="switchCarte('accords',this)">Accords</button>
       </div>
 
@@ -1010,7 +1011,232 @@ textarea::placeholder { color: var(--text-3); }
           <div class="carte-item"><div><div class="carte-item-name">L'Esprit Sureau</div><div class="carte-item-sub">Gin Tanqueray 0%, Martini Floreale 0%, Sirop de Fleur de Sureau, Schweppes White Peach</div></div><div class="carte-price">12€</div></div>
         </div>
 
-        <!-- ACCORDS -->
+        <!-- PRÉBATCHS -->
+        <div class="carte-section" id="carte-prebatch">
+
+          <style>
+            .prebatch-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
+            .prebatch-img { width: 100%; height: 200px; object-fit: contain; background: #faf9f7; padding: 16px; }
+            .prebatch-body { padding: 16px; }
+            .prebatch-name { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); margin-bottom: 2px; }
+            .prebatch-price { font-size: 12px; color: var(--text-3); margin-bottom: 14px; }
+            .prebatch-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); margin-bottom: 8px; margin-top: 12px; }
+            .prebatch-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+            .prebatch-row:last-child { border-bottom: none; }
+            .prebatch-ingredient { color: var(--text); }
+            .prebatch-qty { color: var(--text-2); font-weight: 500; }
+            .prebatch-note { font-size: 12px; color: var(--text-2); font-style: italic; line-height: 1.5; margin-top: 10px; background: var(--bg); padding: 10px; border-radius: 8px; }
+            .prebatch-doseur { display: inline-block; background: var(--gold-light); color: var(--gold); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 8px; }
+            .mocktail-badge { display: inline-block; background: #e8f5e9; color: #2d7a4f; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-left: 6px; }
+          </style>
+
+          <!-- LE SHAKE -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/shake.jpeg.jpg" alt="Le Shake" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le Shake</div>
+              <div class="prebatch-price">15€ — Spritz</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Bombay Sapphire</span><span class="prebatch-qty">350ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">St Germain</span><span class="prebatch-qty">200ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Belsazar Rosé</span><span class="prebatch-qty">150ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Pêche</span><span class="prebatch-qty">100ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">200ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">100ml (doseur)</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Schweppes Hibiscus</span><span class="prebatch-qty">80ml</span></div>
+              <div class="prebatch-note">Diluer dans le Shake directement, terminer par le Schweppes dans le verre. Finition : framboise écrasée sur le verre + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- LE SAINT-GERMAIN -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/saint-germain.jpeg.jpg" alt="Le Saint-Germain" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le Saint-Germain</div>
+              <div class="prebatch-price">15€ — Spritz</div>
+              <div class="prebatch-section-label">À l'envoi (pas de prébatch)</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">St Germain</span><span class="prebatch-qty">50ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Eau pétillante</span><span class="prebatch-qty">60ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Prosecco</span><span class="prebatch-qty">60ml</span></div>
+              <div class="prebatch-note">Diluer dans le verre directement. Finition : zeste de citron + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- LE MOULIN ROUGE -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/moulin-rouge.jpeg.jpg" alt="Le Moulin Rouge" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le Moulin Rouge</div>
+              <div class="prebatch-price">15€ — Signature</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Tanqueray Royale</span><span class="prebatch-qty">390ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Crème de Cassis</span><span class="prebatch-qty">45ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Dry Vermouth</span><span class="prebatch-qty">170ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop Pomme Verte</span><span class="prebatch-qty">90ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">130ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Chardonnay</span><span class="prebatch-qty">170ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Peychaud (dash)</span><span class="prebatch-qty">10ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">115ml (doseur)</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : pique et une myrtille.</div>
+            </div>
+          </div>
+
+          <!-- LA BELLE NORMANDE -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/belle-normande.jpeg.jpg" alt="La Belle Normande" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">La Belle Normande</div>
+              <div class="prebatch-price">15€ — Signature</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Vodka Eristoff</span><span class="prebatch-qty">335ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Calvados</span><span class="prebatch-qty">225ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Pomme</span><span class="prebatch-qty">110ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">St Germain</span><span class="prebatch-qty">170ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">170ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">90ml (doseur)</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Eau pétillante</span><span class="prebatch-qty">80ml</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : pique et tranche de pomme verte + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- LE NEGRONI -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/negroni.jpeg.jpg" alt="Le Negroni" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le Negroni</div>
+              <div class="prebatch-price">15€ — Signature</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Tanqueray Orange</span><span class="prebatch-qty">265ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Grand Marnier</span><span class="prebatch-qty">160ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Campari</span><span class="prebatch-qty">315ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Belsazar Rouge</span><span class="prebatch-qty">260ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">95ml (doseur)</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : tranche d'orange + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- LE BASILIC -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/basilic.jpeg.jpg" alt="Le Basilic" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le Basilic</div>
+              <div class="prebatch-price">15€ — Signature (sans alcool possible)</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L (avec alcool)</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Vodka Eristoff</span><span class="prebatch-qty">380ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Dry Vermouth</span><span class="prebatch-qty">140ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Chartreuse Verte</span><span class="prebatch-qty">95ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sucre</span><span class="prebatch-qty">190ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">185ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Bitter Concombre</span><span class="prebatch-qty">15ml</span></div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L (sans alcool)</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Gin 0%</span><span class="prebatch-qty">350ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Martini 0%</span><span class="prebatch-qty">175ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Chardonnay 0%</span><span class="prebatch-qty">175ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Concombre</span><span class="prebatch-qty">125ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">175ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">110ml (doseur)</span></div>
+              <div class="prebatch-note">Dans le Shake : mettre 8 feuilles de basilic + préparation + diluer avec 4/5 glaçons. Finition : 1 feuille de basilic + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- L'EXOTIC -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/exotic.jpeg.jpg" alt="L'Exotic" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">L'Exotic</div>
+              <div class="prebatch-price">15€ — Signature</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Bacardi 4Y</span><span class="prebatch-qty">445ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Liqueur de Coco</span><span class="prebatch-qty">200ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Falernum</span><span class="prebatch-qty">100ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">145ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">90ml (doseur)</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Purée de Passion</span><span class="prebatch-qty">10ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Angostura</span><span class="prebatch-qty">3 aller-retour</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : 1 feuille de menthe, poudre de coco et petites pailles.</div>
+            </div>
+          </div>
+
+          <!-- L'ESPRESSO -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/espresso.jpeg.jpg" alt="L'Espresso" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">L'Espresso</div>
+              <div class="prebatch-price">15€ — Sweet Touch</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Vodka Eristoff</span><span class="prebatch-qty">535ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Liqueur de Café</span><span class="prebatch-qty">265ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Vanille</span><span class="prebatch-qty">200ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">75ml (doseur)</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Espresso</span><span class="prebatch-qty">1 shot</span></div>
+              <div class="prebatch-note">Shake avec 4/5 glaçons. Finition : 3 grains de café au centre du verre.</div>
+            </div>
+          </div>
+
+          <!-- LE FRENCH CONNEXION -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/french-connexion.jpeg.jpg" alt="Le French Connexion" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le French Connexion</div>
+              <div class="prebatch-price">15€ — Sweet Touch</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Cognac Courvoisier</span><span class="prebatch-qty">550ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Liqueur d'Abricot</span><span class="prebatch-qty">275ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Pineau des Charentes</span><span class="prebatch-qty">135ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Angostura</span><span class="prebatch-qty">15ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Bitter Orange</span><span class="prebatch-qty">15ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Peychaud</span><span class="prebatch-qty">15ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">70ml (doseur)</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : zeste d'orange + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- L'ESPRIT SUREAU -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/sureau.jpeg.jpg" alt="L'Esprit Sureau" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">L'Esprit Sureau <span class="mocktail-badge">Mocktail</span></div>
+              <div class="prebatch-price">12€</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Gin NA</span><span class="prebatch-qty">365ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Martini Floreale</span><span class="prebatch-qty">275ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop Fleur de Sureau</span><span class="prebatch-qty">180ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">180ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">110ml (doseur)</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Schweppes Peach Elderflower</span><span class="prebatch-qty">90ml</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : fleur comestible + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+          <!-- LE GINGEMBRE -->
+          <div class="prebatch-card">
+            <img class="prebatch-img" src="/gingembre.jpeg.jpg" alt="Le Gingembre" onerror="this.style.display='none'">
+            <div class="prebatch-body">
+              <div class="prebatch-name">Le Gingembre <span class="mocktail-badge">Mocktail</span></div>
+              <div class="prebatch-price">12€</div>
+              <div class="prebatch-section-label">Mise en place — Batch 1L</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Gin 0%</span><span class="prebatch-qty">380ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Falernum</span><span class="prebatch-qty">95ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Sirop de Gingembre</span><span class="prebatch-qty">95ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Supasawa</span><span class="prebatch-qty">143ml</span></div>
+              <div class="prebatch-section-label">À l'envoi</div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Batch</span><span class="prebatch-qty">75ml (doseur)</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Gili</span><span class="prebatch-qty">30ml</span></div>
+              <div class="prebatch-row"><span class="prebatch-ingredient">Schweppes Ginger Ale</span><span class="prebatch-qty">100ml</span></div>
+              <div class="prebatch-note">Diluer dans le Shake avec 4/5 glaçons. Finition : pique et deux gingembres + 5/6 glaçons.</div>
+            </div>
+          </div>
+
+        </div>
         <div class="carte-section" id="carte-accords">
           <div class="carte-category">Accords Mets & Vins</div>
           <div class="accord-item"><div class="accord-plat">Magret de Canard</div><div class="accord-vins">Château Patache d'Aux (Médoc), Chagual Cabernet BIO Lafite, Enate Crianza</div></div>
