@@ -195,18 +195,20 @@ body {
 
 .quick-btn {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 13px;
+  padding: 12px 12px;
+  font-size: 12px;
   color: #d4cfc7;
   cursor: pointer;
   text-align: left;
   transition: all .15s;
   font-family: 'DM Sans', sans-serif;
+  line-height: 1.3;
 }
 
 .quick-btn:hover, .quick-btn:active {
@@ -216,9 +218,10 @@ body {
 }
 
 .quick-btn-arrow {
-  margin-left: auto;
+  margin-top: auto;
   color: #5a5650;
   font-size: 14px;
+  align-self: flex-end;
 }
 
 .msg { display: flex; gap: 8px; animation: fadeUp .25s ease; }
@@ -643,17 +646,23 @@ textarea::placeholder { color: var(--text-3); }
 </head>
 <body>
 
-<!-- STAFF SELECTOR -->
-<div id="staff-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;justify-content:center;padding:32px 24px;">
-  <div style="font-family:'Instrument Serif',serif;font-size:28px;color:var(--black);margin-bottom:6px;">Le <span style="color:var(--gold)">Shake</span></div>
-  <div style="font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:32px;">Qui es-tu ?</div>
-  <div id="staff-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+<!-- STAFF MODAL -->
+<div id="staff-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;align-items:flex-end;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:var(--white);border-radius:20px 20px 0 0;padding:20px 16px 32px;width:100%;max-width:500px;margin:0 auto;">
+    <div style="font-size:13px;font-weight:600;color:var(--text-2);text-align:center;margin-bottom:16px;text-transform:uppercase;letter-spacing:.06em;">Qui es-tu ?</div>
+    <div id="staff-list" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+  </div>
 </div>
 
-
+<!-- HEADER -->
+<header class="header">
   <div class="header-logo">Le <span>Shake</span></div>
-  <div class="header-subtitle" id="header-name">Staff</div>
-  <div class="status-dot"></div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+    <button id="staff-btn" onclick="showStaffPicker()" style="background:transparent;border:1.5px solid var(--border);border-radius:20px;padding:4px 12px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--text-2);cursor:pointer;">
+      <span id="header-name">Qui es-tu ?</span>
+    </button>
+    <div class="status-dot"></div>
+  </div>
 </header>
 
 <!-- PAGES -->
@@ -665,8 +674,8 @@ textarea::placeholder { color: var(--text-3); }
       <div class="chat-messages" id="chat">
         <div class="welcome-card">
           <h2>Bonjour,<br><em>comment puis-je aider ?</em></h2>
-          <p id="welcome-sub">Pose-moi n'importe quelle question sur les procédures, la carte, les vins ou les règles du Shake.</p>
-          <div class="quick-btns" id="quick-btns"></div>
+          <p id="welcome-sub">Que puis-je faire pour toi ?</p>
+          <div id="quick-btns" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;"></div>
         </div>
       </div>
       <div class="chat-input-area">
@@ -878,14 +887,26 @@ textarea::placeholder { color: var(--text-3); }
   <!-- ── PAGE 3: CARTE & VINS ── -->
   <div class="page" id="page-carte">
     <div class="carte-page-wrap">
-      <div class="carte-tabs">
+      <!-- Onglets principaux -->
+      <div style="display:flex;gap:8px;padding:14px 14px 0;flex-shrink:0;">
+        <button id="main-tab-cuisine" onclick="switchMainCarte('cuisine')" style="flex:1;padding:9px;background:var(--black);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Cuisine</button>
+        <button id="main-tab-bar" onclick="switchMainCarte('bar')" style="flex:1;padding:9px;background:var(--bg);color:var(--text-2);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Bar</button>
+      </div>
+
+      <!-- Sous-onglets Cuisine -->
+      <div id="sub-cuisine" class="carte-tabs" style="padding-top:10px;">
         <button class="carte-tab active" onclick="switchCarte('entrees',this)">Entrées</button>
         <button class="carte-tab" onclick="switchCarte('plats',this)">Plats</button>
         <button class="carte-tab" onclick="switchCarte('desserts',this)">Desserts</button>
-        <button class="carte-tab" onclick="switchCarte('vins',this)">Vins</button>
-        <button class="carte-tab" onclick="switchCarte('cocktails',this)">Cocktails</button>
-        <button class="carte-tab" onclick="switchCarte('prebatch',this)">Prébatchs</button>
         <button class="carte-tab" onclick="switchCarte('accords',this)">Accords</button>
+      </div>
+
+      <!-- Sous-onglets Bar -->
+      <div id="sub-bar" class="carte-tabs" style="padding-top:10px;display:none;">
+        <button class="carte-tab active" onclick="switchCarte('cocktails',this)">Cocktails</button>
+        <button class="carte-tab" onclick="switchCarte('prebatch',this)">Prébatchs</button>
+        <button class="carte-tab" onclick="switchCarte('vins',this)">Vins</button>
+        <button class="carte-tab" onclick="switchCarte('boissons',this)">Boissons</button>
       </div>
 
       <div class="carte-scroll">
@@ -1255,11 +1276,72 @@ textarea::placeholder { color: var(--text-3); }
           <div class="accord-item"><div class="accord-plat">Raviole Cèpes / Coquillettes</div><div class="accord-vins">Côtes du Rhône Blanc Artésis, Viognier Gérard Bertrand</div></div>
           <div class="accord-item"><div class="accord-plat">Carpaccio de Bœuf</div><div class="accord-vins">Pinot Noir E.Boeckel, Terra di Nostri Rouge</div></div>
         </div>
+
+        <!-- BOISSONS -->
+        <div class="carte-section" id="carte-boissons">
+          <div class="carte-category">Apéritifs</div>
+          <div class="carte-item"><div><div class="carte-item-name">Kir</div></div><div class="carte-price">10€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Kir Royal</div></div><div class="carte-price">14€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Aperol Spritz</div></div><div class="carte-price">13€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Virgin Martini Spritz 0%</div></div><div class="carte-price">10€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Martini Rouge / Blanc / Dry</div></div><div class="carte-price">8€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Ricard</div></div><div class="carte-price">9€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Campari / Campari Orange</div></div><div class="carte-price">9 / 12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Porto Rouge / Blanc</div></div><div class="carte-price">9€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Pineau des Charentes</div></div><div class="carte-price">9€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Picon Bière / Vin Blanc</div></div><div class="carte-price">10 / 12€</div></div>
+          <div class="carte-category">Spiritueux (+3€ soft)</div>
+          <div class="carte-item"><div><div class="carte-item-name">Bacardi Carta Blanca / Oro</div></div><div class="carte-price">10€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Bacardi Brun 4Y</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Vodka Eristoff</div></div><div class="carte-price">10€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Vodka Grey Goose</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Gin Bombay Sapphire (tonic inclus)</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Gin Hendrick's (tonic inclus)</div></div><div class="carte-price">16€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Gin Copperhead (tonic inclus)</div></div><div class="carte-price">17€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Gin Tanqueray 0% (tonic inclus)</div></div><div class="carte-price">14€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">J&B / Jack Daniel's</div></div><div class="carte-price">10 / 11€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Glenfiddich 12Y</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Tequila Patron Silver</div></div><div class="carte-price">10€</div></div>
+          <div class="carte-category">Bières Pression</div>
+          <div class="carte-item"><div><div class="carte-item-name">Stella Artois 25cl / 33cl / 50cl</div></div><div class="carte-price">4 / 5,5 / 7€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Leffe Blonde 33cl</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Hoegaarden Blanche 33cl / 50cl</div></div><div class="carte-price">6 / 9€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Triple Karmeliet 33cl</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-category">Bières Bouteilles</div>
+          <div class="carte-item"><div><div class="carte-item-name">Brugse Zot / Chimay Bleue / Duvel</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Carlsberg / Leffe Brune</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Stella 0% / Kriek Liefmans / 0%</div></div><div class="carte-price">5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Orval</div></div><div class="carte-price">7,5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">St Hubertus Blonde / Blanche / Ambrée</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-category">Softs</div>
+          <div class="carte-item"><div><div class="carte-item-name">Chaudfontaine plate / pétillante 25cl</div></div><div class="carte-price">4€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Chaudfontaine plate / pétillante 50cl</div></div><div class="carte-price">6,5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Coca / Zero / Fanta / Sprite</div></div><div class="carte-price">4€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Fuze Tea / Pêche</div></div><div class="carte-price">4€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Minute Maid (orange / pomme / tomate / multifruit)</div></div><div class="carte-price">4€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Jus orange frais / citron frais</div></div><div class="carte-price">7€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Schweppes Tonic / Agrum</div></div><div class="carte-price">4€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Tonic Premium / White Peach / Ginger Ale / Hibiscus</div></div><div class="carte-price">5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Limonade maison</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-category">Cafés & Infusions</div>
+          <div class="carte-item"><div><div class="carte-item-name">Café / Espresso / Décaféiné</div></div><div class="carte-price">4€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Double Espresso</div></div><div class="carte-price">6€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Chocolat Chaud / Cappuccino / Café Latte</div></div><div class="carte-price">5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Thé / Infusion au choix</div><div class="carte-item-sub">Camomille, tilleul, fruits rouges, earl grey, thé vert jasmin</div></div><div class="carte-price">4,5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Thé Menthe Fraîche</div></div><div class="carte-price">5€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Vin Chaud</div></div><div class="carte-price">7€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Irish / French / Italian Coffee</div></div><div class="carte-price">13€</div></div>
+          <div class="carte-category">Digestifs</div>
+          <div class="carte-item"><div><div class="carte-item-name">Limoncello / Sambuca</div></div><div class="carte-price">10 / 12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Amaretto / Poire Williams / Cointreau / Grappa</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Chartreuse Verte</div></div><div class="carte-price">15€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Baileys</div></div><div class="carte-price">12€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Cognac Courvoisier VS / Calvados / Grand Marnier</div></div><div class="carte-price">13€</div></div>
+        </div>
+
       </div>
     </div>
   </div>
-
-  <!-- ── PAGE 4: COMMANDES ── -->
   <div class="page" id="page-commandes">
     <div class="page-content">
       <div class="section-title">Commandes</div>
@@ -1632,36 +1714,24 @@ let currentStaff = localStorage.getItem('shake_staff') || null;
 function initStaff() {
   if (currentStaff) {
     document.getElementById('header-name').textContent = currentStaff;
-    document.getElementById('staff-overlay').style.display = 'none';
-    return;
   }
-  const overlay = document.getElementById('staff-overlay');
-  overlay.style.display = 'flex';
+}
+
+function showStaffPicker() {
+  const modal = document.getElementById('staff-modal');
   const list = document.getElementById('staff-list');
-  STAFF.forEach(name => {
-    const btn = document.createElement('button');
-    btn.textContent = name;
-    btn.style.cssText = 'padding:14px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;font-family:DM Sans,sans-serif;font-size:15px;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .15s;';
-    btn.onclick = () => selectStaff(name);
-    list.appendChild(btn);
-  });
+  list.innerHTML = STAFF.map(name =>
+    `<button onclick="selectStaff('${name}')" style="padding:12px;background:${currentStaff===name?'var(--black)':'var(--bg)'};color:${currentStaff===name?'white':'var(--text)'};border:1.5px solid ${currentStaff===name?'var(--black)':'var(--border)'};border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;">${name}</button>`
+  ).join('');
+  modal.style.display = 'flex';
 }
 
 function selectStaff(name) {
   currentStaff = name;
   localStorage.setItem('shake_staff', name);
   document.getElementById('header-name').textContent = name;
-  document.getElementById('staff-overlay').style.display = 'none';
+  document.getElementById('staff-modal').style.display = 'none';
 }
-
-// Tap sur le nom dans le header pour changer
-document.getElementById('header-name').style.cursor = 'pointer';
-document.getElementById('header-name').onclick = () => {
-  currentStaff = null;
-  localStorage.removeItem('shake_staff');
-  document.getElementById('staff-list').innerHTML = '';
-  initStaff();
-};
 
 initStaff();
 
@@ -1712,7 +1782,7 @@ function renderSuggestions() {
   const suggs = SUGGESTIONS[slot];
   const container = document.getElementById('quick-btns');
   const sub = document.getElementById('welcome-sub');
-  if (sub) sub.textContent = getTimeLabel() + ' — que puis-je faire pour toi ?';
+  if (sub) sub.textContent = getTimeLabel();
   if (!container) return;
   container.innerHTML = suggs.map(s =>
     `<button class="quick-btn" onclick="ask('${s.q.replace(/'/g, "\\'")}')">
@@ -2005,11 +2075,31 @@ function onNotesPageOpen() {
 }
 
 // ── CARTE ──
+function switchMainCarte(section) {
+  const isCuisine = section === 'cuisine';
+  document.getElementById('main-tab-cuisine').style.cssText = `flex:1;padding:9px;background:${isCuisine?'var(--black)':'var(--bg)'};color:${isCuisine?'white':'var(--text-2)'};border:${isCuisine?'none':'1.5px solid var(--border)'};border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:${isCuisine?'600':'500'};cursor:pointer;`;
+  document.getElementById('main-tab-bar').style.cssText = `flex:1;padding:9px;background:${!isCuisine?'var(--black)':'var(--bg)'};color:${!isCuisine?'white':'var(--text-2)'};border:${!isCuisine?'none':'1.5px solid var(--border)'};border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:${!isCuisine?'600':'500'};cursor:pointer;`;
+  document.getElementById('sub-cuisine').style.display = isCuisine ? 'flex' : 'none';
+  document.getElementById('sub-bar').style.display = !isCuisine ? 'flex' : 'none';
+  // Activer le premier onglet du sous-menu
+  if (isCuisine) {
+    document.querySelectorAll('#sub-cuisine .carte-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+    switchCarte('entrees', document.querySelector('#sub-cuisine .carte-tab'));
+  } else {
+    document.querySelectorAll('#sub-bar .carte-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+    switchCarte('cocktails', document.querySelector('#sub-bar .carte-tab'));
+  }
+}
+
 function switchCarte(name, btn) {
   document.querySelectorAll('.carte-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('carte-' + name).classList.add('active');
-  btn.classList.add('active');
+  if (btn) {
+    const parentTabs = btn.closest('.carte-tabs');
+    if (parentTabs) parentTabs.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const el = document.getElementById('carte-' + name);
+  if (el) el.classList.add('active');
 }
 
 function copyToClipboard(text) {
