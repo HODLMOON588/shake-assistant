@@ -1612,7 +1612,8 @@ textarea::placeholder { color: var(--text-3); }
           <div class="note-label">Laisser une note pour l'équipe</div>
           <textarea class="note-textarea" id="new-note-text" placeholder="Ex: frigo bar vide, manque de menthe, table 5 anniversaire ce soir..." style="min-height:70px;"></textarea>
         </div>
-        <button class="action-btn" onclick="postNote()" style="margin-bottom:20px;">Publier la note</button>
+        <button class="action-btn" onclick="postNote()" style="margin-bottom:12px;">Publier la note</button>
+        <button onclick="loadNotes()" style="width:100%;padding:12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-2);cursor:pointer;margin-bottom:16px;">Charger les notes de l'équipe</button>
         <div id="notes-list">
           <div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px;">Chargement...</div>
         </div>
@@ -2006,8 +2007,10 @@ function switchNotes(name, btn) {
   btn.classList.add('active');
   document.getElementById('notes-section').style.display = name === 'notes' ? 'block' : 'none';
   document.getElementById('recettes-section').style.display = name === 'recettes' ? 'block' : 'none';
-  if (name === 'notes') loadNotes();
-  if (name === 'recettes') loadRecettes();
+}
+
+function onNotesPageOpen() {
+  // Chargement manuel uniquement
 }
 
 // ── RECETTES SUPABASE ──
@@ -2129,8 +2132,7 @@ async function saveRecette() {
 
 // Charger les notes quand on arrive sur la page
 function onNotesPageOpen() {
-  const section = document.getElementById('notes-section');
-  if (section && section.style.display !== 'none') loadNotes();
+  // Chargement manuel uniquement
 }
 
 // ── CARTE ──
@@ -2201,22 +2203,29 @@ function showToast(msg) {
 }
 
 // ── EMAILJS ──
+let emailjsReady = false;
+
 function envoyerEmailDaniel(text) {
-  if (typeof emailjs === 'undefined') return;
+  if (!emailjsReady) {
+    console.log('EmailJS pas encore chargé');
+    return;
+  }
   emailjs.send("service_i0ivawe", "template_anz16h6", {
     from_name: currentStaff || "Staff",
     message: text,
     date: new Date().toLocaleDateString('fr-BE', { weekday:'long', day:'numeric', month:'long' })
   }).then(() => showToast('Email envoyé à Daniel'))
-    .catch(() => {});
+    .catch(e => console.log('Email erreur:', e));
 }
 
-// Charger EmailJS de façon non-bloquante
 (function() {
   const s = document.createElement('script');
   s.src = 'https://cdn.emailjs.com/dist/email.min.js';
   s.async = true;
-  s.onload = () => emailjs.init("6ToWuk7MovOxqFBxH");
+  s.onload = () => {
+    emailjs.init("6ToWuk7MovOxqFBxH");
+    emailjsReady = true;
+  };
   document.body.appendChild(s);
 })();
 const states = ['OK','Faible','Rupture'];
