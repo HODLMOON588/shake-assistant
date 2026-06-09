@@ -341,18 +341,246 @@ Menu change chaque lundi → consulter Facebook ou demander à Lloyd.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COCKTAILS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SIGNATURE 15€ :
-Le Shake — Gin Bombay, St Germain, Pêche, Hibiscus
-Saint-Germain — St Germain, Prosecco
-Moulin Rouge — Gin Tanqueray, Cassis, Martini Dry
-Belle Normande — Vodka, Calvados, St Germain
-Negroni — Gin Tanqueray Orange, Grand Marnier, Campari
-L'Exotic — Rhum, Coco, Passion
-Basilic — sans alcool possible
-MOCKTAILS 12€ : Gingembre | Esprit Sureau
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COCKTAILS SIGNATURE 15€
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOS SPRITZ :
+Le Shake — Gin Bombay Sapphire, St Germain, Pêche Blanche, Schweppes Premium Hibiscus
+Le Saint-Germain — St Germain, Prosecco, Eau Pétillante
+
+NOS SIGNATURES :
+Le Moulin Rouge — Gin Tanqueray Royale, Cassis de Bourgogne, Martini Dry, Sirop de Pomme
+La Belle Normande — Vodka, Calvados, St Germain, Soda Water, Pomme Verte
+Le Negroni — Gin Tanqueray Orange de Séville, Grand Marnier, Campari
+Le Basilic — Vodka, Martini Dry, Basilic, Bitter Concombre, Chartreuse Verte (sans alcool possible)
+L'Exotic — Rhum Bacardi 4Y, Liqueur de Coco, Purée Fruit de la Passion, Falernum, Angostura
+
+SWEET TOUCH :
+L'Espresso — Vodka, Liqueur de Café, Espresso, Vanille
+Le French Connexion — Courvoisier VS, Pineau des Charentes, Liqueur d'Abricot du Roussillon, Bitter Orange
+
+MOCKTAILS 12€ :
+Le Gingembre — Ginger Beer, Citron Vert, Sirop de Gingembre
+L'Esprit Sureau — Gin Tanqueray 0%, Martini Floreale 0%, Sirop de Fleur de Sureau, Schweppes White Peach & Elderflower
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-VINS BLANCS
+CARTE BAR COMPLÈTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+APÉRITIFS :
+Kir 10€ | Kir Royal 14€ | Aperol Spritz 13€ | Virgin Martini Spritz 0% 10€
+Martini Rouge/Blanc/Dry 8€ | Ricard 9€ | Campari 9€ | Campari Orange 12€
+Porto Rouge/Blanc 9€ | Pineau des Charentes 9€ | Picon Bière 10€ | Picon Vin Blanc 12€
+
+SPIRITUEUX (+3€ soft) :
+Bacardi Carta Blanca/Oro 10€ | Bacardi Brun 4Y 12€
+Vodka Eristoff 10€ | Vodka Grey Goose 12€
+Gin Bombay Sapphire (tonic inclus) 15€ | Gin Hendrick's (tonic inclus) 16€
+Gin Copperhead (tonic inclus) 17€ | Gin Tanqueray 0% (tonic inclus) 14€
+J&B 10€ | Jack Daniel's 11€ | Glenfiddich 12Y 15€ | Tequila Patron Silver 10€
+
+SOFTS :
+Chaudfontaine plate/pétillante 25cl 4€ / 50cl 6,5€
+Coca-Cola / Zero 4€ | Fanta 4€ | Sprite 4€
+Fuze Tea / Pêche 4€ | Minute Maid (pomme/orange/tomate/multifruit) 4€
+Jus orange frais / citron frais 7€
+Schweppes Tonic/Agrum 4€ | Tonic Premium 5€
+Tonic Premium White Peach & Elderflower 5€ | Ginger Ale 5€ | Hibiscus 5€
+Limonade maison 6€
+
+BIÈRES PRESSION :
+Stella Artois 25cl 4€ / 33cl 5,5€ / 50cl 7€
+Leffe Blonde 33cl 6€ | Hoegaarden Blanche 33cl 6€ / 50cl 9€ | Triple Karmeliet 33cl 6€
+
+BIÈRES BOUTEILLES :
+Brugse Zot 6€ | Chimay Bleue 6€ | Carlsberg 6€ | Stella 0% 5€
+Kriek Liefmans / 0% 5€ | Duvel 6€ | Orval 7,5€ | Leffe Brune 6€
+St Hubertus Blonde/Blanche/Ambrée 6€
+
+CAFÉS & INFUSIONS :
+Café/Espresso/Décaféiné 4€ | Double Espresso 6€ | Chocolat Chaud 5€
+Cappuccino 5€ | Café Latte 5€
+Thé/Infusion (camomille, tilleul, fruits rouges, earl grey, thé vert jasmin) 4,5€
+Thé Menthe Fraîche 5€ | Vin Chaud 7€ | Irish/French/Italian Coffee 13€
+
+DIGESTIFS :
+Limoncello 10€ | Amaretto 12€ | Poire Williams 12€ | Cointreau 12€
+Grappa 12€ | Sambuca 12€ | Chartreuse Verte 15€ | Baileys 12€
+Cognac Courvoisier VS 13€ | Calvados 13€ | Grand Marnier 13€
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRÉBATCHS BAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ATTENTION : les quantités sont en ML (pas cl).
+
+LE SHAKE (batch 3L / 1L) :
+- Bombay Sapphire : 1050ml / 350ml
+- St Germain : 600ml / 200ml
+- Belsazar Rosé : 450ml / 150ml
+- Sirop de Pêche : 300ml / 100ml
+- Supasawa : 600ml / 200ml
+- Schweppes Hibiscus : 80ml au doseur à l'envoi
+Diluer dans le Shake directement, terminer par le Schweppes dans le verre. Finition : framboise écrasée sur le verre + 5/6 glaçons. Doseur : 100ml.
+
+LE SAINT-GERMAIN (au doseur uniquement) :
+- St Germain : 50ml
+- Eau pétillante : 60ml
+- Prosecco : 60ml
+Diluer dans le verre directement. Finition : zeste de citron + 5/6 glaçons.
+
+LE MOULIN ROUGE (batch 3L / 1L) :
+- Tanqueray Royale : 1170ml / 390ml
+- Crème de Cassis : 135ml / 45ml
+- Dry Vermouth : 510ml / 170ml
+- Sirop Pomme Verte : 270ml / 90ml
+- Supasawa : 390ml / 130ml
+- Chardonnay : 510ml / 170ml
+- Peychaud (dash) : 30ml / 10ml
+Diluer dans le Shake avec 4/5 glaçons. Finition : pique et une myrtille. Doseur : 115ml.
+
+LA BELLE NORMANDE (batch 3L / 1L) :
+- Vodka Eristoff : 1005ml / 335ml
+- Calvados : 675ml / 225ml
+- Sirop de Pomme : 330ml / 110ml
+- St Germain : 510ml / 170ml
+- Supasawa : 510ml / 170ml
+- Eau pétillante : 80ml au doseur à l'envoi
+Diluer dans le Shake avec 4/5 glaçons. Finition : pique et tranche de pomme verte + 5/6 glaçons. Doseur : 90ml.
+
+LE NEGRONI (batch 3L / 1L) :
+- Tanqueray Orange : 795ml / 265ml
+- Grand Marnier : 480ml / 160ml
+- Campari : 945ml / 315ml
+- Belsazar Rouge : 780ml / 260ml
+Diluer dans le Shake avec 4/5 glaçons. Finition : tranche d'orange + 5/6 glaçons. Doseur : 95ml.
+
+LE BASILIC AVEC ALCOOL (batch 3L / 1L) :
+- Vodka Eristoff : 1140ml / 380ml
+- Dry Vermouth : 420ml / 140ml
+- Chartreuse Verte : 285ml / 95ml
+- Sucre : 570ml / 190ml
+- Supasawa : 555ml / 185ml
+- Bitter Concombre : 45ml / 15ml
+Dans le Shake : mettre 8 feuilles de basilic + préparation + diluer avec 4/5 glaçons. Finition : 1 feuille de basilic + 5/6 glaçons. Doseur : 110ml.
+
+LE BASILIC SANS ALCOOL (batch 3L / 1L) :
+- Gin 0% : 1050ml / 350ml
+- Martini 0% : 525ml / 175ml
+- Chardonnay 0% : 525ml / 175ml
+- Sirop de Concombre : 375ml / 125ml
+- Supasawa : 525ml / 175ml
+Même préparation que le Basilic avec alcool. Doseur : 115ml.
+
+L'EXOTIC (batch 3L / 1L) :
+- Bacardi 4 : 1335ml / 445ml
+- Liqueur de Coco : 600ml / 200ml
+- Sirop de Falernum : 300ml / 100ml
+- Supasawa : 435ml / 145ml
+- Purée de Passion : 10ml au doseur à l'envoi
+- Angostura : 3 aller-retour à l'envoi
+Diluer dans le Shake avec 4/5 glaçons. Finition : 1 feuille de menthe, poudre de coco et petites pailles. Doseur : 90ml.
+
+LE FRENCH CONNEXION (batch 3L / 1L) :
+- Cognac : 1650ml / 550ml
+- Liqueur d'Abricot : 825ml / 275ml
+- Pineau des Charentes : 405ml / 135ml
+- Angostura : 45ml / 15ml
+- Bitter Orange : 45ml / 15ml
+- Peychaud : 45ml / 15ml
+Diluer dans le Shake avec 4/5 glaçons. Finition : zeste d'orange + 5/6 glaçons. Doseur : 70ml.
+
+L'ESPRESSO (batch 3L / 1L) :
+- Vodka Eristoff : 1605ml / 535ml
+- Liqueur de Café : 795ml / 265ml
+- Sirop de Vanille : 600ml / 200ml
+- Espresso : à l'envoi
+Shake avec 4/5 glaçons. Finition : 3 grains de café au centre du verre. Doseur : 75ml.
+
+L'ESPRIT SUREAU — MOCKTAIL (batch 3L / 1L) :
+- Gin NA : 1095ml / 365ml
+- Martini Floreale : 825ml / 275ml
+- Sirop Fleur de Sureau : 540ml / 180ml
+- Supasawa : 540ml / 180ml
+- Schweppes Peach Elderflower : 90ml au doseur à l'envoi
+Diluer dans le Shake avec 4/5 glaçons. Finition : fleur comestible + 5/6 glaçons. Doseur : 110ml.
+
+LE GINGEMBRE — MOCKTAIL (batch 3L / 1L) :
+- Gin 0% : 1140ml / 380ml
+- Sirop de Falernum : 285ml / 95ml
+- Sirop de Gingembre : 285ml / 95ml
+- Supasawa : 430ml / 143ml
+- Gili : 30ml au doseur
+- Schweppes Ginger Ale : 100ml au doseur
+Diluer dans le Shake avec 4/5 glaçons. Finition : pique et deux gingembres + 5/6 glaçons. Doseur : 75ml.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ALLERGÈNES PAR PLAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RÈGLE : pour toute question d'un client sur les allergènes, toujours confirmer avec la cuisine. Ne jamais inventer.
+
+ENTRÉES :
+Carpaccio de Bœuf → Œufs, Moutarde
+Tartare de Thon → Lait
+Foie Gras (brioche) → Gluten
+Grenouilles (jus citron) → Lait
+Escargots (beurre à l'ail) → Lait
+Os à Moelle → Gluten, Lait, Fruits à coque
+Croquettes de Fromage → Gluten, Œufs, Crustacés, Lait
+Croquettes de Crevettes → Gluten, Œufs, Crustacés, Lait
+Saint-Jacques → Mollusques
+Pain maison → Gluten
+
+PLATS :
+Poulet Rôti → Lait
+Tartare de Bœuf → Œufs, Moutarde
+Filet Pur (sauce au choix) → Lait, Fruits à coque
+Magret de Canard à l'Orange → Gluten, Œufs, Lait, Arachides, Céleri, Moutarde
+Linguine Citron → Gluten, Crustacés, Lait, Fruits à coque, Céleri, Moutarde
+Salade César → Gluten, Œufs, Poisson
+Saumon → Poisson, Lait
+Coquillettes → Gluten, Œufs, Lait
+Ravioles Cèpes → Gluten, Œufs, Lait, Fruits à coque
+Vol-au-Vent → Gluten, Œufs, Crustacés, Lait
+Sole → Poisson
+
+GARNITURES :
+Sauce Poivre Vert → Gluten, Œufs, Lait, Fruits à coque, Céleri, Moutarde
+Béarnaise → Œufs, Lait
+Sauce Choron → Gluten, Œufs, Lait, Fruits à coque, Céleri, Moutarde
+Sauce Archiduc → Gluten, Lait, Fruits à coque, Céleri, Moutarde
+Pommes Duchesse → Œufs
+Purée → Lait
+Pommes Frites → aucun
+Riz → aucun
+Légumes → aucun
+
+DESSERTS :
+Dame Blanche → Œufs, Lait, Fruits à coque
+Pavlova → Œufs, Lait
+Baba au Rhum → Gluten, Œufs, Lait
+Cookie Chocolat → Gluten, Œufs, Lait, Fruits à coque
+Flan Caramel → Œufs, Lait
+Crème Brûlée → Œufs, Lait
+Café Glacé → Lait, Fruits à coque
+Assiette Fromages → Lait
+
+REPAS STAFF :
+Coquillettes Jambon → Gluten, Œufs, Lait
+Hamburger Frites Ketchup → Gluten, Œufs, Lait
+Fish and Chips → Gluten, Œufs, Poisson
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PLATS HALAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Les plats suivants sont Halal au Shake :
+- Tous les poissons (Saumon, Sole, Bar, Tartare de Thon)
+- Salade César
+- Poulet Rôti
+- Filet Américain
+- Smash Burger
+- Hamburger
+- Filet Pur
+
+Pour toute question Halal d'un client → confirmer avec Ibrahim.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Muscadet sur Lie Genaudières 2023 — v.9€ / 22€ / 38€
 Terra di Nostri Blanc 2024 — v.8€ / 34€
@@ -477,8 +705,7 @@ Score : 10/10 → Parfait. | 7-9 → Bien, relis les points ratés. | 5-6 → In
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PRÉBATCHS BAR & ALLERGÈNES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[À compléter]
-Pour allergènes : référer toujours à Lloyd ou la cuisine. Ne jamais inventer.`;
+Voir sections PRÉBATCHS BAR et ALLERGÈNES PAR PLAT ci-dessus.`;
 
 app.post("/api/chat", async (req, res) => {
   try {
