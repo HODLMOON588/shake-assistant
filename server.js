@@ -240,6 +240,7 @@ RÈGLES DE RÉPONSE — STRICTES :
 - Quand tu listes, tu utilises des tirets simples.
 - Tu parles comme un collègue compétent qui connaît son boulot. Pas comme un chatbot.
 - Pour les questions de hiérarchie ou contacts : une réponse directe, sans explication du fonctionnement interne.
+- CHECKLISTS : si quelqu'un demande une checklist d'ouverture, fermeture, ou de service, réponds toujours : "Va dans l'onglet Checklist de l'app." Ne jamais inventer ou lister une checklist dans le chat.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HIÉRARCHIE & DIRECTION
@@ -313,8 +314,11 @@ Ouvert 7j/7.
 GARNITURES & CUISSONS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 GARNITURES PAR PLAT :
-Filet Pur → Frites + Sauce au choix (Poivre Vert, Béarnaise, Choron, Archiduc)
+Règle générale : les féculents sont COMPRIS dans le prix du plat pour toutes les viandes et poissons. Seules les pâtes, ravioles, linguine, coquillettes, salade César et parmentier sont servis seuls.
+
+Filet Pur → Frites + Salade + Sauce au choix (Poivre Vert, Béarnaise, Choron, Archiduc)
 Côte à l'Os → Frites + Haricots verts + Sauce au choix
+Tartare de Bœuf → Frites + Salade (servi froid, pas de cuisson)
 Magret de Canard → Pommes Duchesse
 Rognon → Légumes de saison + Frites
 Onglet → Frites
@@ -323,7 +327,7 @@ Saumon → Riz
 Sole → Purée ou Frites au choix
 Vol-au-Vent → Frites
 Parmentier de Canard → Frites
-Ravioles Cèpes, Linguine Citron, Coquillettes → servis seuls, sans garniture
+Ravioles Cèpes, Linguine Citron, Coquillettes, Salade César → servis seuls, sans garniture
 
 SAUCES DISPONIBLES : Poivre Vert, Béarnaise, Choron, Archiduc
 
@@ -378,6 +382,12 @@ Menu change chaque lundi → consulter Facebook ou demander à Lloyd.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COCKTAILS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COCKTAILS CLASSIQUES 14€ (Mojito sans alcool 12€) :
+Mojito — Rhum Bacardi Carta Blanca 4cl, Sucre de canne 2cl, ½ citron vert en rondelles écrasé avec la menthe, Menthe fraîche 8-10 feuilles, Eau pétillante. Glaçons pilés.
+Mojito sans alcool — ½ citron vert en rondelles écrasé avec la menthe, Sucre de canne 2cl, Menthe fraîche 8-10 feuilles, Eau pétillante. Glaçons pilés.
+Bloody Mary — Vodka Eristoff 4cl, Jus de tomate 10cl, Worcestershire sauce 2 dash, Tabasco 2 dash, Jus de citron jaune 1cl, Poivre noir 1 pincée. Finition : rondelle citron jaune.
+Margarita Citron — Tequila Patron Silver 4cl, Cointreau 2cl, Jus de citron vert frais 2cl, Sirop de canne 1cl. Finition : rondelle citron vert.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COCKTAILS SIGNATURE 15€
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -778,4 +788,3 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
