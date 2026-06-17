@@ -984,9 +984,23 @@ textarea::placeholder { color: var(--text-3); }
 
 /* Note générale avant envoi */
 .cmd-note-wrap {
-  padding: 0 14px 10px;
+  padding: 0 14px 8px;
   flex-shrink: 0;
 }
+.cmd-note-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  padding: 4px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cmd-note-toggle svg { transition: transform .2s; }
+.cmd-note-toggle.open svg { transform: rotate(45deg); }
 .cmd-note-wrap textarea {
   width: 100%;
   border: 1.5px solid var(--border);
@@ -999,25 +1013,28 @@ textarea::placeholder { color: var(--text-3); }
   resize: none;
   min-height: 44px;
   max-height: 90px;
+  display: none;
+  margin-top: 6px;
 }
+.cmd-note-wrap textarea.visible { display: block; }
 .cmd-note-wrap textarea::placeholder { color: var(--text-3); }
 
-/* Bouton envoyer (sticky bottom) */
+/* Bouton envoyer (sticky bottom) — fin et discret */
 .cmd-send-wrap {
   position: sticky;
   bottom: 0;
-  padding: 12px 14px 16px;
+  padding: 8px 14px 12px;
   background: linear-gradient(to top, var(--bg) 70%, transparent);
   flex-shrink: 0;
 }
 .cmd-send-btn {
   width: 100%;
-  padding: 15px;
+  padding: 12px;
   background: var(--black);
   border: none;
   border-radius: var(--radius-sm);
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--text);
   cursor: pointer;
@@ -1871,8 +1888,12 @@ textarea::placeholder { color: var(--text-3); }
     <!-- Liste produits -->
     <div class="cmd-scroll" id="cmd-scroll"></div>
 
-    <!-- Note générale -->
+    <!-- Note générale (repliable) -->
     <div class="cmd-note-wrap">
+      <button class="cmd-note-toggle" id="cmd-note-toggle" onclick="cmdToggleNote()">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span id="cmd-note-toggle-label">Ajouter une note</span>
+      </button>
       <textarea id="cmd-note" placeholder="Note pour la commande (optionnel)..." oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px'"></textarea>
     </div>
 
@@ -3576,6 +3597,16 @@ function cmdClearSearch() {
   document.getElementById('cmd-search-input').value = '';
   document.getElementById('cmd-search-clear').classList.remove('visible');
   renderCmdList();
+}
+
+function cmdToggleNote() {
+  const textarea = document.getElementById('cmd-note');
+  const toggle = document.getElementById('cmd-note-toggle');
+  const label = document.getElementById('cmd-note-toggle-label');
+  const isOpen = textarea.classList.toggle('visible');
+  toggle.classList.toggle('open', isOpen);
+  label.textContent = isOpen ? 'Fermer la note' : 'Ajouter une note';
+  if (isOpen) textarea.focus();
 }
 
 // ── Numéros WhatsApp ──
