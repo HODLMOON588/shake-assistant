@@ -742,21 +742,23 @@ textarea::placeholder { color: var(--text-3); }
 }
 .cmd-search-clear.visible { display: block; }
 
-/* Bandeau "Mes ajouts" */
+/* Bandeau "Mes ajouts" — bande horizontale qui se scroll elle-même,
+   ne pousse jamais le reste de la page vers le bas */
 .cmd-panier {
-  margin: 12px 14px 0;
+  margin: 12px 0 0;
   background: var(--black);
-  border-radius: var(--radius);
-  padding: 13px 16px;
   display: none;
   flex-direction: column;
   gap: 8px;
+  flex-shrink: 0;
+  padding: 13px 0;
 }
 .cmd-panier.visible { display: flex; }
 .cmd-panier-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 14px;
 }
 .cmd-panier-title {
   font-size: 12px;
@@ -771,9 +773,15 @@ textarea::placeholder { color: var(--text-3); }
 }
 .cmd-panier-items {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding: 0 14px;
 }
+.cmd-panier-items::-webkit-scrollbar { display: none; }
 .cmd-panier-chip {
   display: flex;
   align-items: center;
@@ -784,6 +792,9 @@ textarea::placeholder { color: var(--text-3); }
   padding: 5px 10px 5px 12px;
   font-size: 12px;
   color: #ede8df;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  white-space: nowrap;
 }
 .cmd-panier-chip b { color: var(--gold); font-weight: 600; }
 .cmd-panier-chip-remove {
@@ -794,31 +805,46 @@ textarea::placeholder { color: var(--text-3); }
   font-size: 14px;
   padding: 0 2px;
   line-height: 1;
+  flex-shrink: 0;
+}
+/* Petit indice visuel qu'on peut glisser horizontalement */
+.cmd-panier-hint {
+  font-size: 10px;
+  color: #5a5650;
+  padding: 0 14px;
 }
 
-/* Tabs catégories */
+/* Tabs catégories — scroll horizontal fluide avec snap, prise au doigt améliorée */
 .cmd-cat-tabs {
   display: flex;
   gap: 6px;
-  padding: 14px 14px 0;
+  padding: 14px 14px 10px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
   flex-shrink: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-x;
 }
 .cmd-cat-tabs::-webkit-scrollbar { display: none; }
 .cmd-cat-tab {
   flex-shrink: 0;
-  padding: 7px 14px;
+  padding: 9px 16px;
   border-radius: 20px;
   border: 1.5px solid var(--border);
   background: var(--white);
   font-family: 'DM Sans', sans-serif;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-2);
   cursor: pointer;
   transition: all .15s;
   white-space: nowrap;
+  scroll-snap-align: start;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .cmd-cat-tab.active {
   background: var(--black);
@@ -941,6 +967,26 @@ textarea::placeholder { color: var(--text-3); }
   color: var(--text-3);
   font-size: 13px;
 }
+
+/* Note générale avant envoi */
+.cmd-note-wrap {
+  padding: 0 14px 10px;
+  flex-shrink: 0;
+}
+.cmd-note-wrap textarea {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  color: var(--text);
+  background: var(--white);
+  resize: none;
+  min-height: 44px;
+  max-height: 90px;
+}
+.cmd-note-wrap textarea::placeholder { color: var(--text-3); }
 
 /* Bouton envoyer (sticky bottom) */
 .cmd-send-wrap {
@@ -1717,6 +1763,11 @@ textarea::placeholder { color: var(--text-3); }
 
     <!-- Liste produits -->
     <div class="cmd-scroll" id="cmd-scroll"></div>
+
+    <!-- Note générale -->
+    <div class="cmd-note-wrap">
+      <textarea id="cmd-note" placeholder="Note pour la commande (optionnel)..." oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px'"></textarea>
+    </div>
 
     <!-- Bouton envoyer -->
     <div class="cmd-send-wrap">
@@ -3020,6 +3071,8 @@ function switchCmdMode(mode, btn) {
   cmdMode = mode;
   cmdSearchTerm = '';
   document.getElementById('cmd-search-input').value = '';
+  const noteEl = document.getElementById('cmd-note');
+  if (noteEl) { noteEl.value = ''; noteEl.style.height = 'auto'; }
   document.querySelectorAll('.cmd-main-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   const data = cmdGetData();
@@ -3231,6 +3284,8 @@ function cmdGenererEtEnvoyer() {
   const date = new Date().toLocaleDateString('fr-BE', { weekday: 'long', day: 'numeric', month: 'long' });
   const staff = currentStaff || 'Staff';
   const modeLabel = cmdMode === 'cuisine' ? 'CUISINE' : 'BAR';
+  const noteEl = document.getElementById('cmd-note');
+  const note = noteEl ? noteEl.value.trim() : '';
 
   let text = `COMMANDE ${modeLabel} — LE SHAKE\n${date} — ${staff}\n${'─'.repeat(32)}\n\n`;
   for (const [fournisseur, list] of Object.entries(byFournisseur)) {
@@ -3240,6 +3295,7 @@ function cmdGenererEtEnvoyer() {
     });
     text += '\n';
   }
+  if (note) text += `NOTE:\n${note}\n`;
 
   const numero = cmdMode === 'cuisine' ? CMD_NUMERO_CHEF : CMD_NUMERO_DANIEL;
 
@@ -3249,6 +3305,7 @@ function cmdGenererEtEnvoyer() {
 
   // Reset après envoi
   Object.keys(cmdQuantities).forEach(k => delete cmdQuantities[k]);
+  if (noteEl) { noteEl.value = ''; noteEl.style.height = 'auto'; }
   renderCmdList();
   renderCmdPanier();
   showToast(`Commande ${modeLabel.toLowerCase()} envoyée`);
