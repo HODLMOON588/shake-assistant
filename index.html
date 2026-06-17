@@ -1042,12 +1042,19 @@ textarea::placeholder { color: var(--text-3); }
 /* ── ÉCRAN PIN ── */
 .pin-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0,0,0,0.55);
   z-index: 9999;
   display: flex;
+  flex-direction: row;
   align-items: flex-end;
   justify-content: center;
+  flex-shrink: 0;
 }
 .pin-sheet {
   background: var(--bg);
@@ -1129,34 +1136,8 @@ textarea::placeholder { color: var(--text-3); }
 </head>
 <body>
 
-<!-- ÉCRAN PIN (pop-up bas d'écran, app visible derrière) -->
-<div class="pin-overlay" id="pin-screen">
-  <div class="pin-sheet">
-    <div class="pin-logo">Le <span>Shake</span></div>
-    <div class="pin-subtitle">Code d'accès équipe</div>
-    <div class="pin-dots" id="pin-dots">
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-    </div>
-    <div class="pin-keypad">
-      <button class="pin-key" onclick="pinPress('1')">1</button>
-      <button class="pin-key" onclick="pinPress('2')">2</button>
-      <button class="pin-key" onclick="pinPress('3')">3</button>
-      <button class="pin-key" onclick="pinPress('4')">4</button>
-      <button class="pin-key" onclick="pinPress('5')">5</button>
-      <button class="pin-key" onclick="pinPress('6')">6</button>
-      <button class="pin-key" onclick="pinPress('7')">7</button>
-      <button class="pin-key" onclick="pinPress('8')">8</button>
-      <button class="pin-key" onclick="pinPress('9')">9</button>
-      <div class="pin-key empty"></div>
-      <button class="pin-key" onclick="pinPress('0')">0</button>
-      <button class="pin-key" onclick="pinBackspace()">⌫</button>
-    </div>
-    <div class="pin-error-msg" id="pin-error-msg">Code incorrect, réessaie</div>
-  </div>
-</div>
+<!-- ÉCRAN PIN — désactivé pour l'instant, à réactiver plus tard si besoin.
+     Pour réactiver : remettre le bloc <div class="pin-overlay" id="pin-screen">...</div> ici. -->
 
 <!-- STAFF MODAL -->
 <div id="staff-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;align-items:flex-end;" onclick="if(event.target===this)this.style.display='none'">
@@ -3709,7 +3690,7 @@ function pinValidate() {
   }
 }
 
-pinCheckAccess();
+// pinCheckAccess(); // désactivé pour l'instant — voir commentaire HTML plus haut pour réactiver
 
 </script>
 </body>
