@@ -674,6 +674,314 @@ textarea::placeholder { color: var(--text-3); }
 .carte-page-wrap .carte-tabs { padding-top: 16px; }
 .carte-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
+
+/* ═══════════════════════════════════════════════════════════
+   MODULE COMMANDES V2 — Cuisine / Bar avec quantités
+   ═══════════════════════════════════════════════════════════ */
+
+/* Sous-onglets Cuisine / Bar */
+.cmd-main-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 14px 14px 0;
+  flex-shrink: 0;
+}
+.cmd-main-tab {
+  flex: 1;
+  padding: 9px;
+  background: var(--bg);
+  color: var(--text-2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+}
+.cmd-main-tab.active {
+  background: var(--black);
+  color: white;
+  border-color: var(--black);
+  font-weight: 600;
+}
+
+/* Recherche */
+.cmd-search-wrap {
+  padding: 12px 14px 0;
+  flex-shrink: 0;
+}
+.cmd-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.cmd-search svg { flex-shrink: 0; color: var(--text-3); }
+.cmd-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+}
+.cmd-search input::placeholder { color: var(--text-3); }
+.cmd-search-clear {
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 2px;
+  display: none;
+}
+.cmd-search-clear.visible { display: block; }
+
+/* Bandeau "Mes ajouts" */
+.cmd-panier {
+  margin: 12px 14px 0;
+  background: var(--black);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+.cmd-panier.visible { display: flex; }
+.cmd-panier-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cmd-panier-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cmd-panier-count {
+  font-size: 11px;
+  color: #8a8680;
+}
+.cmd-panier-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cmd-panier-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 5px 10px 5px 12px;
+  font-size: 12px;
+  color: #ede8df;
+}
+.cmd-panier-chip b { color: var(--gold); font-weight: 600; }
+.cmd-panier-chip-remove {
+  background: transparent;
+  border: none;
+  color: #8a8680;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+/* Tabs catégories */
+.cmd-cat-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 14px 14px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+.cmd-cat-tabs::-webkit-scrollbar { display: none; }
+.cmd-cat-tab {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.cmd-cat-tab.active {
+  background: var(--black);
+  border-color: var(--black);
+  color: var(--white);
+}
+
+/* Scroll area */
+.cmd-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px 14px 100px;
+}
+
+/* Fournisseur block */
+.cmd-fournisseur {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.cmd-fournisseur-header {
+  padding: 12px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.cmd-fournisseur-nom {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Produit row avec stepper +/- */
+.cmd-produit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.cmd-produit:last-child { border-bottom: none; }
+.cmd-produit.active-qty { background: #f5f9ff; }
+
+.cmd-produit-info { flex: 1; min-width: 0; }
+.cmd-produit-nom {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.35;
+}
+.cmd-produit-unite {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 1px;
+}
+
+.cmd-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+.cmd-stepper button {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--white);
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .12s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.cmd-stepper button:active { transform: scale(0.92); background: var(--bg); }
+.cmd-stepper-val {
+  min-width: 30px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+}
+.cmd-stepper-val.has-qty { color: #2563eb; }
+
+/* Bouton "voir N rares" */
+.cmd-rares-toggle {
+  width: 100%;
+  padding: 11px 16px;
+  background: var(--bg);
+  border: none;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.cmd-rares-toggle svg { transition: transform .2s; }
+.cmd-rares-toggle.open svg { transform: rotate(180deg); }
+.cmd-rares-group { display: none; }
+.cmd-rares-group.open { display: block; }
+
+/* Empty state recherche */
+.cmd-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+/* Bouton envoyer (sticky bottom) */
+.cmd-send-wrap {
+  position: sticky;
+  bottom: 0;
+  padding: 12px 14px 16px;
+  background: linear-gradient(to top, var(--bg) 70%, transparent);
+  flex-shrink: 0;
+}
+.cmd-send-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--black);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  transition: background .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.cmd-send-btn:active { background: #333; }
+.cmd-send-btn:disabled {
+  background: var(--border-strong);
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+.cmd-send-badge {
+  background: var(--gold);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -1375,264 +1683,52 @@ textarea::placeholder { color: var(--text-3); }
       </div>
     </div>
   </div>
-  <div class="page" id="page-commandes">
-    <div class="page-content">
-      <div class="section-title">Commandes</div>
-      <div class="section-sub">Stock & fournisseurs</div>
+<div class="page" id="page-commandes">
+  <div class="carte-page-wrap">
 
-      <!-- Vue tabs -->
-      <div class="carte-tabs" style="padding:0 0 16px;">
-        <button class="carte-tab active" onclick="switchCommande('stock',this)">Stock</button>
-        <button class="carte-tab" onclick="switchCommande('commande',this)">Bon de commande</button>
-        <button class="carte-tab" onclick="switchCommande('historique',this)">Historique</button>
-      </div>
-
-      <!-- VUE STOCK -->
-      <div id="cmd-stock">
-
-        <!-- CHEF -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">Chef — Produits frais</span>
-            <span class="badge badge-dark">Chef</span>
-          </div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Menthe fraîche"><span class="stock-name">Menthe fraîche</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Framboise"><span class="stock-name">Framboise</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Fleurs décoratives"><span class="stock-name">Fleurs décoratives</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Bonbons gingembre"><span class="stock-name">Bonbons gingembre</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Citrons verts"><span class="stock-name">Citrons verts</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Citrons jaunes"><span class="stock-name">Citrons jaunes</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="Chef" data-product="Oranges"><span class="stock-name">Oranges</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- HLS -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">HLS — Spiritueux & Bières</span>
-            <span class="badge badge-dark">HLS</span>
-          </div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4070" data-product="Bombay Sapphire 1L"><span class="stock-name">Bombay Sapphire 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="2067" data-product="Hendrick's Gin 70cl"><span class="stock-name">Hendrick's Gin 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="2529" data-product="Copperhead Gin 50cl"><span class="stock-name">Copperhead Gin 50cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1446" data-product="Tanqueray Royale 70cl"><span class="stock-name">Tanqueray Royale 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5076" data-product="Tanqueray Orange Séville 70cl"><span class="stock-name">Tanqueray Orange Séville 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4069" data-product="Vodka Eristoff 1L"><span class="stock-name">Vodka Eristoff 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1948" data-product="Grey Goose 70cl"><span class="stock-name">Grey Goose 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5119" data-product="Bacardi Carta Blanca 1L"><span class="stock-name">Bacardi Carta Blanca 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="3506" data-product="Bacardi 4 Años 1L"><span class="stock-name">Bacardi 4 Años 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1400" data-product="Campari 1L"><span class="stock-name">Campari 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="2196" data-product="Aperol 1L"><span class="stock-name">Aperol 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="3204" data-product="St Germain 70cl"><span class="stock-name">St Germain 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4297" data-product="Grand Marnier 70cl"><span class="stock-name">Grand Marnier 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5131" data-product="Cointreau 1L"><span class="stock-name">Cointreau 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4660" data-product="Amaretto Disaronno 1L"><span class="stock-name">Amaretto Disaronno 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5109" data-product="Baileys 1L"><span class="stock-name">Baileys 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5151" data-product="Ricard 1L"><span class="stock-name">Ricard 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4257" data-product="J&B Rare 1L"><span class="stock-name">J&B Rare 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4501" data-product="Jack Daniel's 70cl"><span class="stock-name">Jack Daniel's 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4296" data-product="Glenfiddich 12Y 70cl"><span class="stock-name">Glenfiddich 12Y 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5078" data-product="Belsazar Red 75cl"><span class="stock-name">Belsazar Red 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5082" data-product="Belsazar Rosé 75cl"><span class="stock-name">Belsazar Rosé 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5102" data-product="Martini Rosso 1,5L"><span class="stock-name">Martini Rosso 1,5L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5103" data-product="Martini Bianco 1,5L"><span class="stock-name">Martini Bianco 1,5L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5386" data-product="Boulard Calvados 1L"><span class="stock-name">Boulard Calvados 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4229" data-product="Patron Silver Tequila 70cl"><span class="stock-name">Patron Silver Tequila 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="2603" data-product="Chartreuse Verte 70cl"><span class="stock-name">Chartreuse Verte 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5286" data-product="Picon Amer 1L"><span class="stock-name">Picon Amer 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70530" data-product="Limoncello 70cl"><span class="stock-name">Limoncello 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70595" data-product="Crème de Cassis Bourgogne 70cl"><span class="stock-name">Crème de Cassis Bourgogne 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70620" data-product="Crème de Pêche 70cl"><span class="stock-name">Crème de Pêche 70cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="5137" data-product="Batida de Coco 1L"><span class="stock-name">Batida de Coco 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4977" data-product="Angostura Bitters 0,2L"><span class="stock-name">Angostura Bitters 0,2L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- HLS SIROPS -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">HLS — Sirops & Mixers</span>
-            <span class="badge badge-dark">HLS</span>
-          </div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70575" data-product="Sirop Sucre de Canne 1L"><span class="stock-name">Sirop Sucre de Canne 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70551" data-product="Sirop Fleur de Sureau 1L"><span class="stock-name">Sirop Fleur de Sureau 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70555" data-product="Sirop Gingembre 1L"><span class="stock-name">Sirop Gingembre 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70571" data-product="Sirop Pomme Verte 1L"><span class="stock-name">Sirop Pomme Verte 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70580" data-product="Sirop Vanille 1L"><span class="stock-name">Sirop Vanille 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70550" data-product="Sirop Falernum 1L"><span class="stock-name">Sirop Falernum 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70810" data-product="Sirop Pêche Blanche 1L"><span class="stock-name">Sirop Pêche Blanche 1L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="3327" data-product="Schweppes Tonic 25cl (casier)"><span class="stock-name">Schweppes Tonic 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="3329" data-product="Schweppes Agrum 25cl (casier)"><span class="stock-name">Schweppes Agrum 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="50242" data-product="Schweppes White Peach 20cl"><span class="stock-name">Schweppes White Peach 20cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="50371" data-product="Schweppes Hibiscus 20cl"><span class="stock-name">Schweppes Hibiscus 20cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="50350" data-product="Schweppes Ginger Ale 20cl"><span class="stock-name">Schweppes Ginger Ale 20cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- HLS EAUX & SOFTS -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">HLS — Eaux & Softs</span>
-            <span class="badge badge-dark">HLS</span>
-          </div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1249" data-product="Chaudfontaine Plate 25cl (casier)"><span class="stock-name">Chaudfontaine Plate 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1250" data-product="Chaudfontaine Pétillante 25cl (casier)"><span class="stock-name">Chaudfontaine Pétillante 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1247" data-product="Chaudfontaine Plate 50cl (casier)"><span class="stock-name">Chaudfontaine Plate 50cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1248" data-product="Chaudfontaine Pétillante 50cl (casier)"><span class="stock-name">Chaudfontaine Pétillante 50cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="944" data-product="Coca-Cola 20cl (casier)"><span class="stock-name">Coca-Cola 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1283" data-product="Coca-Cola Zero 20cl (casier)"><span class="stock-name">Coca-Cola Zero 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="799" data-product="Fanta Orange 20cl (casier)"><span class="stock-name">Fanta Orange 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="953" data-product="Sprite 20cl (casier)"><span class="stock-name">Sprite 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="3299" data-product="Fuze Tea Black 20cl (casier)"><span class="stock-name">Fuze Tea Black 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="3302" data-product="Fuze Tea Pêche Hibiscus 20cl (casier)"><span class="stock-name">Fuze Tea Pêche Hibiscus 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="6405" data-product="Minute Maid Orange 20cl (casier)"><span class="stock-name">Minute Maid Orange 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1241" data-product="Minute Maid Pomme 20cl (casier)"><span class="stock-name">Minute Maid Pomme 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1243" data-product="Minute Maid Multivitamin 20cl (casier)"><span class="stock-name">Minute Maid Multivitamin 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="618" data-product="Minute Maid Tomate 20cl (casier)"><span class="stock-name">Minute Maid Tomate 20cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- HLS BIERES -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">HLS — Bières bouteilles</span>
-            <span class="badge badge-dark">HLS</span>
-          </div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1231" data-product="Brugse Zot Blonde 33cl (casier)"><span class="stock-name">Brugse Zot Blonde 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="440" data-product="Chimay Bleue 33cl (casier)"><span class="stock-name">Chimay Bleue 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="34911" data-product="Carlsberg 25cl (casier)"><span class="stock-name">Carlsberg 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4136" data-product="Stella Artois 0% 25cl (casier)"><span class="stock-name">Stella Artois 0% 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="1572" data-product="Liefmans Kriek 25cl (casier)"><span class="stock-name">Liefmans Kriek 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4097" data-product="Liefmans 0% 25cl (casier)"><span class="stock-name">Liefmans 0% 25cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="475" data-product="Duvel 33cl (casier)"><span class="stock-name">Duvel 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="4752" data-product="Orval 33cl (casier)"><span class="stock-name">Orval 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="137" data-product="Leffe Brune 33cl (casier)"><span class="stock-name">Leffe Brune 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="37291" data-product="St Hubertus Blonde 33cl (casier)"><span class="stock-name">St Hubertus Blonde 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="37401" data-product="St Hubertus Blanche 33cl (casier)"><span class="stock-name">St Hubertus Blanche 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="37321" data-product="St Hubertus Ambrée 33cl (casier)"><span class="stock-name">St Hubertus Ambrée 33cl (casier)</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- HLS CAFE -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">HLS — Café & Infusions</span>
-            <span class="badge badge-dark">HLS</span>
-          </div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72085" data-product="Masalto Bio Café Grains 1kg"><span class="stock-name">Masalto Bio Café Grains 1kg</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72115" data-product="Masalto Bio Déca Moulu 250g"><span class="stock-name">Masalto Bio Déca Moulu 250g</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72101" data-product="Masalto Poudre Nettoyage"><span class="stock-name">Masalto Poudre Nettoyage</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72129" data-product="Masalto Sucre Blanc 5kg"><span class="stock-name">Masalto Sucre Blanc 5kg</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72113" data-product="Vitao Camomille Bio"><span class="stock-name">Vitao Camomille Bio</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72147" data-product="Vitao Fruits Rouges"><span class="stock-name">Vitao Fruits Rouges</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72112" data-product="Vitao Tilleul Bio"><span class="stock-name">Vitao Tilleul Bio</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="72110" data-product="Vitao Thé Vert Jasmin Bio"><span class="stock-name">Vitao Thé Vert Jasmin Bio</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- INBEV FUTS -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">INBEV — Fûts</span>
-            <span class="badge badge-dark">INBEV</span>
-          </div>
-          <div class="stock-item" data-fournisseur="INBEV" data-code="3410" data-product="Leffe Blonde fût 30L"><span class="stock-name">Leffe Blonde fût 30L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="INBEV" data-code="6175" data-product="Stella Artois fût 30L"><span class="stock-name">Stella Artois fût 30L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="INBEV" data-code="9974" data-product="Hoegaarden White fût 20L"><span class="stock-name">Hoegaarden White fût 20L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="INBEV" data-code="63743" data-product="Triple Karmeliet fût 30L"><span class="stock-name">Triple Karmeliet fût 30L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="INBEV" data-code="7511093" data-product="CO2 Koolstofdioxide 10kg"><span class="stock-name">CO2 10kg</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- AVINUM VINS -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">AVINUM — Vins</span>
-            <span class="badge badge-dark">AVINUM</span>
-          </div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Riesling Brandluft E.Boeckel 2023"><span class="stock-name">Riesling Brandluft E.Boeckel 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Gris E.Boeckel 2024 75cl"><span class="stock-name">Pinot Gris E.Boeckel 2024 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Gris E.Boeckel 2024 37,5cl"><span class="stock-name">Pinot Gris E.Boeckel 2024 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pouilly-Fumé M.Michot 2023"><span class="stock-name">Pouilly-Fumé M.Michot 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Sancerre Blanc Chemin de Marloup 2024 75cl"><span class="stock-name">Sancerre Blanc Marloup 2024 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Sancerre Blanc Chemin de Marloup 2024 37,5cl"><span class="stock-name">Sancerre Blanc Marloup 2024 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Mâcon La Roche Vineuse Sangouard 2024"><span class="stock-name">Mâcon La Roche Vineuse 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Noir E.Boeckel 2023 75cl"><span class="stock-name">Pinot Noir E.Boeckel 2023 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Pinot Noir E.Boeckel 2023 37,5cl"><span class="stock-name">Pinot Noir E.Boeckel 2023 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Chinon Les Granges Baudry 2023"><span class="stock-name">Chinon Les Granges Baudry 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Saint-Nicolas de Bourgueil Mabileau 2024 75cl"><span class="stock-name">St-Nicolas de Bourgueil Mabileau 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Saint-Nicolas de Bourgueil Mabileau 2024 37,5cl"><span class="stock-name">St-Nicolas de Bourgueil Mabileau 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Châteauneuf-du-Pape Roger Perrin 2022"><span class="stock-name">Châteauneuf-du-Pape Perrin 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Château Patache d'Aux 2018 75cl"><span class="stock-name">Château Patache d'Aux 2018 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Château Petit Bocq Saint-Estèphe 2022 75cl"><span class="stock-name">Château Petit Bocq St-Estèphe 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Château Peybonhomme Blaye 2022 75cl"><span class="stock-name">Château Peybonhomme Blaye 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="Attorante Chakana Malbec 2023"><span class="stock-name">Chakana Malbec 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="R de Ramatuelle Provence 2024"><span class="stock-name">R de Ramatuelle Provence 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="AVINUM" data-product="M de Minuty Provence 2024"><span class="stock-name">M de Minuty Provence 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- HLS VINS (VASCO) -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">HLS — Vins & Champagnes</span>
-            <span class="badge badge-dark">HLS</span>
-          </div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70696" data-product="Cava La Vuelta 75cl"><span class="stock-name">Cava La Vuelta 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70706" data-product="Champagne Haton Blanc de Blancs 75cl"><span class="stock-name">Champagne Haton Blanc de Blancs</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-product="Veuve Clicquot Brut 75cl"><span class="stock-name">Veuve Clicquot Brut 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77195" data-product="Lilas Blanc Bag in Box 10L"><span class="stock-name">Lilas Blanc Bag in Box 10L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77196" data-product="Lilas Rosé Bag in Box 10L"><span class="stock-name">Lilas Rosé Bag in Box 10L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77194" data-product="Lilas Rouge Bag in Box 10L"><span class="stock-name">Lilas Rouge Bag in Box 10L</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77220" data-product="Cristal Buisse Touraine Sauvignon 2024"><span class="stock-name">Cristal Buisse Touraine Sauvignon 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70646" data-product="Vouvray Sec Les Perruches 2024"><span class="stock-name">Vouvray Sec Les Perruches 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="76742" data-product="Muscadet sur Lie Genaudières 2024 75cl"><span class="stock-name">Muscadet sur Lie Genaudières 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70270" data-product="Chablis Jean-Marc Brocard 2024 75cl"><span class="stock-name">Chablis Brocard 2024 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70271" data-product="Chablis Jean-Marc Brocard 2024 37,5cl"><span class="stock-name">Chablis Brocard 2024 37,5cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70274" data-product="Chablis 1er Cru Vau de Vey Bio 2023"><span class="stock-name">Chablis 1er Cru Vau de Vey Bio 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70784" data-product="Terra di Nostri Blanc 2024"><span class="stock-name">Terra di Nostri Blanc 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70785" data-product="Terra di Nostri Rosé 2024"><span class="stock-name">Terra di Nostri Rosé 2024</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70786" data-product="Terra di Nostri Rouge 2023"><span class="stock-name">Terra di Nostri Rouge 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70702" data-product="Château Bellegrave Médoc 2019"><span class="stock-name">Château Bellegrave Médoc 2019</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70011" data-product="Château Fleur Lartigue St-Émilion 2023 75cl"><span class="stock-name">Ch. Fleur Lartigue St-Émilion 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70309" data-product="Brouilly Château de la Terrière 2023"><span class="stock-name">Brouilly Ch. de la Terrière 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77841" data-product="Morgon Côte de Py VV 2021"><span class="stock-name">Morgon Côte de Py VV 2021</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70722" data-product="Chagual Cabernet Sauvignon Los Vascos BIO 2022"><span class="stock-name">Chagual Cabernet BIO Los Vascos 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77406" data-product="L'Oratoire de Chasse Spleen 2019"><span class="stock-name">L'Oratoire de Chasse Spleen 2019</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77573" data-product="Domaine de l'Aigle Pinot Noir G.Bertrand 2023"><span class="stock-name">Domaine de l'Aigle Pinot Noir 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="70798" data-product="Mercurey Blanc Bois de Lalier 2022"><span class="stock-name">Mercurey Blanc Bois de Lalier 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="77832" data-product="Cigalus Blanc Biodynamie G.Bertrand 2023"><span class="stock-name">Cigalus Blanc Biodynamie 2023</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-          <div class="stock-item" data-fournisseur="HLS" data-code="74285" data-product="Pouilly-Fuissé Château La Vernalle 2022"><span class="stock-name">Pouilly-Fuissé Ch. La Vernalle 2022</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <!-- SANTOS PALACE -->
-        <div class="checklist-group">
-          <div class="checklist-group-header">
-            <span class="checklist-group-title">Santos Palace — Champagne</span>
-            <span class="badge badge-dark">Santos</span>
-          </div>
-          <div class="stock-item" data-fournisseur="Santos Palace" data-product="Erard-Salmon Brut Carte Blanche 75cl"><span class="stock-name">Erard-Salmon Brut Carte Blanche 75cl</span><div class="stock-status"><div class="stock-dot ok"></div><span class="sstat status-ok" onclick="cycleStatus(this)">OK</span></div></div>
-        </div>
-
-        <button class="reset-btn" onclick="resetStock()">Réinitialiser le stock</button>
-      </div>
-
-      <!-- VUE BON DE COMMANDE -->
-      <div id="cmd-commande" style="display:none;">
-        <div class="commandes-intro">
-          <p>Produits signalés en <strong>Faible</strong> ou <strong>Rupture</strong>, organisés par fournisseur. Appuie sur "Copier" puis colle directement dans WhatsApp ou par mail à Daniel.</p>
-        </div>
-        <div id="cmd-preview"></div>
-        <button class="action-btn" onclick="genererCommande()">Envoyer à Daniel via WhatsApp</button>
-        <div class="note-area" style="margin-top:12px;">
-          <div class="note-label">Note complémentaire pour Daniel</div>
-          <textarea class="note-textarea" id="cmd-note" placeholder="Précisions, quantités spécifiques, urgences..."></textarea>
-        </div>
-      </div>
-
-      <!-- HISTORIQUE -->
-      <div id="cmd-historique" style="display:none;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <div style="font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">20 dernières commandes</div>
-          <button onclick="clearHistorique()" style="background:transparent;border:none;font-size:11px;color:var(--text-3);cursor:pointer;">Effacer</button>
-        </div>
-        <div id="historique-list"></div>
-      </div>
-
+    <!-- Sous-onglets Cuisine / Bar -->
+    <div class="cmd-main-tabs">
+      <button id="cmd-tab-cuisine" class="cmd-main-tab active" onclick="switchCmdMode('cuisine', this)">Cuisine</button>
+      <button id="cmd-tab-bar" class="cmd-main-tab" onclick="switchCmdMode('bar', this)">Bar</button>
     </div>
+
+    <!-- Recherche -->
+    <div class="cmd-search-wrap">
+      <div class="cmd-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="cmd-search-input" placeholder="Chercher un produit (ex: beurre, boeuf...)" oninput="cmdSearchInput(this.value)">
+        <button class="cmd-search-clear" id="cmd-search-clear" onclick="cmdClearSearch()">×</button>
+      </div>
+    </div>
+
+    <!-- Panier "Mes ajouts" -->
+    <div class="cmd-panier" id="cmd-panier">
+      <div class="cmd-panier-header">
+        <span class="cmd-panier-title">Mes ajouts</span>
+        <span class="cmd-panier-count" id="cmd-panier-count">0 produit</span>
+      </div>
+      <div class="cmd-panier-items" id="cmd-panier-items"></div>
+    </div>
+
+    <!-- Tabs catégories -->
+    <div class="cmd-cat-tabs" id="cmd-cat-tabs"></div>
+
+    <!-- Liste produits -->
+    <div class="cmd-scroll" id="cmd-scroll"></div>
+
+    <!-- Bouton envoyer -->
+    <div class="cmd-send-wrap">
+      <button class="cmd-send-btn" id="cmd-send-btn" onclick="cmdGenererEtEnvoyer()" disabled>
+        Envoyer la commande
+        <span class="cmd-send-badge" id="cmd-send-badge" style="display:none;">0</span>
+      </button>
+    </div>
+
   </div>
+</div>
+
   <div class="page" id="page-notes">
     <div class="page-content">
       <div class="section-title">Notes internes</div>
@@ -2410,6 +2506,757 @@ function genererCommande() {
     showToast('Erreur: ' + e.message);
   }
 }
+
+
+// ═══════════════════════════════════════════════════════════
+// DONNÉES FOURNISSEURS — CUISINE + BAR
+// Structure : Catégorie > Fournisseur > { récurrents, rares }
+// ═══════════════════════════════════════════════════════════
+
+const FOURNISSEURS_CUISINE = {
+  viandes: {
+    label: "Viandes",
+    fournisseurs: {
+      "la-boucherie": {
+        nom: "La Boucherie",
+        recurrents: [
+          { id: "lb-001", nom: "Onglet", unite: "kg" },
+          { id: "lb-002", nom: "Foie de veau", unite: "kg" },
+          { id: "lb-003", nom: "Steak haché Angus", unite: "kg" },
+          { id: "lb-004", nom: "Américain moulu", unite: "kg" },
+        ],
+        rares: []
+      },
+      "daisy-de-wolf": {
+        nom: "Daisy de Wolf",
+        recurrents: [
+          { id: "ddw-001", nom: "Poulet PAC", unite: "pièce" },
+          { id: "ddw-002", nom: "Magret de canard", unite: "pièce" },
+        ],
+        rares: [
+          { id: "ddw-003", nom: "Poulet artisanal PAC", unite: "pièce" },
+          { id: "ddw-004", nom: "Foie de veau", unite: "kg" },
+          { id: "ddw-005", nom: "Poule mère", unite: "pièce" },
+        ]
+      },
+      "lee-chi-ko": {
+        nom: "Lee Chi Ko",
+        recurrents: [
+          { id: "lck-001", nom: "Filet de poulet frais (carton)", unite: "carton" },
+        ],
+        rares: []
+      },
+      "lesage-fils": {
+        nom: "Lesage & Fils",
+        recurrents: [
+          { id: "lf-001", nom: "Entrecôte noix Angus Argentine", unite: "kg" },
+          { id: "lf-002", nom: "Carré français persillé", unite: "kg" },
+        ],
+        rares: [
+          { id: "lf-003", nom: "Ris de veau surgelé", unite: "kg" },
+          { id: "lf-004", nom: "Fond de bœuf surgelé", unite: "kg" },
+        ]
+      },
+      "quality-tradition": {
+        nom: "Quality & Tradition",
+        recurrents: [
+          { id: "qt-001", nom: "Foie gras cru de canard paré", unite: "kg" },
+        ],
+        rares: []
+      },
+      "aquality-viandes": {
+        nom: "Aquality",
+        recurrents: [
+          { id: "aq-v-001", nom: "Filet pur irlandais", unite: "kg" },
+        ],
+        rares: [
+          { id: "aq-v-002", nom: "Rognon de veau", unite: "kg" },
+        ]
+      },
+    }
+  },
+
+  poissons: {
+    label: "Poissons & Fruits de mer",
+    fournisseurs: {
+      "aquality-poissons": {
+        nom: "Aquality",
+        recurrents: [
+          { id: "aq-p-001", nom: "Sole", unite: "kg" },
+          { id: "aq-p-002", nom: "Saumon éco", unite: "kg" },
+          { id: "aq-p-003", nom: "Longe de thon", unite: "kg" },
+          { id: "aq-p-004", nom: "Bar en filet", unite: "kg" },
+          { id: "aq-p-005", nom: "Dos de cabillaud", unite: "kg" },
+        ],
+        rares: [
+          { id: "aq-p-006", nom: "Chair de crabe", unite: "kg" },
+          { id: "aq-p-007", nom: "Huile d'olive", unite: "L" },
+        ]
+      },
+      "luxe-mare": {
+        nom: "Luxe Mare",
+        recurrents: [
+          { id: "lm-001", nom: "Noix de Saint-Jacques", unite: "kg" },
+          { id: "lm-002", nom: "Crevettes grises", unite: "kg" },
+          { id: "lm-003", nom: "Saumon fumé", unite: "kg" },
+        ],
+        rares: [
+          { id: "lm-004", nom: "Langoustine", unite: "kg" },
+          { id: "lm-005", nom: "Bar d'élevage", unite: "kg" },
+          { id: "lm-006", nom: "King crab", unite: "kg" },
+          { id: "lm-007", nom: "Homard canadien vivant", unite: "pièce" },
+          { id: "lm-008", nom: "Perche du Nil", unite: "kg" },
+          { id: "lm-009", nom: "Cabillaud", unite: "kg" },
+          { id: "lm-010", nom: "Calamars", unite: "kg" },
+        ]
+      },
+    }
+  },
+
+  legumes: {
+    label: "Légumes & Fruits frais",
+    fournisseurs: {
+      "vander-zijpen": {
+        nom: "Vander Zijpen",
+        recurrents: [
+          { id: "vz-001", nom: "Tomates", unite: "kg" },
+          { id: "vz-002", nom: "Salades", unite: "pièce" },
+          { id: "vz-003", nom: "Persil", unite: "botte" },
+          { id: "vz-004", nom: "Ciboulette", unite: "botte" },
+          { id: "vz-005", nom: "Citrons", unite: "kg" },
+        ],
+        rares: [
+          { id: "vz-006", nom: "Asperges", unite: "kg" },
+          { id: "vz-007", nom: "Carottes", unite: "kg" },
+          { id: "vz-008", nom: "Choufleur romanesco", unite: "pièce" },
+          { id: "vz-009", nom: "Fraises", unite: "kg" },
+          { id: "vz-010", nom: "Framboises", unite: "kg" },
+          { id: "vz-011", nom: "Coriandre", unite: "botte" },
+          { id: "vz-012", nom: "Thym", unite: "botte" },
+          { id: "vz-013", nom: "Basilic", unite: "botte" },
+          { id: "vz-014", nom: "Agrumes (mix)", unite: "kg" },
+        ]
+      },
+    }
+  },
+
+  epicerie: {
+    label: "Épicerie & Crèmerie",
+    fournisseurs: {
+      "bidfood-makady": {
+        nom: "Bidfood Makady",
+        recurrents: [
+          { id: "bm-001", nom: "Crème", unite: "L" },
+          { id: "bm-002", nom: "Beurre", unite: "kg" },
+          { id: "bm-003", nom: "Mayonnaise", unite: "bidon" },
+          { id: "bm-004", nom: "Cheddar", unite: "kg" },
+          { id: "bm-005", nom: "Parmesan", unite: "kg" },
+          { id: "bm-006", nom: "Burrata", unite: "pièce" },
+          { id: "bm-007", nom: "Smash burger (steak)", unite: "kg" },
+          { id: "bm-008", nom: "Bacon", unite: "kg" },
+        ],
+        rares: [
+          { id: "bm-009", nom: "Farine", unite: "kg" },
+          { id: "bm-010", nom: "Mascarpone", unite: "kg" },
+          { id: "bm-011", nom: "Panko", unite: "kg" },
+          { id: "bm-012", nom: "Huiles", unite: "L" },
+          { id: "bm-013", nom: "Sacs sous-vide", unite: "paquet" },
+          { id: "bm-014", nom: "Anneaux de calamar", unite: "kg" },
+          { id: "bm-015", nom: "Produit nettoyage Dipp", unite: "bidon" },
+        ]
+      },
+      "hanos": {
+        nom: "HANOS Willebroek",
+        recurrents: [
+          { id: "ha-001", nom: "Comté", unite: "kg" },
+          { id: "ha-002", nom: "Parmesan", unite: "kg" },
+          { id: "ha-003", nom: "Crème", unite: "L" },
+          { id: "ha-004", nom: "Beurre", unite: "kg" },
+        ],
+        rares: [
+          { id: "ha-005", nom: "Stracciatella", unite: "kg" },
+          { id: "ha-006", nom: "Nori", unite: "paquet" },
+          { id: "ha-007", nom: "Wasabi", unite: "tube" },
+          { id: "ha-008", nom: "Furikake", unite: "boîte" },
+          { id: "ha-009", nom: "Escargots", unite: "boîte" },
+          { id: "ha-010", nom: "Légumes (divers)", unite: "kg" },
+          { id: "ha-011", nom: "Fruits (divers)", unite: "kg" },
+          { id: "ha-012", nom: "Emballages", unite: "paquet" },
+        ]
+      },
+    }
+  },
+
+  pates: {
+    label: "Pâtes fraîches",
+    fournisseurs: {
+      "group-gd": {
+        nom: "Group GD (Pasta Mania)",
+        recurrents: [
+          { id: "gg-001", nom: "Raviole aux cèpes", unite: "kg" },
+          { id: "gg-002", nom: "Raviole ricotta-épinard", unite: "kg" },
+        ],
+        rares: [
+          { id: "gg-003", nom: "Raviole foie gras pain d'épices & porto", unite: "kg" },
+        ]
+      },
+    }
+  },
+
+  epices: {
+    label: "Épices",
+    fournisseurs: {
+      "butcher-spice": {
+        nom: "Butcher Spice",
+        recurrents: [
+          { id: "bs-001", nom: "Poivre", unite: "kg" },
+          { id: "bs-002", nom: "Fleur de sel", unite: "kg" },
+          { id: "bs-003", nom: "Paprika", unite: "kg" },
+        ],
+        rares: [
+          { id: "bs-004", nom: "Cumin", unite: "kg" },
+          { id: "bs-005", nom: "Cannelle", unite: "kg" },
+          { id: "bs-006", nom: "Muscade", unite: "kg" },
+          { id: "bs-007", nom: "Laurier", unite: "kg" },
+          { id: "bs-008", nom: "Estragon", unite: "kg" },
+          { id: "bs-009", nom: "Thym", unite: "kg" },
+        ]
+      },
+    }
+  },
+
+  surgeles: {
+    label: "Surgelés",
+    fournisseurs: {
+      "delo-fresh": {
+        nom: "Delo Fresh",
+        recurrents: [
+          { id: "df-001", nom: "Frites surgelées", unite: "kg" },
+        ],
+        rares: []
+      },
+    }
+  },
+};
+
+
+// ═══════════════════════════════════════════════════════════
+// BAR — converti depuis le système Faible/Rupture vers quantités
+// Reprend les catégories et produits déjà encodés dans le bot
+// ═══════════════════════════════════════════════════════════
+
+const FOURNISSEURS_BAR = {
+  spiritueux: {
+    label: "Spiritueux",
+    fournisseurs: {
+      "hls-spiritueux": {
+        nom: "HLS",
+        recurrents: [
+          { id: "4070", nom: "Bombay Sapphire 1L", unite: "bouteille" },
+          { id: "2067", nom: "Hendrick's Gin 70cl", unite: "bouteille" },
+          { id: "1446", nom: "Tanqueray Royale 70cl", unite: "bouteille" },
+          { id: "5076", nom: "Tanqueray Orange Séville 70cl", unite: "bouteille" },
+          { id: "4069", nom: "Vodka Eristoff 1L", unite: "bouteille" },
+          { id: "5119", nom: "Bacardi Carta Blanca 1L", unite: "bouteille" },
+          { id: "3506", nom: "Bacardi 4 Años 1L", unite: "bouteille" },
+          { id: "1400", nom: "Campari 1L", unite: "bouteille" },
+          { id: "2196", nom: "Aperol 1L", unite: "bouteille" },
+          { id: "3204", nom: "St Germain 70cl", unite: "bouteille" },
+        ],
+        rares: [
+          { id: "2529", nom: "Copperhead Gin 50cl", unite: "bouteille" },
+          { id: "1948", nom: "Grey Goose 70cl", unite: "bouteille" },
+          { id: "4297", nom: "Grand Marnier 70cl", unite: "bouteille" },
+          { id: "5131", nom: "Cointreau 1L", unite: "bouteille" },
+          { id: "4660", nom: "Amaretto Disaronno 1L", unite: "bouteille" },
+          { id: "5109", nom: "Baileys 1L", unite: "bouteille" },
+          { id: "5151", nom: "Ricard 1L", unite: "bouteille" },
+          { id: "4257", nom: "J&B Rare 1L", unite: "bouteille" },
+          { id: "4501", nom: "Jack Daniel's 70cl", unite: "bouteille" },
+          { id: "4296", nom: "Glenfiddich 12Y 70cl", unite: "bouteille" },
+          { id: "5078", nom: "Belsazar Red 75cl", unite: "bouteille" },
+          { id: "5082", nom: "Belsazar Rosé 75cl", unite: "bouteille" },
+          { id: "5102", nom: "Martini Rosso 1,5L", unite: "bouteille" },
+          { id: "5103", nom: "Martini Bianco 1,5L", unite: "bouteille" },
+          { id: "5386", nom: "Boulard Calvados 1L", unite: "bouteille" },
+          { id: "4229", nom: "Patron Silver Tequila 70cl", unite: "bouteille" },
+          { id: "2603", nom: "Chartreuse Verte 70cl", unite: "bouteille" },
+          { id: "5286", nom: "Picon Amer 1L", unite: "bouteille" },
+          { id: "70530", nom: "Limoncello 70cl", unite: "bouteille" },
+          { id: "70595", nom: "Crème de Cassis Bourgogne 70cl", unite: "bouteille" },
+          { id: "70620", nom: "Crème de Pêche 70cl", unite: "bouteille" },
+          { id: "5137", nom: "Batida de Coco 1L", unite: "bouteille" },
+          { id: "4977", nom: "Angostura Bitters 0,2L", unite: "bouteille" },
+        ]
+      },
+    }
+  },
+
+  sirops: {
+    label: "Sirops & Mixers",
+    fournisseurs: {
+      "hls-sirops": {
+        nom: "HLS",
+        recurrents: [
+          { id: "70575", nom: "Sirop Sucre de Canne 1L", unite: "bouteille" },
+          { id: "70571", nom: "Sirop Pomme Verte 1L", unite: "bouteille" },
+          { id: "70551", nom: "Sirop Fleur de Sureau 1L", unite: "bouteille" },
+          { id: "70555", nom: "Sirop Gingembre 1L", unite: "bouteille" },
+          { id: "3327", nom: "Schweppes Tonic 25cl", unite: "casier" },
+          { id: "3329", nom: "Schweppes Agrum 25cl", unite: "casier" },
+        ],
+        rares: [
+          { id: "70580", nom: "Sirop Vanille 1L", unite: "bouteille" },
+          { id: "70550", nom: "Sirop Falernum 1L", unite: "bouteille" },
+          { id: "70810", nom: "Sirop Pêche Blanche 1L", unite: "bouteille" },
+          { id: "50242", nom: "Schweppes White Peach 20cl", unite: "casier" },
+          { id: "50371", nom: "Schweppes Hibiscus 20cl", unite: "casier" },
+          { id: "50350", nom: "Schweppes Ginger Ale 20cl", unite: "casier" },
+        ]
+      },
+    }
+  },
+
+  eaux_softs: {
+    label: "Eaux & Softs",
+    fournisseurs: {
+      "hls-softs": {
+        nom: "HLS",
+        recurrents: [
+          { id: "1249", nom: "Chaudfontaine Plate 25cl", unite: "casier" },
+          { id: "1250", nom: "Chaudfontaine Pétillante 25cl", unite: "casier" },
+          { id: "944", nom: "Coca-Cola 20cl", unite: "casier" },
+          { id: "1283", nom: "Coca-Cola Zero 20cl", unite: "casier" },
+          { id: "953", nom: "Sprite 20cl", unite: "casier" },
+        ],
+        rares: [
+          { id: "1247", nom: "Chaudfontaine Plate 50cl", unite: "casier" },
+          { id: "1248", nom: "Chaudfontaine Pétillante 50cl", unite: "casier" },
+          { id: "799", nom: "Fanta Orange 20cl", unite: "casier" },
+          { id: "3299", nom: "Fuze Tea Black 20cl", unite: "casier" },
+          { id: "3302", nom: "Fuze Tea Pêche Hibiscus 20cl", unite: "casier" },
+          { id: "6405", nom: "Minute Maid Orange 20cl", unite: "casier" },
+          { id: "1241", nom: "Minute Maid Pomme 20cl", unite: "casier" },
+          { id: "1243", nom: "Minute Maid Multivitamin 20cl", unite: "casier" },
+          { id: "618", nom: "Minute Maid Tomate 20cl", unite: "casier" },
+        ]
+      },
+    }
+  },
+
+  bieres: {
+    label: "Bières",
+    fournisseurs: {
+      "hls-bieres": {
+        nom: "HLS (bouteilles)",
+        recurrents: [
+          { id: "440", nom: "Chimay Bleue 33cl", unite: "casier" },
+          { id: "475", nom: "Duvel 33cl", unite: "casier" },
+          { id: "4752", nom: "Orval 33cl", unite: "casier" },
+        ],
+        rares: [
+          { id: "1231", nom: "Brugse Zot Blonde 33cl", unite: "casier" },
+          { id: "34911", nom: "Carlsberg 25cl", unite: "casier" },
+          { id: "4136", nom: "Stella Artois 0% 25cl", unite: "casier" },
+          { id: "1572", nom: "Liefmans Kriek 25cl", unite: "casier" },
+          { id: "4097", nom: "Liefmans 0% 25cl", unite: "casier" },
+          { id: "137", nom: "Leffe Brune 33cl", unite: "casier" },
+          { id: "37291", nom: "St Hubertus Blonde 33cl", unite: "casier" },
+          { id: "37401", nom: "St Hubertus Blanche 33cl", unite: "casier" },
+          { id: "37321", nom: "St Hubertus Ambrée 33cl", unite: "casier" },
+        ]
+      },
+      "inbev-futs": {
+        nom: "INBEV (fûts)",
+        recurrents: [
+          { id: "6175", nom: "Stella Artois fût 30L", unite: "fût" },
+          { id: "3410", nom: "Leffe Blonde fût 30L", unite: "fût" },
+        ],
+        rares: [
+          { id: "9974", nom: "Hoegaarden White fût 20L", unite: "fût" },
+          { id: "63743", nom: "Triple Karmeliet fût 30L", unite: "fût" },
+          { id: "7511093", nom: "CO2 10kg", unite: "bouteille" },
+        ]
+      },
+    }
+  },
+
+  cafe: {
+    label: "Café & Infusions",
+    fournisseurs: {
+      "hls-cafe": {
+        nom: "HLS",
+        recurrents: [
+          { id: "72085", nom: "Masalto Bio Café Grains 1kg", unite: "kg" },
+          { id: "72129", nom: "Masalto Sucre Blanc 5kg", unite: "kg" },
+        ],
+        rares: [
+          { id: "72115", nom: "Masalto Bio Déca Moulu 250g", unite: "paquet" },
+          { id: "72101", nom: "Masalto Poudre Nettoyage", unite: "boîte" },
+          { id: "72113", nom: "Vitao Camomille Bio", unite: "boîte" },
+          { id: "72147", nom: "Vitao Fruits Rouges", unite: "boîte" },
+          { id: "72112", nom: "Vitao Tilleul Bio", unite: "boîte" },
+          { id: "72110", nom: "Vitao Thé Vert Jasmin Bio", unite: "boîte" },
+        ]
+      },
+    }
+  },
+
+  vins: {
+    label: "Vins & Champagnes",
+    fournisseurs: {
+      "avinum": {
+        nom: "AVINUM",
+        recurrents: [
+          { id: "av-001", nom: "Riesling Brandluft E.Boeckel 2023", unite: "bouteille" },
+          { id: "av-002", nom: "Pinot Gris E.Boeckel 2024 75cl", unite: "bouteille" },
+          { id: "av-003", nom: "Pinot Noir E.Boeckel 2023 75cl", unite: "bouteille" },
+          { id: "av-004", nom: "Mâcon La Roche Vineuse 2024", unite: "bouteille" },
+        ],
+        rares: [
+          { id: "av-005", nom: "Pinot Gris E.Boeckel 2024 37,5cl", unite: "bouteille" },
+          { id: "av-006", nom: "Pouilly-Fumé M.Michot 2023", unite: "bouteille" },
+          { id: "av-007", nom: "Sancerre Blanc Marloup 2024 75cl", unite: "bouteille" },
+          { id: "av-008", nom: "Sancerre Blanc Marloup 2024 37,5cl", unite: "bouteille" },
+          { id: "av-009", nom: "Pinot Noir E.Boeckel 2023 37,5cl", unite: "bouteille" },
+          { id: "av-010", nom: "Chinon Les Granges Baudry 2023", unite: "bouteille" },
+          { id: "av-011", nom: "St-Nicolas de Bourgueil Mabileau 75cl", unite: "bouteille" },
+          { id: "av-012", nom: "St-Nicolas de Bourgueil Mabileau 37,5cl", unite: "bouteille" },
+          { id: "av-013", nom: "Châteauneuf-du-Pape Perrin 2022", unite: "bouteille" },
+          { id: "av-014", nom: "Château Patache d'Aux 2018 75cl", unite: "bouteille" },
+          { id: "av-015", nom: "Château Petit Bocq St-Estèphe 75cl", unite: "bouteille" },
+          { id: "av-016", nom: "Château Peybonhomme Blaye 75cl", unite: "bouteille" },
+          { id: "av-017", nom: "Chakana Malbec 2023", unite: "bouteille" },
+          { id: "av-018", nom: "R de Ramatuelle Provence 2024", unite: "bouteille" },
+          { id: "av-019", nom: "M de Minuty Provence 2024", unite: "bouteille" },
+        ]
+      },
+      "hls-vins": {
+        nom: "HLS",
+        recurrents: [
+          { id: "70696", nom: "Cava La Vuelta 75cl", unite: "bouteille" },
+          { id: "70784", nom: "Terra di Nostri Blanc 2024", unite: "bouteille" },
+          { id: "70785", nom: "Terra di Nostri Rosé 2024", unite: "bouteille" },
+          { id: "70786", nom: "Terra di Nostri Rouge 2023", unite: "bouteille" },
+          { id: "77195", nom: "Lilas Blanc Bag in Box 10L", unite: "bidon" },
+          { id: "77196", nom: "Lilas Rosé Bag in Box 10L", unite: "bidon" },
+          { id: "77194", nom: "Lilas Rouge Bag in Box 10L", unite: "bidon" },
+        ],
+        rares: [
+          { id: "70706", nom: "Champagne Haton Blanc de Blancs 75cl", unite: "bouteille" },
+          { id: "veuve-clicquot", nom: "Veuve Clicquot Brut 75cl", unite: "bouteille" },
+          { id: "77220", nom: "Cristal Buisse Touraine Sauvignon 2024", unite: "bouteille" },
+          { id: "70646", nom: "Vouvray Sec Les Perruches 2024", unite: "bouteille" },
+          { id: "76742", nom: "Muscadet sur Lie Genaudières 75cl", unite: "bouteille" },
+          { id: "70270", nom: "Chablis Brocard 2024 75cl", unite: "bouteille" },
+          { id: "70271", nom: "Chablis Brocard 2024 37,5cl", unite: "bouteille" },
+          { id: "70274", nom: "Chablis 1er Cru Vau de Vey Bio 2023", unite: "bouteille" },
+          { id: "70702", nom: "Château Bellegrave Médoc 2019", unite: "bouteille" },
+          { id: "70011", nom: "Ch. Fleur Lartigue St-Émilion 75cl", unite: "bouteille" },
+          { id: "70309", nom: "Brouilly Ch. de la Terrière 2023", unite: "bouteille" },
+          { id: "77841", nom: "Morgon Côte de Py VV 2021", unite: "bouteille" },
+          { id: "70722", nom: "Chagual Cabernet BIO Los Vascos 2022", unite: "bouteille" },
+          { id: "77406", nom: "L'Oratoire de Chasse Spleen 2019", unite: "bouteille" },
+          { id: "77573", nom: "Domaine de l'Aigle Pinot Noir 2023", unite: "bouteille" },
+          { id: "70798", nom: "Mercurey Blanc Bois de Lalier 2022", unite: "bouteille" },
+          { id: "77832", nom: "Cigalus Blanc Biodynamie 2023", unite: "bouteille" },
+          { id: "74285", nom: "Pouilly-Fuissé Ch. La Vernalle 2022", unite: "bouteille" },
+        ]
+      },
+      "santos-palace": {
+        nom: "Santos Palace",
+        recurrents: [
+          { id: "sp-001", nom: "Erard-Salmon Brut Carte Blanche 75cl", unite: "bouteille" },
+        ],
+        rares: []
+      },
+    }
+  },
+
+  fruits_frais: {
+    label: "Fruits frais (bar)",
+    fournisseurs: {
+      "chef": {
+        nom: "Cuisine (Chef)",
+        recurrents: [
+          { id: "ch-001", nom: "Citrons verts", unite: "kg" },
+          { id: "ch-002", nom: "Citrons jaunes", unite: "kg" },
+          { id: "ch-003", nom: "Oranges", unite: "kg" },
+          { id: "ch-004", nom: "Framboise", unite: "kg" },
+        ],
+        rares: [
+          { id: "ch-005", nom: "Menthe fraîche", unite: "botte" },
+          { id: "ch-006", nom: "Fleurs décoratives", unite: "barquette" },
+          { id: "ch-007", nom: "Bonbons gingembre", unite: "paquet" },
+        ]
+      },
+    }
+  },
+};
+
+
+// ═══════════════════════════════════════════════════════════
+// MODULE COMMANDES V2 — logique Cuisine / Bar
+// ═══════════════════════════════════════════════════════════
+
+let cmdMode = 'cuisine'; // 'cuisine' | 'bar'
+let cmdActiveCat = null;
+let cmdSearchTerm = '';
+const cmdQuantities = {}; // { productId: { qty, nom, unite, fournisseur } }
+
+function cmdGetData() {
+  return cmdMode === 'cuisine' ? FOURNISSEURS_CUISINE : FOURNISSEURS_BAR;
+}
+
+function cmdInit() {
+  const data = cmdGetData();
+  cmdActiveCat = Object.keys(data)[0];
+  renderCmdCatTabs();
+  renderCmdList();
+  renderCmdPanier();
+}
+
+function switchCmdMode(mode, btn) {
+  cmdMode = mode;
+  cmdSearchTerm = '';
+  document.getElementById('cmd-search-input').value = '';
+  document.querySelectorAll('.cmd-main-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const data = cmdGetData();
+  cmdActiveCat = Object.keys(data)[0];
+  renderCmdCatTabs();
+  renderCmdList();
+}
+
+function renderCmdCatTabs() {
+  const data = cmdGetData();
+  const wrap = document.getElementById('cmd-cat-tabs');
+  wrap.innerHTML = Object.entries(data).map(([key, cat]) =>
+    `<button class="cmd-cat-tab${key === cmdActiveCat ? ' active' : ''}" onclick="switchCmdCat('${key}', this)">${cat.label}</button>`
+  ).join('');
+}
+
+function switchCmdCat(key, btn) {
+  cmdActiveCat = key;
+  document.querySelectorAll('.cmd-cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderCmdList();
+  document.getElementById('cmd-scroll').scrollTop = 0;
+}
+
+function cmdMatchesSearch(produit, term) {
+  if (!term) return true;
+  return produit.nom.toLowerCase().includes(term);
+}
+
+function renderCmdList() {
+  const data = cmdGetData();
+  const scroll = document.getElementById('cmd-scroll');
+  const term = cmdSearchTerm.toLowerCase().trim();
+  const catTabs = document.getElementById('cmd-cat-tabs');
+
+  // En recherche : on parcourt TOUTES les catégories, sinon juste la catégorie active
+  const categoriesToShow = term ? Object.entries(data) : [[cmdActiveCat, data[cmdActiveCat]]];
+  catTabs.style.display = term ? 'none' : 'flex';
+
+  let html = '';
+  let totalMatches = 0;
+
+  categoriesToShow.forEach(([catKey, cat]) => {
+    if (!cat) return;
+    let catHtml = '';
+
+    Object.entries(cat.fournisseurs).forEach(([fKey, fournisseur]) => {
+      const recurrentsMatch = fournisseur.recurrents.filter(p => cmdMatchesSearch(p, term));
+      const raresMatch = fournisseur.rares.filter(p => cmdMatchesSearch(p, term));
+
+      if (term && recurrentsMatch.length === 0 && raresMatch.length === 0) return;
+
+      const showRecurrents = term ? recurrentsMatch : fournisseur.recurrents;
+      const showRares = term ? raresMatch : fournisseur.rares;
+
+      totalMatches += showRecurrents.length + showRares.length;
+
+      const fournisseurId = `${cmdMode}-${catKey}-${fKey}`;
+      const raresOpenByDefault = !!term;
+
+      catHtml += `<div class="cmd-fournisseur">
+        <div class="cmd-fournisseur-header">
+          <span class="cmd-fournisseur-nom">${fournisseur.nom}${term ? ` · ${cat.label}` : ''}</span>
+        </div>
+        ${showRecurrents.map(p => cmdProductRow(p, fournisseur.nom)).join('')}
+        ${showRares.length ? `
+          <button class="cmd-rares-toggle${raresOpenByDefault ? ' open' : ''}" onclick="toggleCmdRares('${fournisseurId}', this)">
+            <span class="cmd-rares-label">${raresOpenByDefault ? 'Masquer' : 'Voir'} ${showRares.length} produit${showRares.length > 1 ? 's' : ''} rare${showRares.length > 1 ? 's' : ''}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="cmd-rares-group${raresOpenByDefault ? ' open' : ''}" id="rares-${fournisseurId}">
+            ${showRares.map(p => cmdProductRow(p, fournisseur.nom)).join('')}
+          </div>
+        ` : ''}
+      </div>`;
+    });
+
+    if (catHtml) html += catHtml;
+  });
+
+  if (!html || totalMatches === 0) {
+    html = `<div class="cmd-empty">Aucun produit trouvé${term ? ` pour "${term}"` : ''}.</div>`;
+  }
+
+  scroll.innerHTML = html;
+}
+
+function cmdProductRow(produit, fournisseurNom) {
+  const current = cmdQuantities[produit.id];
+  const qty = current ? current.qty : 0;
+  return `<div class="cmd-produit${qty > 0 ? ' active-qty' : ''}" id="row-${produit.id}">
+    <div class="cmd-produit-info">
+      <div class="cmd-produit-nom">${produit.nom}</div>
+      <div class="cmd-produit-unite">${produit.unite}</div>
+    </div>
+    <div class="cmd-stepper">
+      <button onclick="cmdChangeQty('${produit.id}', '${escapeJs(produit.nom)}', '${produit.unite}', '${escapeJs(fournisseurNom)}', -1)">−</button>
+      <span class="cmd-stepper-val${qty > 0 ? ' has-qty' : ''}" id="val-${produit.id}">${qty}</span>
+      <button onclick="cmdChangeQty('${produit.id}', '${escapeJs(produit.nom)}', '${produit.unite}', '${escapeJs(fournisseurNom)}', 1)">+</button>
+    </div>
+  </div>`;
+}
+
+function escapeJs(str) {
+  return String(str).replace(/'/g, "\\'");
+}
+
+function toggleCmdRares(id, btn) {
+  const group = document.getElementById('rares-' + id);
+  const isOpen = group.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  const n = group.querySelectorAll('.cmd-produit').length;
+  btn.querySelector('.cmd-rares-label').textContent =
+    (isOpen ? 'Masquer' : 'Voir') + ' ' + n + ' produit' + (n > 1 ? 's' : '') + (isOpen ? '' : ' rare' + (n > 1 ? 's' : ''));
+}
+
+function cmdChangeQty(id, nom, unite, fournisseur, delta) {
+  if (!cmdQuantities[id]) {
+    cmdQuantities[id] = { qty: 0, nom, unite, fournisseur };
+  }
+  cmdQuantities[id].qty = Math.max(0, cmdQuantities[id].qty + delta);
+
+  if (cmdQuantities[id].qty === 0) {
+    delete cmdQuantities[id];
+  }
+
+  const valEl = document.getElementById('val-' + id);
+  const rowEl = document.getElementById('row-' + id);
+  const newQty = cmdQuantities[id] ? cmdQuantities[id].qty : 0;
+  if (valEl) {
+    valEl.textContent = newQty;
+    valEl.classList.toggle('has-qty', newQty > 0);
+  }
+  if (rowEl) rowEl.classList.toggle('active-qty', newQty > 0);
+
+  renderCmdPanier();
+}
+
+function cmdRemoveItem(id) {
+  delete cmdQuantities[id];
+  renderCmdList();
+  renderCmdPanier();
+}
+
+function renderCmdPanier() {
+  const panier = document.getElementById('cmd-panier');
+  const items = Object.entries(cmdQuantities);
+
+  if (!items.length) {
+    panier.classList.remove('visible');
+    updateCmdSendBtn();
+    return;
+  }
+
+  panier.classList.add('visible');
+  document.getElementById('cmd-panier-count').textContent =
+    items.length + ' produit' + (items.length > 1 ? 's' : '');
+
+  document.getElementById('cmd-panier-items').innerHTML = items.map(([id, item]) =>
+    `<div class="cmd-panier-chip">
+      <span><b>${item.qty}</b> ${item.nom}</span>
+      <button class="cmd-panier-chip-remove" onclick="cmdRemoveItem('${id}')">×</button>
+    </div>`
+  ).join('');
+
+  updateCmdSendBtn();
+}
+
+function updateCmdSendBtn() {
+  const btn = document.getElementById('cmd-send-btn');
+  const badge = document.getElementById('cmd-send-badge');
+  const n = Object.keys(cmdQuantities).length;
+  if (!btn) return;
+  btn.disabled = n === 0;
+  if (badge) {
+    badge.textContent = n;
+    badge.style.display = n > 0 ? 'inline-flex' : 'none';
+  }
+}
+
+function cmdSearchInput(value) {
+  cmdSearchTerm = value;
+  document.getElementById('cmd-search-clear').classList.toggle('visible', value.length > 0);
+  renderCmdList();
+}
+
+function cmdClearSearch() {
+  cmdSearchTerm = '';
+  document.getElementById('cmd-search-input').value = '';
+  document.getElementById('cmd-search-clear').classList.remove('visible');
+  renderCmdList();
+}
+
+// ── Numéros WhatsApp ──
+const CMD_NUMERO_CHEF = '32488129983';
+const CMD_NUMERO_DANIEL = '32484745125';
+
+function cmdGenererEtEnvoyer() {
+  const items = Object.entries(cmdQuantities);
+  if (!items.length) { showToast('Aucun produit sélectionné.'); return; }
+
+  // Grouper par fournisseur
+  const byFournisseur = {};
+  items.forEach(([id, item]) => {
+    if (!byFournisseur[item.fournisseur]) byFournisseur[item.fournisseur] = [];
+    byFournisseur[item.fournisseur].push(item);
+  });
+
+  const date = new Date().toLocaleDateString('fr-BE', { weekday: 'long', day: 'numeric', month: 'long' });
+  const staff = currentStaff || 'Staff';
+  const modeLabel = cmdMode === 'cuisine' ? 'CUISINE' : 'BAR';
+
+  let text = `COMMANDE ${modeLabel} — LE SHAKE\n${date} — ${staff}\n${'─'.repeat(32)}\n\n`;
+  for (const [fournisseur, list] of Object.entries(byFournisseur)) {
+    text += `▸ ${fournisseur.toUpperCase()}\n`;
+    list.forEach(item => {
+      text += `  - ${item.nom} : ${item.qty} ${item.unite}${item.qty > 1 ? 's' : ''}\n`;
+    });
+    text += '\n';
+  }
+
+  const numero = cmdMode === 'cuisine' ? CMD_NUMERO_CHEF : CMD_NUMERO_DANIEL;
+
+  copyToClipboard(text);
+  addToHistorique(text);
+  window.open(`https://wa.me/${numero}?text=${encodeURIComponent(text)}`, '_blank');
+
+  // Reset après envoi
+  Object.keys(cmdQuantities).forEach(k => delete cmdQuantities[k]);
+  renderCmdList();
+  renderCmdPanier();
+  showToast(`Commande ${modeLabel.toLowerCase()} envoyée`);
+}
+
+
+cmdInit();
+
 </script>
 </body>
 </html>
