@@ -8,19 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f9f8f6;
-  --white: #ffffff;
-  --black: #111110;
-  --accent: #1a1a18;
-  --gold: #b8962e;
-  --gold-light: #f0e6c8;
-  --text: #1a1916;
-  --text-2: #6b6760;
-  --text-3: #a8a49e;
-  --border: #e8e4dd;
-  --border-strong: #d4cfc7;
-  --green: #2d7a4f;
-  --red: #c0392b;
+  --bg: #161412;
+  --white: #232019;
+  --black: #1A1814;
+  --accent: #E0823D;
+  --gold: #E0823D;
+  --gold-light: rgba(224,130,61,0.20);
+  --text: #F7F1E6;
+  --text-2: #A89A85;
+  --text-3: #6E6457;
+  --border: rgba(247,241,230,0.12);
+  --border-strong: rgba(247,241,230,0.26);
+  --green: #7FA88A;
+  --red: #D6724A;
   --tab-h: 72px;
   --header-h: 56px;
   --radius: 16px;
@@ -126,7 +126,7 @@ body {
   letter-spacing: 0.01em;
 }
 
-.tab.active .tab-label { color: var(--black); font-weight: 600; }
+.tab.active .tab-label { color: var(--text); font-weight: 600; }
 .tab.active .tab-icon { background: var(--gold-light); }
 .tab.active .tab-icon svg { stroke: var(--gold); }
 .tab:not(.active) .tab-icon svg { stroke: var(--text-3); }
@@ -167,8 +167,8 @@ body {
 
 /* Check box animation */
 .check-item.checked .check-box {
-  background: var(--black);
-  border-color: var(--black);
+  background: var(--gold);
+  border-color: var(--gold);
   animation: checkBox .2s ease;
 }
 @keyframes checkBox {
@@ -206,7 +206,7 @@ body {
 .welcome-card h2 {
   font-family: 'Instrument Serif', serif;
   font-size: 24px;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 6px;
   font-weight: 400;
 }
@@ -440,8 +440,8 @@ textarea::placeholder { color: var(--text-3); }
 }
 
 .check-item.checked .check-box {
-  background: var(--black);
-  border-color: var(--black);
+  background: var(--gold);
+  border-color: var(--gold);
 }
 
 .check-item.checked .check-label {
@@ -455,6 +455,15 @@ textarea::placeholder { color: var(--text-3); }
   color: var(--text);
   line-height: 1.4;
   transition: color .15s;
+  flex: 1;
+}
+
+.check-stamp {
+  font-size: 10px;
+  color: var(--text-3);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 8px;
 }
 
 .reset-btn {
@@ -501,7 +510,7 @@ textarea::placeholder { color: var(--text-3); }
 .carte-tab.active {
   background: var(--black);
   border-color: var(--black);
-  color: var(--white);
+  color: var(--text);
 }
 
 .carte-section { display: none; padding: 0 14px 24px; }
@@ -647,13 +656,13 @@ textarea::placeholder { color: var(--text-3); }
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: var(--white);
+  color: var(--text);
   cursor: pointer;
   margin-top: 12px;
   transition: background .15s;
 }
 
-.action-btn:active { background: #333; }
+.action-btn:active { background: #3D2C1C; }
 
 /* ── UTILS ── */
 .badge {
@@ -668,7 +677,7 @@ textarea::placeholder { color: var(--text-3); }
 }
 
 .badge-gold { background: var(--gold-light); color: var(--gold); }
-.badge-dark { background: #e8e4dd; color: var(--text-2); }
+.badge-dark { background: rgba(242,237,227,0.1); color: var(--text-2); }
 
 .carte-page-wrap { height: 100%; display: flex; flex-direction: column; }
 .carte-page-wrap .carte-tabs { padding-top: 16px; }
@@ -742,16 +751,18 @@ textarea::placeholder { color: var(--text-3); }
 }
 .cmd-search-clear.visible { display: block; }
 
-/* Bandeau "Mes ajouts" — bande horizontale qui se scroll elle-même,
-   ne pousse jamais le reste de la page vers le bas */
+/* Bandeau "Mes ajouts" — bande horizontale compacte, hauteur fixe et limitée,
+   ne grignote jamais l'espace de la liste produits en dessous */
 .cmd-panier {
-  margin: 12px 0 0;
+  margin: 0;
   background: var(--black);
   display: none;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   flex-shrink: 0;
-  padding: 13px 0;
+  max-height: 64px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
 }
 .cmd-panier.visible { display: flex; }
 .cmd-panier-header {
@@ -761,14 +772,14 @@ textarea::placeholder { color: var(--text-3); }
   padding: 0 14px;
 }
 .cmd-panier-title {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 .cmd-panier-count {
-  font-size: 11px;
+  font-size: 10px;
   color: #8a8680;
 }
 .cmd-panier-items {
@@ -780,6 +791,9 @@ textarea::placeholder { color: var(--text-3); }
   scroll-snap-type: x proximity;
   scrollbar-width: none;
   padding: 0 14px;
+  flex-shrink: 0;
+  height: 30px;
+  align-items: center;
 }
 .cmd-panier-items::-webkit-scrollbar { display: none; }
 .cmd-panier-chip {
@@ -789,8 +803,8 @@ textarea::placeholder { color: var(--text-3); }
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
-  padding: 5px 10px 5px 12px;
-  font-size: 12px;
+  padding: 4px 8px 4px 10px;
+  font-size: 11px;
   color: #ede8df;
   flex-shrink: 0;
   scroll-snap-align: start;
@@ -849,7 +863,7 @@ textarea::placeholder { color: var(--text-3); }
 .cmd-cat-tab.active {
   background: var(--black);
   border-color: var(--black);
-  color: var(--white);
+  color: var(--text);
 }
 
 /* Scroll area */
@@ -890,7 +904,7 @@ textarea::placeholder { color: var(--text-3); }
   border-bottom: 1px solid var(--border);
 }
 .cmd-produit:last-child { border-bottom: none; }
-.cmd-produit.active-qty { background: #f5f9ff; }
+.cmd-produit.active-qty { background: rgba(201,138,75,0.08); }
 
 .cmd-produit-info { flex: 1; min-width: 0; }
 .cmd-produit-nom {
@@ -936,7 +950,7 @@ textarea::placeholder { color: var(--text-3); }
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
 }
-.cmd-stepper-val.has-qty { color: #2563eb; }
+.cmd-stepper-val.has-qty { color: var(--gold); }
 
 /* Bouton "voir N rares" */
 .cmd-rares-toggle {
@@ -1005,7 +1019,7 @@ textarea::placeholder { color: var(--text-3); }
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: var(--white);
+  color: var(--text);
   cursor: pointer;
   transition: background .15s;
   display: flex;
@@ -1013,7 +1027,7 @@ textarea::placeholder { color: var(--text-3); }
   justify-content: center;
   gap: 8px;
 }
-.cmd-send-btn:active { background: #333; }
+.cmd-send-btn:active { background: #3D2C1C; }
 .cmd-send-btn:disabled {
   background: var(--border-strong);
   color: var(--text-3);
@@ -1025,12 +1039,124 @@ textarea::placeholder { color: var(--text-3); }
   font-size: 11px;
   font-weight: 700;
   padding: 2px 8px;
-  border-radius: 10px;
+/* ── ÉCRAN PIN ── */
+.pin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
+.pin-sheet {
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  padding: 28px 24px 36px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pin-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.pin-logo span { color: var(--gold); }
+.pin-subtitle {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-bottom: 28px;
+}
+.pin-dots {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  transition: all .15s;
+}
+.pin-dot.filled {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.pin-dot.error {
+  background: var(--red);
+  border-color: var(--red);
+}
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 14px;
+}
+.pin-key {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .1s;
+  font-family: 'DM Sans', sans-serif;
+}
+.pin-key:active { background: var(--gold); color: var(--black); transform: scale(0.95); }
+.pin-key.empty { visibility: hidden; }
+.pin-error-msg {
+  font-size: 12px;
+  color: var(--red);
+  margin-top: 20px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.pin-error-msg.visible { opacity: 1; }
 
 </style>
 </head>
 <body>
+
+<!-- ÉCRAN PIN (pop-up bas d'écran, app visible derrière) -->
+<div class="pin-overlay" id="pin-screen">
+  <div class="pin-sheet">
+    <div class="pin-logo">Le <span>Shake</span></div>
+    <div class="pin-subtitle">Code d'accès équipe</div>
+    <div class="pin-dots" id="pin-dots">
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+    </div>
+    <div class="pin-keypad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <div class="pin-key empty"></div>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key" onclick="pinBackspace()">⌫</button>
+    </div>
+    <div class="pin-error-msg" id="pin-error-msg">Code incorrect, réessaie</div>
+  </div>
+</div>
 
 <!-- STAFF MODAL -->
 <div id="staff-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;align-items:flex-end;" onclick="if(event.target===this)this.style.display='none'">
@@ -1325,24 +1451,24 @@ textarea::placeholder { color: var(--text-3); }
         <!-- PLATS -->
         <div class="carte-section" id="carte-plats">
           <div class="carte-category">Plats</div>
-          <div class="carte-item"><div><div class="carte-item-name">Poulet Rôti</div><div class="carte-item-sub">Compote + Frites</div></div><div class="carte-price">29€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Tartare de Bœuf</div><div class="carte-item-sub">Frites + Salade — servi froid</div></div><div class="carte-price">25€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Vol-au-Vent</div><div class="carte-item-sub">Frites</div></div><div class="carte-price">38€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Rognon</div><div class="carte-item-sub">Légumes de saison + Frites — rosé par défaut</div></div><div class="carte-price">32€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Filet Pur</div><div class="carte-item-sub">Frites + Salade + Sauce au choix</div></div><div class="carte-price">42€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Magret de Canard</div><div class="carte-item-sub">Pommes Duchesse — rosé par défaut</div></div><div class="carte-price">32€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Sole</div><div class="carte-item-sub">Purée ou Frites au choix — Prix du jour</div></div><div class="carte-price">—</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Saumon</div><div class="carte-item-sub">Riz</div></div><div class="carte-price">32€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Salade César</div></div><div class="carte-price">25€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Coquillettes</div></div><div class="carte-price">28€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Raviole aux Cèpes</div></div><div class="carte-price">27€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Linguine Citron</div></div><div class="carte-price">25€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Parmentier de Canard</div><div class="carte-item-sub">Frites</div></div><div class="carte-price">28€</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Onglet</div><div class="carte-item-sub">Frites</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Poulet Rôti</div><div class="carte-item-sub">Jus de cuisson, compote, frites</div></div><div class="carte-price">29€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Tartare de Bœuf</div><div class="carte-item-sub">Coupé au couteau, frites + salade — servi froid</div></div><div class="carte-price">25€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Vol-au-Vent</div><div class="carte-item-sub">Volaille et ris de veau, frites</div></div><div class="carte-price">38€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Rognon</div><div class="carte-item-sub">Moutarde à l'ancienne, légumes de saison + frites — rosé par défaut</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Filet Pur</div><div class="carte-item-sub">Frites + salade + sauce au choix</div></div><div class="carte-price">42€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Magret de Canard</div><div class="carte-item-sub">À l'orange, légumes de saison, pommes duchesses — rosé par défaut</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Sole</div><div class="carte-item-sub">Meunière de la Mer du Nord, purée ou frites au choix — prix du jour</div></div><div class="carte-price">—</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Saumon</div><div class="carte-item-sub">Laqué au miso, légumes de saison et riz</div></div><div class="carte-price">32€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Salade César</div><div class="carte-item-sub">Œufs de caille, poulet croustillant, chips de lard</div></div><div class="carte-price">25€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Coquillettes</div><div class="carte-item-sub">Jambon à l'os</div></div><div class="carte-price">28€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Raviole aux Cèpes</div><div class="carte-item-sub">Crème de champignons</div></div><div class="carte-price">27€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Linguine Citron</div><div class="carte-item-sub">Zestes frais, parmesan affiné</div></div><div class="carte-price">25€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Parmentier de Canard</div><div class="carte-item-sub">Effiloché confit, herbes fraîches, frites</div></div><div class="carte-price">28€</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Onglet</div><div class="carte-item-sub">Échalotes confites, purée fumée, frites</div></div><div class="carte-price">32€</div></div>
           <div class="carte-category">À Partager — prix / personne</div>
-          <div class="carte-item"><div><div class="carte-item-name">Côte à l'Os</div></div><div class="carte-price pp">55€/pp</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Bar entier</div></div><div class="carte-price pp">35€/pp</div></div>
-          <div class="carte-item"><div><div class="carte-item-name">Linguine au Homard</div></div><div class="carte-price pp">45€/pp</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Côte à l'Os</div><div class="carte-item-sub">1,2 kg — haricots verts, frites</div></div><div class="carte-price pp">55€/pp</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Bar entier</div><div class="carte-item-sub">Rôti, beurre à la provençale, purée</div></div><div class="carte-price pp">35€/pp</div></div>
+          <div class="carte-item"><div><div class="carte-item-name">Linguine au Homard</div><div class="carte-item-sub">Tomates cerises, sauce bisque</div></div><div class="carte-price pp">45€/pp</div></div>
         </div>
 
         <!-- DESSERTS -->
@@ -1424,7 +1550,7 @@ textarea::placeholder { color: var(--text-3); }
 
           <style>
             .prebatch-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
-            .prebatch-img { width: 100%; height: 200px; object-fit: contain; background: #faf9f7; padding: 16px; }
+            .prebatch-img { width: 100%; height: 200px; object-fit: contain; background: var(--white); padding: 16px; }
             .prebatch-body { padding: 16px; }
             .prebatch-name { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); margin-bottom: 2px; }
             .prebatch-price { font-size: 12px; color: var(--text-3); margin-bottom: 14px; }
@@ -1435,7 +1561,7 @@ textarea::placeholder { color: var(--text-3); }
             .prebatch-qty { color: var(--text-2); font-weight: 500; }
             .prebatch-note { font-size: 12px; color: var(--text-2); font-style: italic; line-height: 1.5; margin-top: 10px; background: var(--bg); padding: 10px; border-radius: 8px; }
             .prebatch-doseur { display: inline-block; background: var(--gold-light); color: var(--gold); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 8px; }
-            .mocktail-badge { display: inline-block; background: #e8f5e9; color: #2d7a4f; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-left: 6px; }
+            .mocktail-badge { display: inline-block; background: rgba(127,168,138,0.18); color: #A8CDB2; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-left: 6px; }
           </style>
 
           <!-- LE SHAKE -->
@@ -2100,6 +2226,72 @@ function toggle(item, group) {
   item.classList.toggle('checked');
   clCounts[group] += wasChecked ? -1 : 1;
   updateProgress(group);
+  clRecordTimestamp(item, group, !wasChecked);
+}
+
+// ── Horodatage checklist : qui a coché quoi et à quelle heure ──
+function clGetLog() {
+  try { return JSON.parse(localStorage.getItem('shake_cl_log') || '{}'); } catch(e) { return {}; }
+}
+
+function clSaveLog(log) {
+  localStorage.setItem('shake_cl_log', JSON.stringify(log));
+}
+
+function clItemKey(item, group) {
+  const label = item.querySelector('.check-label');
+  return group + '::' + (label ? label.textContent : item.textContent).trim();
+}
+
+function clRecordTimestamp(item, group, isNowChecked) {
+  const log = clGetLog();
+  const key = clItemKey(item, group);
+  if (isNowChecked) {
+    log[key] = {
+      staff: currentStaff || 'Staff',
+      time: new Date().toLocaleTimeString('fr-BE', { hour: '2-digit', minute: '2-digit' })
+    };
+  } else {
+    delete log[key];
+  }
+  clSaveLog(log);
+  clUpdateTimestampDisplay(item, group);
+}
+
+function clUpdateTimestampDisplay(item, group) {
+  const log = clGetLog();
+  const key = clItemKey(item, group);
+  const entry = log[key];
+  let stampEl = item.querySelector('.check-stamp');
+  if (entry) {
+    if (!stampEl) {
+      stampEl = document.createElement('span');
+      stampEl.className = 'check-stamp';
+      item.appendChild(stampEl);
+    }
+    stampEl.textContent = entry.staff + ' · ' + entry.time;
+  } else if (stampEl) {
+    stampEl.remove();
+  }
+}
+
+function clRestoreFromLog() {
+  const log = clGetLog();
+  document.querySelectorAll('.check-item').forEach(item => {
+    const onclickAttr = item.getAttribute('onclick') || '';
+    const match = onclickAttr.match(/toggle\(this,\s*'([^']+)'\)/);
+    if (!match) return;
+    const group = match[1];
+    const key = clItemKey(item, group);
+    if (log[key]) {
+      if (!item.classList.contains('checked')) {
+        item.classList.add('checked');
+        clCounts[group] = (clCounts[group] || 0) + 1;
+      }
+      clUpdateTimestampDisplay(item, group);
+    }
+  });
+  Object.keys(clGroups || {}).forEach(updateProgress);
 }
 
 function updateProgress(group) {
@@ -2122,7 +2314,16 @@ function switchChecklist(name, btn) {
 function resetGroup(type) {
   const prefixes = { accueil: 'ac-', serveurs: 'sv-', barman: 'bm-' };
   const prefix = prefixes[type] || 'ac-';
-  document.querySelectorAll('#cl-' + type + ' .check-item').forEach(i => i.classList.remove('checked'));
+  document.querySelectorAll('#cl-' + type + ' .check-item').forEach(i => {
+    i.classList.remove('checked');
+    const stamp = i.querySelector('.check-stamp');
+    if (stamp) stamp.remove();
+  });
+  const log = clGetLog();
+  Object.keys(log).forEach(key => {
+    if (key.startsWith(prefix)) delete log[key];
+  });
+  clSaveLog(log);
   Object.keys(clGroups).filter(g => g.startsWith(prefix)).forEach(g => {
     clCounts[g] = 0;
     updateProgress(g);
@@ -2137,6 +2338,9 @@ function checkDailyReset() {
     resetGroup('serveurs');
     resetGroup('barman');
     localStorage.setItem('cl_reset_date', today);
+    clSaveLog({});
+  } else {
+    clRestoreFromLog();
   }
 }
 checkDailyReset();
@@ -2248,7 +2452,7 @@ function loadRecettes() {
           <div style="padding:14px;">
             ${r.file_url ? `<div style="margin-bottom:10px;">
               ${r.file_url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ?
-                `<img src="${r.file_url}" style="width:100%;border-radius:8px;max-height:300px;object-fit:contain;background:#faf9f7;">` :
+                `<img src="${r.file_url}" style="width:100%;border-radius:8px;max-height:300px;object-fit:contain;background:#232019;">` :
                 `<a href="${r.file_url}" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-size:13px;">📄 Voir le PDF</a>`
               }</div>` : ''}
             ${r.ingredients ? `<div style="margin-bottom:8px;"><div style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Ingrédients</div><div style="font-size:13px;color:var(--text);white-space:pre-line;">${r.ingredients}</div></div>` : ''}
@@ -2561,6 +2765,7 @@ function genererCommande() {
 
 // ═══════════════════════════════════════════════════════════
 // DONNÉES FOURNISSEURS — CUISINE + BAR
+// Reconstruit à partir des factures réelles (liste précise, pas de mix générique)
 // Structure : Catégorie > Fournisseur > { récurrents, rares }
 // ═══════════════════════════════════════════════════════════
 
@@ -2571,58 +2776,58 @@ const FOURNISSEURS_CUISINE = {
       "la-boucherie": {
         nom: "La Boucherie",
         recurrents: [
-          { id: "lb-001", nom: "Onglet", unite: "kg" },
-          { id: "lb-002", nom: "Foie de veau", unite: "kg" },
-          { id: "lb-003", nom: "Steak haché Angus", unite: "kg" },
-          { id: "lb-004", nom: "Américain moulu", unite: "kg" },
+          { id: "lb-001", nom: "Steak haché de bœuf Angus 15% MG", unite: "kg" },
+          { id: "lb-002", nom: "Américain moulu sous atmosphère", unite: "kg" },
+          { id: "lb-003", nom: "Onglet de bœuf (EU) paré", unite: "kg" },
         ],
-        rares: []
+        rares: [
+          { id: "lb-004", nom: "Foie de veau V", unite: "kg" },
+        ]
       },
       "daisy-de-wolf": {
         nom: "Daisy de Wolf",
         recurrents: [
-          { id: "ddw-001", nom: "Poulet PAC", unite: "pièce" },
-          { id: "ddw-002", nom: "Magret de canard", unite: "pièce" },
+          { id: "ddw-001", nom: "Magret de canard", unite: "kg" },
+          { id: "ddw-002", nom: "Poulet artisanal PAC", unite: "kg" },
         ],
         rares: [
-          { id: "ddw-003", nom: "Poulet artisanal PAC", unite: "pièce" },
-          { id: "ddw-004", nom: "Foie de veau", unite: "kg" },
-          { id: "ddw-005", nom: "Poule mère", unite: "pièce" },
+          { id: "ddw-003", nom: "Poulet PAC standard", unite: "kg" },
+          { id: "ddw-004", nom: "Poule mère", unite: "kg" },
+          { id: "ddw-005", nom: "Foie de veau V", unite: "kg" },
         ]
       },
       "lee-chi-ko": {
         nom: "Lee Chi Ko",
         recurrents: [
-          { id: "lck-001", nom: "Filet de poulet frais (carton)", unite: "carton" },
+          { id: "lck-001", nom: "Filet de poulet frais 2x5kg sous atmosphère", unite: "carton" },
+        ],
+        rares: []
+      },
+      "quality-tradition": {
+        nom: "Quality & Tradition",
+        recurrents: [
+          { id: "qt-001", nom: "Foie cru de canard paré assorti", unite: "kg" },
         ],
         rares: []
       },
       "lesage-fils": {
         nom: "Lesage & Fils",
         recurrents: [
-          { id: "lf-001", nom: "Entrecôte noix Angus Argentine", unite: "kg" },
-          { id: "lf-002", nom: "Carré français persillé", unite: "kg" },
+          { id: "lf-001", nom: "Carré français entier persillé 1,1kg", unite: "kg" },
         ],
         rares: [
-          { id: "lf-003", nom: "Ris de veau surgelé", unite: "kg" },
-          { id: "lf-004", nom: "Fond de bœuf surgelé", unite: "kg" },
+          { id: "lf-002", nom: "Entrecôte noix Argentine Angus Rio", unite: "kg" },
+          { id: "lf-003", nom: "Ris de veau noix surgelé", unite: "kg" },
+          { id: "lf-004", nom: "Fond de bœuf surgelé 5x2kg", unite: "kg" },
         ]
-      },
-      "quality-tradition": {
-        nom: "Quality & Tradition",
-        recurrents: [
-          { id: "qt-001", nom: "Foie gras cru de canard paré", unite: "kg" },
-        ],
-        rares: []
       },
       "aquality-viandes": {
         nom: "Aquality",
         recurrents: [
-          { id: "aq-v-001", nom: "Filet pur irlandais", unite: "kg" },
+          { id: "aq-v-001", nom: "Filet pur irlandais S/C", unite: "kg" },
+          { id: "aq-v-002", nom: "Rognon de veau vac", unite: "pièce" },
         ],
-        rares: [
-          { id: "aq-v-002", nom: "Rognon de veau", unite: "kg" },
-        ]
+        rares: []
       },
     }
   },
@@ -2633,32 +2838,39 @@ const FOURNISSEURS_CUISINE = {
       "aquality-poissons": {
         nom: "Aquality",
         recurrents: [
-          { id: "aq-p-001", nom: "Sole", unite: "kg" },
-          { id: "aq-p-002", nom: "Saumon éco", unite: "kg" },
-          { id: "aq-p-003", nom: "Longe de thon", unite: "kg" },
-          { id: "aq-p-004", nom: "Bar en filet", unite: "kg" },
-          { id: "aq-p-005", nom: "Dos de cabillaud", unite: "kg" },
+          { id: "aq-p-001", nom: "Sole 2+ (500/600gr) sans peau", unite: "kg" },
+          { id: "aq-p-002", nom: "Saumon éco lab", unite: "kg" },
+          { id: "aq-p-003", nom: "Longe de thon premium center cut", unite: "kg" },
         ],
         rares: [
-          { id: "aq-p-006", nom: "Chair de crabe", unite: "kg" },
-          { id: "aq-p-007", nom: "Huile d'olive", unite: "L" },
+          { id: "aq-p-004", nom: "Bar en filet 600/800g", unite: "kg" },
+          { id: "aq-p-005", nom: "Bar en filet 800/1000g", unite: "kg" },
+          { id: "aq-p-006", nom: "Dos de cabillaud", unite: "kg" },
+          { id: "aq-p-007", nom: "Chair de crabe pot", unite: "kg" },
+          { id: "aq-p-008", nom: "Filet de saumon avec peau", unite: "kg" },
+          { id: "aq-p-009", nom: "Huile d'olive extra vierge", unite: "L" },
         ]
       },
       "luxe-mare": {
         nom: "Luxe Mare",
         recurrents: [
-          { id: "lm-001", nom: "Noix de Saint-Jacques", unite: "kg" },
-          { id: "lm-002", nom: "Crevettes grises", unite: "kg" },
-          { id: "lm-003", nom: "Saumon fumé", unite: "kg" },
+          { id: "lm-001", nom: "Bar d'élevage 600-800g", unite: "kg" },
+          { id: "lm-002", nom: "Bar d'élevage 800-1000g", unite: "kg" },
+          { id: "lm-003", nom: "Noix de coquilles Saint-Jacques CAN MSC", unite: "kg" },
+          { id: "lm-004", nom: "Langoustine 04-08 semi IQF", unite: "kg" },
         ],
         rares: [
-          { id: "lm-004", nom: "Langoustine", unite: "kg" },
-          { id: "lm-005", nom: "Bar d'élevage", unite: "kg" },
-          { id: "lm-006", nom: "King crab", unite: "kg" },
+          { id: "lm-005", nom: "Sole NL 400-500g", unite: "kg" },
+          { id: "lm-006", nom: "Chair de king crab Canada", unite: "kg" },
           { id: "lm-007", nom: "Homard canadien vivant", unite: "pièce" },
-          { id: "lm-008", nom: "Perche du Nil", unite: "kg" },
-          { id: "lm-009", nom: "Cabillaud", unite: "kg" },
-          { id: "lm-010", nom: "Calamars", unite: "kg" },
+          { id: "lm-008", nom: "Crevettes grises épluchées", unite: "kg" },
+          { id: "lm-009", nom: "Carapaces crevettes grises", unite: "kg" },
+          { id: "lm-010", nom: "Daurade d'élevage", unite: "kg" },
+          { id: "lm-011", nom: "Dos de cabillaud", unite: "kg" },
+          { id: "lm-012", nom: "Cœur de saumon fumé", unite: "kg" },
+          { id: "lm-013", nom: "Filets de perche du Nil", unite: "kg" },
+          { id: "lm-014", nom: "Anneaux de calamars farinés", unite: "kg" },
+          { id: "lm-015", nom: "Filet de thon sashimi", unite: "kg" },
         ]
       },
     }
@@ -2670,22 +2882,60 @@ const FOURNISSEURS_CUISINE = {
       "vander-zijpen": {
         nom: "Vander Zijpen",
         recurrents: [
-          { id: "vz-001", nom: "Tomates", unite: "kg" },
-          { id: "vz-002", nom: "Salades", unite: "pièce" },
-          { id: "vz-003", nom: "Persil", unite: "botte" },
-          { id: "vz-004", nom: "Ciboulette", unite: "botte" },
-          { id: "vz-005", nom: "Citrons", unite: "kg" },
+          { id: "vz-001", nom: "Asperge verte", unite: "botte" },
+          { id: "vz-002", nom: "Carotte", unite: "botte" },
+          { id: "vz-003", nom: "Champignon brun de Paris 250g", unite: "sachet" },
+          { id: "vz-004", nom: "Citron jaune (5kg ou 40 pièces)", unite: "kg" },
+          { id: "vz-005", nom: "Choufleur romanesco", unite: "pièce" },
+          { id: "vz-006", nom: "Courgette jaune", unite: "pièce" },
+          { id: "vz-007", nom: "Courgette verte", unite: "pièce" },
+          { id: "vz-008", nom: "Fraise (Hoogstraten / Belge) 500g", unite: "barquette" },
+          { id: "vz-009", nom: "Framboises 125g", unite: "barquette" },
+          { id: "vz-010", nom: "Groseilles rouges 125g", unite: "barquette" },
+          { id: "vz-011", nom: "Haricots kenia nettoyés 250g", unite: "sachet" },
+          { id: "vz-012", nom: "Haricots mange-tout nettoyés 250g", unite: "sachet" },
+          { id: "vz-013", nom: "Persil", unite: "botte" },
+          { id: "vz-014", nom: "Ciboulette", unite: "botte" },
+          { id: "vz-015", nom: "Coriandre", unite: "botte" },
+          { id: "vz-016", nom: "Thym", unite: "botte" },
+          { id: "vz-017", nom: "Basilic", unite: "botte" },
+          { id: "vz-018", nom: "Mûres 125g", unite: "barquette" },
+          { id: "vz-019", nom: "Myrtilles 125g", unite: "barquette" },
+          { id: "vz-020", nom: "Navet", unite: "botte" },
+          { id: "vz-021", nom: "Oignon jeune", unite: "botte" },
+          { id: "vz-022", nom: "Poireau", unite: "botte" },
+          { id: "vz-023", nom: "Salade lollo bionda", unite: "pièce" },
+          { id: "vz-024", nom: "Salade lollo rossa", unite: "pièce" },
+          { id: "vz-025", nom: "Salade romaine", unite: "pièce" },
+          { id: "vz-026", nom: "Laitue", unite: "pièce" },
+          { id: "vz-027", nom: "Tomate tricolore shaker 350g", unite: "barquette" },
         ],
         rares: [
-          { id: "vz-006", nom: "Asperges", unite: "kg" },
-          { id: "vz-007", nom: "Carottes", unite: "kg" },
-          { id: "vz-008", nom: "Choufleur romanesco", unite: "pièce" },
-          { id: "vz-009", nom: "Fraises", unite: "kg" },
-          { id: "vz-010", nom: "Framboises", unite: "kg" },
-          { id: "vz-011", nom: "Coriandre", unite: "botte" },
-          { id: "vz-012", nom: "Thym", unite: "botte" },
-          { id: "vz-013", nom: "Basilic", unite: "botte" },
-          { id: "vz-014", nom: "Agrumes (mix)", unite: "kg" },
+          { id: "vz-028", nom: "Artichaut grand", unite: "pièce" },
+          { id: "vz-029", nom: "Avocat Hass", unite: "pièce" },
+          { id: "vz-030", nom: "Cresson", unite: "botte" },
+          { id: "vz-031", nom: "Cressonette", unite: "botte" },
+          { id: "vz-032", nom: "Échalote longue", unite: "kg" },
+          { id: "vz-033", nom: "Épinard jeune pousse", unite: "sachet" },
+          { id: "vz-034", nom: "Fenouil", unite: "pièce" },
+          { id: "vz-035", nom: "Citron vert (lime)", unite: "kg" },
+          { id: "vz-036", nom: "Mangue", unite: "pièce" },
+          { id: "vz-037", nom: "Melon charentais", unite: "pièce" },
+          { id: "vz-038", nom: "Orange à presser", unite: "kg" },
+          { id: "vz-039", nom: "Pamplemousse rouge", unite: "pièce" },
+          { id: "vz-040", nom: "Physalis", unite: "barquette" },
+          { id: "vz-041", nom: "Piment rouge", unite: "kg" },
+          { id: "vz-042", nom: "Poivron rouge", unite: "kg" },
+          { id: "vz-043", nom: "Poivron jaune", unite: "kg" },
+          { id: "vz-044", nom: "Poivron orange", unite: "kg" },
+          { id: "vz-045", nom: "Poivron vert", unite: "kg" },
+          { id: "vz-046", nom: "Roquette", unite: "sachet" },
+          { id: "vz-047", nom: "Sucrine little gem", unite: "pièce" },
+          { id: "vz-048", nom: "Tomate 60+", unite: "kg" },
+          { id: "vz-049", nom: "Tomate 70+", unite: "kg" },
+          { id: "vz-050", nom: "Salade trévise radicchio", unite: "pièce" },
+          { id: "vz-051", nom: "Cerfeuil", unite: "botte" },
+          { id: "vz-052", nom: "Ail tressé", unite: "pièce" },
         ]
       },
     }
@@ -2697,42 +2947,122 @@ const FOURNISSEURS_CUISINE = {
       "bidfood-makady": {
         nom: "Bidfood Makady",
         recurrents: [
-          { id: "bm-001", nom: "Crème", unite: "L" },
-          { id: "bm-002", nom: "Beurre", unite: "kg" },
-          { id: "bm-003", nom: "Mayonnaise", unite: "bidon" },
-          { id: "bm-004", nom: "Cheddar", unite: "kg" },
-          { id: "bm-005", nom: "Parmesan", unite: "kg" },
-          { id: "bm-006", nom: "Burrata", unite: "pièce" },
-          { id: "bm-007", nom: "Smash burger (steak)", unite: "kg" },
-          { id: "bm-008", nom: "Bacon", unite: "kg" },
+          { id: "bm-001", nom: "Crème culinaire 20% UHT", unite: "L" },
+          { id: "bm-002", nom: "Crème 40% UHT Debic", unite: "L" },
+          { id: "bm-003", nom: "Beurre doux Smart Choice 1kg", unite: "kg" },
+          { id: "bm-004", nom: "Beurre demi-sel AOP cup alu 60x10g", unite: "boîte" },
+          { id: "bm-005", nom: "Blancs d'œufs liquides 1kg", unite: "kg" },
+          { id: "bm-006", nom: "Jaune d'œuf liquide 1kg", unite: "kg" },
+          { id: "bm-007", nom: "Farine de froment 1kg", unite: "kg" },
+          { id: "bm-008", nom: "Huile d'arachide 1L", unite: "L" },
+          { id: "bm-009", nom: "Huile de friture Chef BIB 15L", unite: "bidon" },
+          { id: "bm-010", nom: "Mini boule rustica nature 100x35g", unite: "boîte" },
+          { id: "bm-011", nom: "Anneaux de calamar panés bite size 1kg", unite: "kg" },
+          { id: "bm-012", nom: "Graisse de bœuf raffinée 10kg", unite: "kg" },
+          { id: "bm-013", nom: "Callets chocolat noir Callebaut 2,5kg", unite: "kg" },
+          { id: "bm-014", nom: "Câpres au vinaigre 700g", unite: "bocal" },
+          { id: "bm-015", nom: "Panko Belge Japanese style 2kg", unite: "kg" },
+          { id: "bm-016", nom: "Carpaccio de bœuf 12x80g", unite: "boîte" },
+          { id: "bm-017", nom: "Crispy bacon 500g", unite: "kg" },
+          { id: "bm-018", nom: "Sacs sous-vide 15x20cm — 100 pièces", unite: "paquet" },
+          { id: "bm-019", nom: "Sacs sous-vide 15x25cm — 100 pièces", unite: "paquet" },
+          { id: "bm-020", nom: "Sacs sous-vide 18x27cm — 100 pièces", unite: "paquet" },
+          { id: "bm-021", nom: "Sacs sous-vide 20x30cm — 100 pièces", unite: "paquet" },
         ],
         rares: [
-          { id: "bm-009", nom: "Farine", unite: "kg" },
-          { id: "bm-010", nom: "Mascarpone", unite: "kg" },
-          { id: "bm-011", nom: "Panko", unite: "kg" },
-          { id: "bm-012", nom: "Huiles", unite: "L" },
-          { id: "bm-013", nom: "Sacs sous-vide", unite: "paquet" },
-          { id: "bm-014", nom: "Anneaux de calamar", unite: "kg" },
-          { id: "bm-015", nom: "Produit nettoyage Dipp", unite: "bidon" },
+          { id: "bm-022", nom: "Purée gourmande Lutosa", unite: "kg" },
+          { id: "bm-023", nom: "Mayonnaise 10L", unite: "bidon" },
+          { id: "bm-024", nom: "Riz basmati", unite: "kg" },
+          { id: "bm-025", nom: "Compote de pommes", unite: "kg" },
+          { id: "bm-026", nom: "Crème glacée vanille", unite: "L" },
+          { id: "bm-027", nom: "Crème glacée moka", unite: "L" },
+          { id: "bm-028", nom: "Sorbets", unite: "L" },
+          { id: "bm-029", nom: "Mascarpone", unite: "kg" },
+          { id: "bm-030", nom: "Burrata", unite: "pièce" },
+          { id: "bm-031", nom: "Parmesan en poudre", unite: "kg" },
+          { id: "bm-032", nom: "Parmesan en bloc", unite: "kg" },
+          { id: "bm-033", nom: "Cheddar tranches", unite: "kg" },
+          { id: "bm-034", nom: "Sauce cheddar", unite: "kg" },
+          { id: "bm-035", nom: "Moutarde Meaux", unite: "bocal" },
+          { id: "bm-036", nom: "Moutarde mi-forte", unite: "bocal" },
+          { id: "bm-037", nom: "Moutarde Vandemoortele", unite: "bocal" },
+          { id: "bm-038", nom: "Vinaigre balsamique", unite: "L" },
+          { id: "bm-039", nom: "Crème balsamique", unite: "L" },
+          { id: "bm-040", nom: "Sirop sucre de canne", unite: "L" },
+          { id: "bm-041", nom: "Bouillon de poule pâte", unite: "kg" },
+          { id: "bm-042", nom: "Fond brun en poudre", unite: "kg" },
+          { id: "bm-043", nom: "Glace de champignons", unite: "kg" },
+          { id: "bm-044", nom: "Glace de crevettes", unite: "kg" },
+          { id: "bm-045", nom: "Sel / gros sel", unite: "kg" },
+          { id: "bm-046", nom: "Sucre cristallisé", unite: "kg" },
+          { id: "bm-047", nom: "Sucre candi", unite: "kg" },
+          { id: "bm-048", nom: "Sucre impalpable", unite: "kg" },
+          { id: "bm-049", nom: "Échalote Ardo", unite: "kg" },
+          { id: "bm-050", nom: "Bun hamburger brioché", unite: "paquet" },
+          { id: "bm-051", nom: "Smash burger bœuf halal", unite: "kg" },
+          { id: "bm-052", nom: "Gants nitrile", unite: "boîte" },
+          { id: "bm-053", nom: "Marsala Radicati", unite: "L" },
+          { id: "bm-054", nom: "Film alimentaire PVC", unite: "rouleau" },
         ]
       },
       "hanos": {
         nom: "HANOS Willebroek",
         recurrents: [
-          { id: "ha-001", nom: "Comté", unite: "kg" },
-          { id: "ha-002", nom: "Parmesan", unite: "kg" },
-          { id: "ha-003", nom: "Crème", unite: "L" },
-          { id: "ha-004", nom: "Beurre", unite: "kg" },
+          { id: "ha-001", nom: "Huile d'olive mix Delizio 1L", unite: "L" },
+          { id: "ha-002", nom: "Huile d'olive extra vierge Delizio 250ml", unite: "bouteille" },
+          { id: "ha-003", nom: "Huile gourmet friture/cuisson Delizio 2,5L", unite: "L" },
+          { id: "ha-004", nom: "Os à moelle", unite: "kg" },
+          { id: "ha-005", nom: "Échalotes épluchées sous vide 1kg", unite: "kg" },
+          { id: "ha-006", nom: "Crème de cuisson 20% 1L", unite: "L" },
+          { id: "ha-007", nom: "Comté Badoz AOP", unite: "kg" },
+          { id: "ha-008", nom: "Parmesan Reggiano (morceau)", unite: "pièce" },
+          { id: "ha-009", nom: "Parmesan Reggiano râpé", unite: "sachet" },
+          { id: "ha-010", nom: "Stracciatella di Burrata 200g", unite: "pièce" },
+          { id: "ha-011", nom: "Stracciatella di Burrata 1000g", unite: "pièce" },
+          { id: "ha-012", nom: "Coulis framboise 500g", unite: "pot" },
+          { id: "ha-013", nom: "Pain brioché tranché 800g", unite: "pièce" },
+          { id: "ha-014", nom: "Escargots 125g", unite: "boîte" },
+          { id: "ha-015", nom: "Œufs de caille (18 pièces)", unite: "boîte" },
+          { id: "ha-016", nom: "Linguine all'uovo 1kg", unite: "kg" },
         ],
         rares: [
-          { id: "ha-005", nom: "Stracciatella", unite: "kg" },
-          { id: "ha-006", nom: "Nori", unite: "paquet" },
-          { id: "ha-007", nom: "Wasabi", unite: "tube" },
-          { id: "ha-008", nom: "Furikake", unite: "boîte" },
-          { id: "ha-009", nom: "Escargots", unite: "boîte" },
-          { id: "ha-010", nom: "Légumes (divers)", unite: "kg" },
-          { id: "ha-011", nom: "Fruits (divers)", unite: "kg" },
-          { id: "ha-012", nom: "Emballages", unite: "paquet" },
+          { id: "ha-017", nom: "Nori flakes / furikake", unite: "sachet" },
+          { id: "ha-018", nom: "Algue nori feuilles", unite: "paquet" },
+          { id: "ha-019", nom: "Mayonnaise wasabi", unite: "tube" },
+          { id: "ha-020", nom: "Sauce soja ponzu", unite: "bouteille" },
+          { id: "ha-021", nom: "Chair de king crab", unite: "kg" },
+          { id: "ha-022", nom: "Chair de pattes de crabe", unite: "kg" },
+          { id: "ha-023", nom: "Filet de thon jaune (yellowfin)", unite: "kg" },
+          { id: "ha-024", nom: "Bisque de homard", unite: "L" },
+          { id: "ha-025", nom: "Gomasio", unite: "sachet" },
+          { id: "ha-026", nom: "Pois gourmands (salad pea)", unite: "kg" },
+          { id: "ha-027", nom: "Micro shiso", unite: "barquette" },
+          { id: "ha-028", nom: "Jambon Bellota", unite: "kg" },
+          { id: "ha-029", nom: "Coppa Ganda", unite: "kg" },
+          { id: "ha-030", nom: "Chorizo en cubes", unite: "kg" },
+          { id: "ha-031", nom: "Jambon en cubes", unite: "kg" },
+          { id: "ha-032", nom: "Jambon des Alpes", unite: "kg" },
+          { id: "ha-033", nom: "Beurre en motte", unite: "kg" },
+          { id: "ha-034", nom: "Crème fraîche sans sucre", unite: "L" },
+          { id: "ha-035", nom: "Bacon de bœuf", unite: "kg" },
+          { id: "ha-036", nom: "Champignons châtaigne", unite: "kg" },
+          { id: "ha-037", nom: "Parmesan en bloc", unite: "kg" },
+          { id: "ha-038", nom: "Fromage Pie d'Angloys", unite: "pièce" },
+          { id: "ha-039", nom: "Fromage Langres", unite: "pièce" },
+          { id: "ha-040", nom: "Fromage Carré Mirabella", unite: "pièce" },
+          { id: "ha-041", nom: "Fromage Brique Occitane", unite: "pièce" },
+          { id: "ha-042", nom: "Pain rustica", unite: "pièce" },
+          { id: "ha-043", nom: "Compote de pommes", unite: "kg" },
+          { id: "ha-044", nom: "Purée nature", unite: "kg" },
+          { id: "ha-045", nom: "Orange à presser", unite: "kg" },
+          { id: "ha-046", nom: "Violette (fleur)", unite: "barquette" },
+          { id: "ha-047", nom: "Anneaux de calamar", unite: "kg" },
+          { id: "ha-048", nom: "Pâte wonton", unite: "paquet" },
+          { id: "ha-049", nom: "Sachets sous vide", unite: "paquet" },
+          { id: "ha-050", nom: "Sucre candi", unite: "kg" },
+          { id: "ha-051", nom: "Champignon Primerba", unite: "kg" },
+          { id: "ha-052", nom: "Câpres", unite: "bocal" },
+          { id: "ha-053", nom: "Fond brun lié", unite: "kg" },
         ]
       },
     }
@@ -2744,11 +3074,11 @@ const FOURNISSEURS_CUISINE = {
       "group-gd": {
         nom: "Group GD (Pasta Mania)",
         recurrents: [
-          { id: "gg-001", nom: "Raviole aux cèpes", unite: "kg" },
-          { id: "gg-002", nom: "Raviole ricotta-épinard", unite: "kg" },
+          { id: "gg-001", nom: "Raviole ricotta & épinard", unite: "pièce" },
         ],
         rares: [
-          { id: "gg-003", nom: "Raviole foie gras pain d'épices & porto", unite: "kg" },
+          { id: "gg-002", nom: "Raviole aux cèpes porcini", unite: "pièce" },
+          { id: "gg-003", nom: "Raviole foie gras pain d'épices & porto", unite: "pièce" },
         ]
       },
     }
@@ -2760,17 +3090,23 @@ const FOURNISSEURS_CUISINE = {
       "butcher-spice": {
         nom: "Butcher Spice",
         recurrents: [
-          { id: "bs-001", nom: "Poivre", unite: "kg" },
-          { id: "bs-002", nom: "Fleur de sel", unite: "kg" },
-          { id: "bs-003", nom: "Paprika", unite: "kg" },
+          { id: "bs-001", nom: "Poivre noir moulu", unite: "kg" },
+          { id: "bs-002", nom: "Poivre blanc moulu", unite: "kg" },
+          { id: "bs-003", nom: "Poivre noir concassé", unite: "kg" },
+          { id: "bs-004", nom: "Poivre noir en grain", unite: "kg" },
+          { id: "bs-005", nom: "Paprika doux", unite: "kg" },
+          { id: "bs-006", nom: "Paprika fumé", unite: "kg" },
+          { id: "bs-007", nom: "Cumin moulu", unite: "kg" },
+          { id: "bs-008", nom: "Cannelle moulue", unite: "kg" },
+          { id: "bs-009", nom: "Noix de muscade moulue", unite: "kg" },
+          { id: "bs-010", nom: "Herbes de Provence", unite: "kg" },
+          { id: "bs-011", nom: "Fleur de sel", unite: "kg" },
+          { id: "bs-012", nom: "Laurier en feuille", unite: "kg" },
+          { id: "bs-013", nom: "Thym séché 500g", unite: "kg" },
+          { id: "bs-014", nom: "Estragon en feuille", unite: "kg" },
         ],
         rares: [
-          { id: "bs-004", nom: "Cumin", unite: "kg" },
-          { id: "bs-005", nom: "Cannelle", unite: "kg" },
-          { id: "bs-006", nom: "Muscade", unite: "kg" },
-          { id: "bs-007", nom: "Laurier", unite: "kg" },
-          { id: "bs-008", nom: "Estragon", unite: "kg" },
-          { id: "bs-009", nom: "Thym", unite: "kg" },
+          { id: "bs-015", nom: "Poulet mix (épices)", unite: "kg" },
         ]
       },
     }
@@ -2782,7 +3118,7 @@ const FOURNISSEURS_CUISINE = {
       "delo-fresh": {
         nom: "Delo Fresh",
         recurrents: [
-          { id: "df-001", nom: "Frites surgelées", unite: "kg" },
+          { id: "df-001", nom: "Frites pré-coupées Belgique 9mm", unite: "kg" },
         ],
         rares: []
       },
@@ -3045,11 +3381,6 @@ const FOURNISSEURS_BAR = {
   },
 };
 
-
-// ═══════════════════════════════════════════════════════════
-// MODULE COMMANDES V2 — logique Cuisine / Bar
-// ═══════════════════════════════════════════════════════════
-
 let cmdMode = 'cuisine'; // 'cuisine' | 'bar'
 let cmdActiveCat = null;
 let cmdSearchTerm = '';
@@ -3140,7 +3471,7 @@ function renderCmdList() {
         ${showRecurrents.map(p => cmdProductRow(p, fournisseur.nom)).join('')}
         ${showRares.length ? `
           <button class="cmd-rares-toggle${raresOpenByDefault ? ' open' : ''}" onclick="toggleCmdRares('${fournisseurId}', this)">
-            <span class="cmd-rares-label">${raresOpenByDefault ? 'Masquer' : 'Voir'} ${showRares.length} produit${showRares.length > 1 ? 's' : ''} rare${showRares.length > 1 ? 's' : ''}</span>
+            <span class="cmd-rares-label">${raresOpenByDefault ? 'Masquer' : 'Voir'} ${showRares.length} autre${showRares.length > 1 ? 's' : ''} produit${showRares.length > 1 ? 's' : ''}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="cmd-rares-group${raresOpenByDefault ? ' open' : ''}" id="rares-${fournisseurId}">
@@ -3186,7 +3517,7 @@ function toggleCmdRares(id, btn) {
   btn.classList.toggle('open', isOpen);
   const n = group.querySelectorAll('.cmd-produit').length;
   btn.querySelector('.cmd-rares-label').textContent =
-    (isOpen ? 'Masquer' : 'Voir') + ' ' + n + ' produit' + (n > 1 ? 's' : '') + (isOpen ? '' : ' rare' + (n > 1 ? 's' : ''));
+    (isOpen ? 'Masquer' : 'Voir') + ' ' + n + ' autre' + (n > 1 ? 's' : '') + ' produit' + (n > 1 ? 's' : '');
 }
 
 function cmdChangeQty(id, nom, unite, fournisseur, delta) {
@@ -3313,6 +3644,72 @@ function cmdGenererEtEnvoyer() {
 
 
 cmdInit();
+
+// ═══════════════════════════════════════════════════════════
+// PIN GLOBAL — un seul code pour toute l'équipe, redemandé 1x/jour.
+// Pour exclure quelqu'un : change PIN_CODE ci-dessous, le nouveau code
+// s'appliquera dès le lendemain (les accès déjà validés aujourd'hui restent valides
+// jusqu'à minuit, puis tout le monde devra retaper le nouveau PIN).
+// ═══════════════════════════════════════════════════════════
+const PIN_CODE = '2026';
+const PIN_STORAGE_KEY = 'shake_pin_validated_date';
+
+let pinEntered = '';
+
+function pinTodayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+}
+
+function pinCheckAccess() {
+  const validatedDate = localStorage.getItem(PIN_STORAGE_KEY);
+  if (validatedDate === pinTodayStr()) {
+    document.getElementById('pin-screen').style.display = 'none';
+  }
+}
+
+function pinPress(digit) {
+  if (pinEntered.length >= 4) return;
+  pinEntered += digit;
+  pinRenderDots();
+  if (pinEntered.length === 4) {
+    setTimeout(pinValidate, 150);
+  }
+}
+
+function pinBackspace() {
+  pinEntered = pinEntered.slice(0, -1);
+  pinRenderDots();
+}
+
+function pinRenderDots(errorState) {
+  const dots = document.querySelectorAll('#pin-dots .pin-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.remove('filled', 'error');
+    if (errorState) {
+      dot.classList.add('error');
+    } else if (i < pinEntered.length) {
+      dot.classList.add('filled');
+    }
+  });
+}
+
+function pinValidate() {
+  if (pinEntered === PIN_CODE) {
+    localStorage.setItem(PIN_STORAGE_KEY, pinTodayStr());
+    document.getElementById('pin-screen').style.display = 'none';
+  } else {
+    pinRenderDots(true);
+    document.getElementById('pin-error-msg').classList.add('visible');
+    setTimeout(() => {
+      pinEntered = '';
+      pinRenderDots();
+      document.getElementById('pin-error-msg').classList.remove('visible');
+    }, 700);
+  }
+}
+
+pinCheckAccess();
 
 </script>
 </body>
